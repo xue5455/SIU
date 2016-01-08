@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center">
+    <com.xue.siu.common.view.progressbar.ArcProgressbar
+        android:id="@+id/loading_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:radius="20dp"
+        app:trokeWidth="2dp"
+        app:arcColor="@color/red"/>
+    <TextView android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/loading_height"
+        android:textSize="@dimen/text_size_m"
+        android:textColor="@color/black_alpha50"
+        android:text="我是一个菊花圈"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/loading_to_text"/>
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 白色 -->
+    <color name="white">#FFFFFFFF</color>
+    <!-- 红色 -->
+    <color name="red">#FF0000</color>
+    <!-- 黑色 -->
+    <color name="black">#000000</color>
+    <!-- 透明 -->
+    <color name="transparent">#00000000</color>
+    <!-- 透明度为60%的黑色 -->
+    <color name="transparent_black_60">#99000000</color>
+
+    <color name="green_normal">#40df9a</color>
+    <color name="split_line_grey_color_e0">#e0e0e0</color>
+
+    <!-- 透明度为60%的白色 -->
+    <color name="white_alpha60">#99FFFFFF</color>
+    <color name="white_alpha50">#7fFFFFFF</color>
+    <color name="white_alpha40">#66FFFFFF</color>
+    <color name="white_alpha90">#ddFFFFFF</color>
+
+
+    <color name="black_alpha5">#0c000000</color>
+    <color name="black_alpha10">#1a000000</color>
+    <color name="black_alpha15">#26000000</color>
+    <color name="black_alpha20">#33000000</color>
+    <color name="black_alpha30">#4c000000</color>
+    <color name="black_alpha40">#66000000</color>
+    <color name="black_alpha50">#7f000000</color>
+    <color name="black_alpha60">#99000000</color>
+    <color name="black_alpha80">#bc000000</color>
+
+
+    <!-- 导航栏的红色 -->
+    <color name="navigation_bar_color">@color/siu_black</color>
+    <color name="navigation_bar_title_color">#ffffff</color>
+    <color name="white_navigation_bar_title_color">@color/black_alpha80</color>
+    <color name="siu_black">#000000</color>
+    <color name="status_bar_color">@color/navigation_bar_color</color>
+
+    <!--底部tab-->
+    <color name="mainpage_tab_title_text_color_normal">@color/black_alpha50</color>
+    <color name="mainpage_tab_title_text_color_selected">@color/siu_black</color>
+    <color name="mainpage_tab_title_text_color_background">@color/white</color>
+
+    <!-- 聊天界面背景色 -->
+    <color name="chat_bg">#efefef</color>
+</resources>

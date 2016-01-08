@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_chat_time" />
+
+    <RelativeLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip">
+
+        <include
+            layout="@layout/view_chat_portrait"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true" />
+
+
+
+        <com.xue.siu.common.view.MaskableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="50dip"
+            app:mask="@drawable/selector_byx_send_sms"
+            app:porterduffxfermode="DST_IN">
+
+            <TextView
+                android:id="@+id/msg_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/green_normal"
+                android:gravity="center"
+                android:minHeight="40dip"
+                android:minWidth="40dip"
+                android:paddingBottom="5dip"
+                android:paddingLeft="5dip"
+                android:paddingRight="8dip"
+                android:paddingTop="5dip"></TextView>
+        </com.xue.siu.common.view.MaskableLayout>
+    </RelativeLayout>
+</LinearLayout>

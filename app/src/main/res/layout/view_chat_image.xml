@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.drawee.view.SimpleDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    fresco:fadeDuration="300"
+    fresco:actualImageScaleType="focusCrop"
+    fresco:placeholderImage="@color/black_alpha50"
+    fresco:placeholderImageScaleType="fitCenter"
+    android:layout_width="100dip"
+    android:layout_height="100dip">
+
+</com.facebook.drawee.view.SimpleDraweeView>

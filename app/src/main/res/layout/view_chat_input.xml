@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/chat_input_height"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip">
+
+    <Button
+        android:id="@+id/emoji_btn"
+        android:layout_width="@dimen/emoji_btn_size"
+        android:layout_height="@dimen/emoji_btn_size"
+        android:layout_centerVertical="true"
+        android:background="@drawable/message_input_emotion"></Button>
+
+    <EditText
+        android:id="@+id/msg_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="8dip"
+        android:layout_toLeftOf="@+id/plus_btn"
+        android:layout_toRightOf="@+id/emoji_btn"
+        android:background="@drawable/bg_chat_input"
+        android:padding="2dip"></EditText>
+
+
+    <Button
+        android:id="@+id/plus_btn"
+        android:layout_width="@dimen/emoji_btn_size"
+        android:layout_height="@dimen/emoji_btn_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/message_input_plus"></Button>
+
+    <Button
+        android:id="@+id/send_btn"
+        android:layout_width="@dimen/emoji_btn_size"
+        android:layout_height="@dimen/emoji_btn_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/seletor_chat_send_btn"
+        android:visibility="gone"></Button>
+
+</RelativeLayout>

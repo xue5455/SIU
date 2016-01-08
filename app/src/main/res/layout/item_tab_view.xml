@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/item_tab_view_padding_bottom"
+        android:paddingTop="@dimen/item_tab_view_padding_top">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_mainpage_tab_icon"
+                android:layout_width="@dimen/activity_main_tab_icon_size"
+                android:layout_height="@dimen/activity_main_tab_icon_size"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/txt_tab_msg_popo"
+                style="@style/unread_msg_text_style"
+                android:layout_width="@dimen/main_tab_popo_size"
+                android:layout_height="@dimen/main_tab_popo_size"
+                android:layout_marginLeft="@dimen/item_tab_view_txt_tab_msg_popo_margin_left"
+                android:layout_marginTop="@dimen/item_tab_view_txt_tab_msg_popo_margin_top"
+                android:layout_toRightOf="@+id/img_mainpage_tab_icon"
+                android:background="@drawable/shape_red_dot_bg"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/txt_tab_subscribe_popo"
+                android:layout_width="@dimen/item_tab_view_txt_tab_subscribe_popo_size"
+                android:layout_height="@dimen/item_tab_view_txt_tab_subscribe_popo_size"
+                android:layout_marginLeft="@dimen/item_tab_view_txt_tab_subscribe_popo_margin_left"
+                android:layout_marginTop="@dimen/item_tab_view_txt_tab_subscribe_popo_margin_top"
+                android:layout_toRightOf="@+id/img_mainpage_tab_icon"
+                android:background="@drawable/shape_dot_red"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txt_mainpage_tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/item_tab_view_txt_mainpage_tab_title_margin_top"
+            android:text="@string/mainpage_tab_schedule"
+            android:textColor="@color/mainpage_tab_title_text_color_normal"
+            android:textSize="@dimen/activity_main_tab_title_text_size" />
+        <!--android:layout_marginTop=2dp", 文字自带的顶部占1dp-->
+
+    </LinearLayout>
+
+    <include layout="@layout/view_horizontal_line_1px_black_alpha30" />
+
+</FrameLayout>
