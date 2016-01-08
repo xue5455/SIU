@@ -46,4 +46,13 @@
 
     <!-- 聊天界面背景色 -->
     <color name="chat_bg">#efefef</color>
+
+
+
+    <!--ScheduleFragmetn sf-->
+    <!--DatePicker-->
+    <color name="sf_picker_red">#ec6941</color>
+    <color name="sf_picker_blue">#556fb5</color>
+    <color name="sf_picker_week_text_color">#8d8d8d</color>
+    <color name="sf_picker_date_text_color">#8f8f8f</color>
 </resources>

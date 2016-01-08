@@ -69,4 +69,13 @@
     <dimen name="loading_margin">25dp</dimen>
     <dimen name="loading_to_text">8dp</dimen>
     <dimen name="progressbar_width">2dp</dimen>
+
+
+    <!--ScheduleFragment 简称sf-->
+    <dimen name="sf_picker_row_height">30dip</dimen>
+    <dimen name="sf_picker_text_size">13sp</dimen>
+    <dimen name="sf_picker_top_text_size">15sp</dimen>
+    <dimen name="item_height">80dip</dimen>
+    <dimen name="schedule_list_padding">48dip</dimen>
+    <dimen name="floating_btn_size">35dip</dimen>
 </resources>
