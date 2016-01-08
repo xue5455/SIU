@@ -33,7 +33,11 @@
 
     <GridView
         android:id="@+id/category_gv"
+        android:layout_marginTop="@dimen/sf_gv_margin_top"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2" />
+        android:numColumns="2"
+        android:verticalSpacing="@dimen/sf_gv_vertical_space"
+        android:horizontalSpacing="@dimen/sf_gv_horizontal_space"/>
 </LinearLayout>

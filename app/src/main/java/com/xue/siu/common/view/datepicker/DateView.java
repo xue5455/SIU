@@ -49,10 +49,11 @@ class DateView extends android.widget.FrameLayout implements OnCalendarClickHand
 
 
     private String getString(int year, int month) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(year);
-        sb.append("年").append(month).append("月");
-        return sb.toString();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(year);
+//        sb.append("年").append(month).append("月");
+        String format = "%1$d年%2$d月";
+        return String.format(format,new Object[]{year,month});
     }
 
     public void toggle() {

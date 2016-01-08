@@ -76,4 +76,10 @@
     <dimen name="sf_horizontal_padding">20dp</dimen>
     <dimen name="sf_vertical_padding">20dp</dimen>
     <dimen name="sf_divider_margin_top">8dp</dimen>
+    <dimen name="sf_gv_horizontal_space">10dp</dimen>
+    <dimen name="sf_gv_vertical_space">10dp</dimen>
+    <dimen name="sf_picker_row_height">30dip</dimen>
+    <dimen name="sf_picker_text_size">13sp</dimen>
+    <dimen name="sf_picker_top_text_size">15sp</dimen>
+    <dimen name="sf_gv_margin_top">10dp</dimen>
 </resources>

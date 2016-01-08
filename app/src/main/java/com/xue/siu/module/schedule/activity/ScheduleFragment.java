@@ -2,8 +2,10 @@ package com.xue.siu.module.schedule.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -19,7 +21,6 @@ import java.lang.ref.WeakReference;
  */
 public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
     GridView categoryGv;
-    Button addBtn;
 
     @Override
     protected void initPresenter() {
@@ -33,7 +34,7 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
             setRealContentView(R.layout.fragment_calendar);
             initNavigationBar();
             initContentView(rootView);
-//            presenter.initRecyclerViewAdapter();
+            mPresenter.initGvAdapter();
             mRootViewRef = new WeakReference<>(rootView);
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();
@@ -49,6 +50,12 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
     }
 
     private void initContentView(View view) {
+        categoryGv = (GridView) view.findViewById(R.id.category_gv);
+        categoryGv.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        view.findViewById(R.id.btn_add).setOnClickListener(mPresenter);
+    }
 
+    public void setAdapter(BaseAdapter adapter) {
+        categoryGv.setAdapter(adapter);
     }
 }
