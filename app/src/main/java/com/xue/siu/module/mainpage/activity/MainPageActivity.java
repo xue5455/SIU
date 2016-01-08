@@ -5,35 +5,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenUtil;
-import com.xue.siu.module.base.activity.BaseActionBarActivity;
+import com.xue.siu.module.base.activity.BaseBlankActivity;
 import com.xue.siu.module.discovery.activity.DiscoveryFragment;
-import com.xue.siu.module.discovery.presenter.DiscoveryPresenter;
 import com.xue.siu.module.group.activity.GroupFragment;
 import com.xue.siu.module.mainpage.model.TabType;
 import com.xue.siu.module.mainpage.presenter.MainPagePresenter;
 import com.xue.siu.module.schedule.activity.ScheduleFragment;
 import com.xue.siu.module.userpage.activity.UserPageFragment;
 
-public class MainPageActivity extends BaseActionBarActivity<MainPagePresenter> implements TabHost.OnTabChangeListener {
+public class MainPageActivity extends BaseBlankActivity<MainPagePresenter> implements TabHost.OnTabChangeListener {
     public static final String FIRST_ITEM_KEY = "first item key";
     private FragmentTabHost mFragmentTabHost;
     private String mCurrentTab;

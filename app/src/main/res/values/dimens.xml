@@ -71,11 +71,9 @@
     <dimen name="progressbar_width">2dp</dimen>
 
 
-    <!--ScheduleFragment 简称sf-->
-    <dimen name="sf_picker_row_height">30dip</dimen>
-    <dimen name="sf_picker_text_size">13sp</dimen>
-    <dimen name="sf_picker_top_text_size">15sp</dimen>
-    <dimen name="item_height">80dip</dimen>
-    <dimen name="schedule_list_padding">48dip</dimen>
-    <dimen name="floating_btn_size">35dip</dimen>
+
+    <!--ScheduleFragment sf-->
+    <dimen name="sf_horizontal_padding">20dp</dimen>
+    <dimen name="sf_vertical_padding">20dp</dimen>
+    <dimen name="sf_divider_margin_top">8dp</dimen>
 </resources>
