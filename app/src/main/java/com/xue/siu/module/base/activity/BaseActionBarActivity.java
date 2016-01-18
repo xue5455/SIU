@@ -6,7 +6,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.xue.siu.R;
@@ -226,9 +225,9 @@ public abstract class BaseActionBarActivity<T extends BasePresenter>
     }
 
     //严选相关代码
-    public void setNavigationBarWhite() {
-        setNavigationBarBackground(R.drawable.navigation_bar_white_with_divider);
-        setTitleTextColorRes(R.color.white_navigation_bar_title_color);
+    public void setNavigationBarBlack() {
+        setNavigationBarBackground(R.drawable.navigation_bar_black);
+        setTitleTextColorRes(R.color.black_navigation_bar_title_color);
         setNavigationBackIcon(R.drawable.selector_back_btn_navigationbar_white);
     }
 

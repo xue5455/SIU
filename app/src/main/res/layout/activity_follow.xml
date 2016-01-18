@@ -1,13 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xue.siu.common.view.viewpager.LineViewPagerIndicator
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:id="@+id/line_indicator"/>
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/navigation_bar_color">
+
+        <View
+            android:id="@+id/view_anchor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tv_followee"
+            android:layout_width="@dimen/fa_tv_width"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/fa_tv_center_margin"
+            android:layout_toLeftOf="@+id/view_anchor"
+            android:gravity="center"
+            android:text="@string/fa_followee"
+            android:textColor="@color/black_navigation_bar_title_color"
+            android:textSize="@dimen/text_size_xl" />
+
+        <TextView
+            android:id="@+id/tv_follower"
+            android:layout_width="@dimen/fa_tv_width"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/fa_tv_center_margin"
+            android:layout_toRightOf="@+id/view_anchor"
+            android:gravity="center"
+            android:text="@string/fa_follower"
+            android:textColor="@color/black_navigation_bar_title_color"
+            android:textSize="@dimen/text_size_xl" />
+
+        <ImageView
+            android:id="@+id/nav_left_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/navigation_left_margin"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" />
+
+        <com.xue.siu.common.view.viewpager.LineViewPagerIndicator
+            android:id="@+id/line_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignLeft="@+id/tv_followee"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/tv_follower" />
+    </RelativeLayout>
+
 
     <com.xue.siu.common.view.viewpager.ViewPagerWithIndicator
         android:id="@+id/follow_pager"

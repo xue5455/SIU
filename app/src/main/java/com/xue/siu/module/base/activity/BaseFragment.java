@@ -2,6 +2,7 @@ package com.xue.siu.module.base.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -130,5 +131,7 @@ public abstract class BaseFragment<T extends BaseFragmentPresenter> extends Frag
     protected void inflateRootView(LayoutInflater inflater) {
     }
 
-
+    protected <T extends View> T findViewById(@IdRes int id) {
+        return (T) mContentView.findViewById(id);
+    }
 }

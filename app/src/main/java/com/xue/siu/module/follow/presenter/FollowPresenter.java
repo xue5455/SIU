@@ -1,11 +1,16 @@
 package com.xue.siu.module.follow.presenter;
 
+import android.graphics.PorterDuffXfermode;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
+import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
+import com.xue.siu.module.follow.Constants;
+import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowActivity;
-import com.xue.siu.module.follow.activity.FolloweeFragment;
-import com.xue.siu.module.follow.activity.FollowerFragment;
+import com.xue.siu.module.follow.activity.FollowFragment;
 import com.xue.siu.module.follow.adapter.FollowPageAdapter;
 
 import java.util.ArrayList;
@@ -14,7 +19,7 @@ import java.util.List;
 /**
  * Created by XUE on 2016/1/16.
  */
-public class FollowPresenter extends BaseActivityPresenter<FollowActivity> {
+public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener {
 
     List<Fragment> mFragmentList = new ArrayList<>();
 
@@ -25,9 +30,32 @@ public class FollowPresenter extends BaseActivityPresenter<FollowActivity> {
 
     @Override
     protected void initActivity() {
-        mFragmentList.add(new FolloweeFragment());
-        mFragmentList.add(new FollowerFragment());
+        Fragment fragment = new FollowFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.FRAGMENT_TYPE_KEY, FragmentType.FolloweeFragment.toString());
+        fragment.setArguments(bundle);
+        mFragmentList.add(fragment);
+        fragment = new FollowFragment();
+        bundle = new Bundle();
+        bundle.putString(Constants.FRAGMENT_TYPE_KEY, FragmentType.FollowerFragment.toString());
+        fragment.setArguments(bundle);
+        mFragmentList.add(fragment);
         FollowPageAdapter adapter = new FollowPageAdapter(mTarget.getSupportFragmentManager(), mFragmentList);
         mTarget.initAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.nav_left_img:
+                mTarget.finish();
+                break;
+            case R.id.tv_follower:
+                mTarget.setCurrentItem(1, true);
+                break;
+            case R.id.tv_followee:
+                mTarget.setCurrentItem(0, true);
+                break;
+        }
     }
 }

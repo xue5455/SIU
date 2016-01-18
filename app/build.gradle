@@ -47,4 +47,5 @@ dependencies {
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile "com.facebook.fresco:fresco:${FRESCO_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE_VERSION}"
+    compile "com.android.support:percent:${PERCENT_VERSION}"
 }

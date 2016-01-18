@@ -35,8 +35,8 @@
     <!-- 导航栏的红色 -->
     <color name="navigation_bar_color">@color/siu_black</color>
     <color name="navigation_bar_title_color">#ffffff</color>
-    <color name="white_navigation_bar_title_color">@color/black_alpha80</color>
-    <color name="siu_black">#000000</color>
+    <color name="black_navigation_bar_title_color">@color/white</color>
+    <color name="siu_black">@color/black</color>
     <color name="status_bar_color">@color/navigation_bar_color</color>
 
     <!--底部tab-->

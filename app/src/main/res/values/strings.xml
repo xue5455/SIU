@@ -29,4 +29,8 @@
     <string name="upf_calendar_collect">日程收藏</string>
     <string name="upf_message">消息</string>
     <string name="upf_setting">设置</string>
+
+    <!-- FollowActivity fa-->
+    <string name="fa_follower">@string/upf_follower</string>
+    <string name="fa_followee">@string/upf_followee</string>
 </resources>

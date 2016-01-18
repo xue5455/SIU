@@ -48,7 +48,7 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     private void initViews() {
         getWindow().getDecorView().setBackgroundColor(ResourcesUtil.getColor(R.color.chat_bg));
         setTitle("聊天界面");
-        setNavigationBarWhite();
+        setNavigationBarBlack();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mMsgRcv = findView(R.id.msg_recycler_view);

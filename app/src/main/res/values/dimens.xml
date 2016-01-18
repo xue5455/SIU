@@ -90,4 +90,9 @@
     <dimen name="upf_follow_views_margin">15dp</dimen>
     <dimen name="upf_icon_size">25dp</dimen>
     <dimen name="upf_button_padding">30dp</dimen>
+
+
+    <!-- FollowActivity -->
+    <dimen name="fa_tv_width">50dp</dimen>
+    <dimen name="fa_tv_center_margin">20dp</dimen>
 </resources>

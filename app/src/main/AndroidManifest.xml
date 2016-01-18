@@ -35,7 +35,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
+        <activity android:name=".module.follow.activity.FollowActivity" />
         <activity
             android:name=".module.chat.activity.ChatActivity"
             android:launchMode="singleTask"

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.xue.siu.R;
+import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 
 /**
@@ -19,6 +20,8 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
     private int mViewHeight;
     private Paint mPaint;
     private int mOffset = 0;
+    private int mCurrentItem = 0;
+    private int mDividerWidth = 0;
 
     public LineViewPagerIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -27,14 +30,15 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
 
     @Override
     public void onScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        mOffset = position * mViewWidth + positionOffsetPixels;
+        mCurrentItem = position;
+        mOffset = mCurrentItem * mDividerWidth + (int) (mDividerWidth * positionOffset);
         invalidate();
     }
 
     public void setChildCount(int count) {
         mChildCount = count;
         if (mViewWidth != 0) {
-            mLineWidth = mViewWidth / mChildCount;
+            mDividerWidth = (mViewWidth - mLineWidth) / (mChildCount - 1);
             invalidate();
         }
     }
@@ -49,12 +53,18 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
     protected void onMeasure(int widthSpec, int heightSpec) {
         super.onMeasure(widthSpec, heightSpec);
         mViewWidth = getMeasuredWidth();
-        mLineWidth = mViewWidth / mChildCount;
         mViewHeight = getMeasuredHeight();
+        if (mChildCount - 1 > 0)
+            mDividerWidth = (mViewWidth - mLineWidth) / (mChildCount - 1);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawRect(mOffset, 0, mOffset + mLineWidth, mViewHeight, mPaint);
+    }
+
+
+    public void setLineWidth(int width) {
+        mLineWidth = width;
     }
 }

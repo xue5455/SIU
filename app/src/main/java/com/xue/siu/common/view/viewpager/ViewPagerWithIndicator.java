@@ -8,25 +8,9 @@ import android.widget.AbsListView;
 /**
  * Created by XUE on 2016/1/16.
  */
-public class ViewPagerWithIndicator extends ViewPager implements ViewPager.OnPageChangeListener {
+public class ViewPagerWithIndicator extends ViewPager{
 
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-        if (mViewPagerIndicator != null)
-            mViewPagerIndicator.onScrolled(position, positionOffset, positionOffsetPixels);
-    }
+    OnPageChangeListener mListener;
 
     public interface ViewPagerIndicator {
         void onScrolled(int position, float positionOffset, int positionOffsetPixels);
@@ -40,7 +24,24 @@ public class ViewPagerWithIndicator extends ViewPager implements ViewPager.OnPag
 
     public ViewPagerWithIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        addOnPageChangeListener(this);
+        mListener = new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (mViewPagerIndicator != null)
+                    mViewPagerIndicator.onScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        };
+        addOnPageChangeListener(mListener);
     }
 
     public void setViewPagerIndicator(ViewPagerIndicator viewPagerIndicator) {
