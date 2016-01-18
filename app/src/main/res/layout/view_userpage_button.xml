@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/upf_item_height"
-    android:background="@drawable/selector_userpage_item"
+    android:background="@drawable/selector_common_white_grey"
     android:clickable="true"
     android:paddingLeft="@dimen/upf_button_padding"
     android:paddingRight="@dimen/upf_button_padding">

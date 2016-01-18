@@ -31,7 +31,7 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
 
     @Override
     protected void initActivity() {
-
+        login();
     }
 
     @Override
@@ -66,6 +66,7 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
 
     @Override
     public void loginFailed(String errorMsg) {
+        DialogUtil.hideProgressDialog(mTarget);
         ToastUtil.makeShortToast(errorMsg);
     }
 }

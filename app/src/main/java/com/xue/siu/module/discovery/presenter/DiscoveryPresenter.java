@@ -10,4 +10,9 @@ public class DiscoveryPresenter extends BaseFragmentPresenter<DiscoveryFragment>
     public DiscoveryPresenter(DiscoveryFragment target) {
         super(target);
     }
+
+    @Override
+    public void initFragment() {
+
+    }
 }

@@ -15,7 +15,7 @@ import com.xue.siu.common.util.ScreenUtil;
  */
 public class CategoryAdapter extends BaseAdapter {
     int[] drawables = new int[]{R.mipmap.ic_classification_work,
-            R.mipmap.ic_classification_work,
+            R.mipmap.ic_classification_trip,
             R.mipmap.ic_classification_study,
             R.mipmap.ic_classification_fun};
     int width = (ScreenUtil.getDisplayWidth() - 2 * ResourcesUtil.getDimenPxSize(R.dimen.sf_horizontal_padding)

@@ -3,6 +3,7 @@ package com.xue.siu.module.follow.presenter;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseArray;
 import android.view.View;
 
 import com.xue.siu.R;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener {
 
-    List<Fragment> mFragmentList = new ArrayList<>();
+    SparseArray<Fragment> mFragmentArray = new SparseArray<>();
 
 
     public FollowPresenter(FollowActivity target) {
@@ -34,13 +35,13 @@ public class FollowPresenter extends BaseActivityPresenter<FollowActivity> imple
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FRAGMENT_TYPE_KEY, FragmentType.FolloweeFragment.toString());
         fragment.setArguments(bundle);
-        mFragmentList.add(fragment);
+        mFragmentArray.put(0, fragment);
         fragment = new FollowFragment();
         bundle = new Bundle();
         bundle.putString(Constants.FRAGMENT_TYPE_KEY, FragmentType.FollowerFragment.toString());
         fragment.setArguments(bundle);
-        mFragmentList.add(fragment);
-        FollowPageAdapter adapter = new FollowPageAdapter(mTarget.getSupportFragmentManager(), mFragmentList);
+        mFragmentArray.put(1, fragment);
+        FollowPageAdapter adapter = new FollowPageAdapter(mTarget.getSupportFragmentManager(), mFragmentArray);
         mTarget.initAdapter(adapter);
     }
 

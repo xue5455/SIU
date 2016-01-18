@@ -56,10 +56,12 @@ public class LoginActivity extends BaseBlankActivity<LoginPresenter> {
     }
 
     public String getAccount() {
-        return editAcc.getText().toString();
+        return "xue5455";
+//        return editAcc.getText().toString();
     }
 
     public String getPassword() {
-        return editPsw.getText().toString();
+        return "123456";
+//        return editPsw.getText().toString();
     }
 }

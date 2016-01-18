@@ -1,6 +1,8 @@
 package com.xue.siu.module.chat.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -22,6 +24,7 @@ import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.chat.presenter.ChatPresenter;
+import com.xue.siu.module.follow.model.User;
 
 /**
  * Created by XUE on 2015/12/10.
@@ -37,12 +40,31 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     private ViewPager mEmojiPager;//表情的ViewPager;
     private GridView mPlusGv;//Plus菜单的GridView
 
+    public static final String INTENT_KEYS_USER = "user";
+
+    private String mUrl;//头像地址
+    private String mName;//名字
+    private String mUserId;//id
+
+    public static void start(Activity activity, User user) {
+        Intent intent = new Intent(activity, ChatActivity.class);
+        intent.putExtra(INTENT_KEYS_USER, user.toBundle());
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRealContentView(R.layout.activity_chat);
         initViews();
         ScreenObserver.assistActivity(this, mPresenter);
+        Bundle user = getIntent().getBundleExtra(INTENT_KEYS_USER);
+        if (user != null) {
+            mUrl = user.getString(User.BUNDLE_KEY_URL);
+            mUserId = user.getString(User.BUNDLE_KEY_ID);
+            mName = user.getString(User.BUNDLE_KEY_NAME);
+            setTitle(mName);
+        }
     }
 
     private void initViews() {
@@ -66,7 +88,6 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         mPlusMenuContainer = findView(R.id.chat_menu_root_view);
         mEmojiContainer = findView(R.id.chat_emoji_root_view);
         KeyboardView view = new KeyboardView(this, null);
-        LogUtil.d("xue", String.valueOf(view.getHeight()));
     }
 
     @Override
@@ -89,7 +110,6 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     public void shutMenuAndEmoji() {
         mEmojiContainer.setVisibility(View.GONE);
         mPlusMenuContainer.setVisibility(View.GONE);
-        LogUtil.d("xue","shutMenuAndEmoji");
     }
 
     public void shutMenu() {

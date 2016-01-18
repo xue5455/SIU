@@ -33,7 +33,6 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
             setRealContentView(R.layout.fragment_calendar);
             initNavigationBar();
             initContentView(rootView);
-            mPresenter.initGvAdapter();
             mRootViewRef = new WeakReference<>(rootView);
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();

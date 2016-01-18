@@ -10,4 +10,9 @@ public class GroupPresenter extends BaseFragmentPresenter<GroupFragment>{
     public GroupPresenter(GroupFragment target) {
         super(target);
     }
+
+    @Override
+    public void initFragment() {
+
+    }
 }

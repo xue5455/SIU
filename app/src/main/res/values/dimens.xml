@@ -95,4 +95,8 @@
     <!-- FollowActivity -->
     <dimen name="fa_tv_width">50dp</dimen>
     <dimen name="fa_tv_center_margin">20dp</dimen>
+    <dimen name="fa_list_item_height">80dp</dimen>
+    <dimen name="fa_list_portrait_size">55dp</dimen>
+    <dimen name="fa_list_item_horizontal_padding">15dp</dimen>
+    <dimen name="fa_name_portrait_margin">10dp</dimen>
 </resources>

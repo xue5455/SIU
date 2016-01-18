@@ -3,6 +3,7 @@ package com.xue.siu.module.base.presenter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
 import com.xue.siu.module.base.activity.BaseFragment;
 
 /**
@@ -10,19 +11,21 @@ import com.xue.siu.module.base.activity.BaseFragment;
  */
 public abstract class BaseFragmentPresenter<T extends BaseFragment>
         extends BasePresenter<T> {
+    private boolean mIsInitialized = false;
+
     public BaseFragmentPresenter(T target) {
         super(target);
     }
 
-    public Context getContext(){
-        return  mTarget.getActivity();
+    public Context getContext() {
+        return mTarget.getActivity();
     }
 
     public void onAttach() {
     }
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
     }
 
@@ -33,22 +36,26 @@ public abstract class BaseFragmentPresenter<T extends BaseFragment>
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
+        if (!mIsInitialized) {
+            initFragment();
+            mIsInitialized = true;
+        }
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
     }
 
@@ -56,10 +63,12 @@ public abstract class BaseFragmentPresenter<T extends BaseFragment>
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
     }
 
     public void onDetach() {
     }
+
+    public abstract void initFragment();
 }

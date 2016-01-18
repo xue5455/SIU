@@ -3,6 +3,7 @@ package com.xue.siu.module.follow.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
 
 import java.util.List;
 
@@ -10,20 +11,20 @@ import java.util.List;
  * Created by XUE on 2016/1/16.
  */
 public class FollowPageAdapter extends FragmentStatePagerAdapter {
-    List<Fragment> mFragmentList;
+    SparseArray<Fragment> mFragmentArray;
 
-    public FollowPageAdapter(FragmentManager fm, List<Fragment> list) {
+    public FollowPageAdapter(FragmentManager fm, SparseArray<Fragment> array) {
         super(fm);
-        mFragmentList = list;
+        mFragmentArray = array;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+        return mFragmentArray.get(position);
     }
 
     @Override
     public int getCount() {
-        return mFragmentList.size();
+        return mFragmentArray.size();
     }
 }

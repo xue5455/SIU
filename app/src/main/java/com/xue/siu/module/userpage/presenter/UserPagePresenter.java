@@ -35,4 +35,9 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
         super.onResume();
 
     }
+
+    @Override
+    public void initFragment() {
+
+    }
 }

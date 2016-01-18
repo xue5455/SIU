@@ -67,7 +67,7 @@ public class LoginAction {
     }
 
     public void setLoginResultCallback(LoginResultCallback loginResultCallback) {
-        this.mLoginResultCallback = mLoginResultCallback;
+        this.mLoginResultCallback = loginResultCallback;
     }
 
     public void login(String user, String psw) {
@@ -75,6 +75,7 @@ public class LoginAction {
             throw new RuntimeException("You must set a callback for login");
         if (TextUtils.isEmpty(user) || TextUtils.isEmpty(psw)) {
             mLoginResultCallback.loginFailed(ResourcesUtil.getString(R.string.la_acc_psw_empty));
+            return;
         }
         setUser(user);
         setPsw(psw);

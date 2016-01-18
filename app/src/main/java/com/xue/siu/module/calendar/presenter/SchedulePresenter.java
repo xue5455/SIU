@@ -15,6 +15,11 @@ public class SchedulePresenter extends BaseFragmentPresenter<ScheduleFragment> i
     }
 
     @Override
+    public void initFragment() {
+        initGvAdapter();
+    }
+
+    @Override
     public void onClick(View v) {
 
     }
