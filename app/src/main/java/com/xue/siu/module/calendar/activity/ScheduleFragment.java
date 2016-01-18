@@ -1,18 +1,17 @@
-package com.xue.siu.module.schedule.activity;
+package com.xue.siu.module.calendar.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 
 import com.xue.siu.R;
 import com.xue.siu.module.base.activity.BaseActionBarFragment;
-import com.xue.siu.module.base.activity.BaseFragment;
-import com.xue.siu.module.schedule.presenter.SchedulePresenter;
+import com.xue.siu.module.base.activity.BaseActivity;
+import com.xue.siu.module.calendar.presenter.SchedulePresenter;
+import com.xue.siu.module.mainpage.activity.MainPageActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -57,5 +56,13 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
 
     public void setAdapter(BaseAdapter adapter) {
         categoryGv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity().getClass().equals(MainPageActivity.class)) {
+            ((BaseActivity) getActivity()).setStatueBarColor(R.color.black);
+        }
     }
 }

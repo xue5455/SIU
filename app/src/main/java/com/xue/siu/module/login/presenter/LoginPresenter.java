@@ -1,6 +1,8 @@
 package com.xue.siu.module.login.presenter;
 
+import android.content.Intent;
 import android.view.View;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
@@ -8,16 +10,20 @@ import com.xue.siu.R;
 import com.xue.siu.common.util.DialogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
+import com.xue.siu.module.login.LoginAction;
 import com.xue.siu.module.login.activity.LoginActivity;
+import com.xue.siu.module.login.callback.LoginResultCallback;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.mainpage.model.TabType;
 
 /**
  * Created by XUE on 2015/12/11.
  */
-public class LoginPresenter extends BaseActivityPresenter<LoginActivity> implements View.OnClickListener {
+public class LoginPresenter extends BaseActivityPresenter<LoginActivity> implements View.OnClickListener,
+        LoginResultCallback {
 
     private static final String TAG = "LoginPresenter";
+    private LoginAction mLoginAction;
 
     public LoginPresenter(LoginActivity target) {
         super(target);
@@ -40,25 +46,9 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
 
     private void login() {
         DialogUtil.showProgressDialog(mTarget, false);
-        AVUser.logInInBackground(mTarget.getAccount(), mTarget.getPassword(), new LogInCallback<AVUser>() {
-            @Override
-            public void done(AVUser avUser, AVException e) {
-                if (e == null) {
-                    MainPageActivity.start(mTarget, TabType.Schedule);
-                    mTarget.finish();
-                } else {
-                    DialogUtil.hideProgressDialog(mTarget);
-                    switch (e.getCode()) {
-                        case AVException.USERNAME_PASSWORD_MISMATCH:
-                            ToastUtil.makeShortToast(R.string.la_acc_psw_wrong);
-                            break;
-                        case AVException.TIMEOUT:
-                            ToastUtil.makeShortToast(R.string.la_time_out);
-                            break;
-                    }
-                }
-            }
-        });
+        if (mLoginAction == null)
+            mLoginAction = new LoginAction(this);
+        mLoginAction.login(mTarget.getAccount(), mTarget.getPassword());
     }
 
     @Override
@@ -67,4 +57,15 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
         DialogUtil.hideProgressDialog(mTarget);
     }
 
+    @Override
+    public void loginSuccess() {
+        Intent intent = new Intent(mTarget, MainPageActivity.class);
+        mTarget.startActivity(intent);
+        mTarget.finish();
+    }
+
+    @Override
+    public void loginFailed(String errorMsg) {
+        ToastUtil.makeShortToast(errorMsg);
+    }
 }

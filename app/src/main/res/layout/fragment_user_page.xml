@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cccccc"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/upf_banner_height"
+            android:scaleType="center"
+            fresco:placeholderImage="@mipmap/ic_userpage_banner"
+            fresco:placeholderImageScaleType="centerCrop" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_avatar"
+            android:layout_width="@dimen/upf_avatar_size"
+            android:layout_height="@dimen/upf_avatar_size"
+            android:layout_centerInParent="true"
+            fresco:placeholderImage="@mipmap/ic_userpage_banner"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="40dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/upf_item_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/followee_view"
+            layout="@layout/view_userpage_follow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_upf_divider" />
+
+        <include
+            android:id="@+id/follower_view"
+            layout="@layout/view_userpage_follow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <include
+        android:id="@+id/calendar_btn"
+        layout="@layout/view_userpage_button" />
+
+    <include
+        android:id="@+id/message_btn"
+        layout="@layout/view_userpage_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/upf_item_height"
+        android:layout_marginTop="1dp" />
+
+    <include
+        android:id="@+id/setting_btn"
+        layout="@layout/view_userpage_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/upf_item_height"
+        android:layout_marginTop="1dp" />
+
+</LinearLayout>

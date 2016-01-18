@@ -1,4 +1,4 @@
-package com.xue.siu.module.schedule.adapter;
+package com.xue.siu.module.calendar.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;

@@ -22,7 +22,7 @@ import com.xue.siu.module.discovery.activity.DiscoveryFragment;
 import com.xue.siu.module.group.activity.GroupFragment;
 import com.xue.siu.module.mainpage.model.TabType;
 import com.xue.siu.module.mainpage.presenter.MainPagePresenter;
-import com.xue.siu.module.schedule.activity.ScheduleFragment;
+import com.xue.siu.module.calendar.activity.ScheduleFragment;
 import com.xue.siu.module.userpage.activity.UserPageFragment;
 
 public class MainPageActivity extends BaseBlankActivity<MainPagePresenter> implements TabHost.OnTabChangeListener {

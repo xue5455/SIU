@@ -71,7 +71,6 @@
     <dimen name="progressbar_width">2dp</dimen>
 
 
-
     <!--ScheduleFragment sf-->
     <dimen name="sf_horizontal_padding">20dp</dimen>
     <dimen name="sf_vertical_padding">20dp</dimen>
@@ -82,4 +81,13 @@
     <dimen name="sf_picker_text_size">13sp</dimen>
     <dimen name="sf_picker_top_text_size">15sp</dimen>
     <dimen name="sf_gv_margin_top">10dp</dimen>
+
+
+    <!--UserPageFragment upf-->
+    <dimen name="upf_banner_height">200dp</dimen>
+    <dimen name="upf_avatar_size">70dp</dimen>
+    <dimen name="upf_item_height">50dp</dimen>
+    <dimen name="upf_follow_views_margin">15dp</dimen>
+    <dimen name="upf_icon_size">25dp</dimen>
+    <dimen name="upf_button_padding">30dp</dimen>
 </resources>

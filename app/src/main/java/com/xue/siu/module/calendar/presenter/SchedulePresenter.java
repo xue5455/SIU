@@ -1,10 +1,10 @@
-package com.xue.siu.module.schedule.presenter;
+package com.xue.siu.module.calendar.presenter;
 
 import android.view.View;
 
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
-import com.xue.siu.module.schedule.activity.ScheduleFragment;
-import com.xue.siu.module.schedule.adapter.CategoryAdapter;
+import com.xue.siu.module.calendar.activity.ScheduleFragment;
+import com.xue.siu.module.calendar.adapter.CategoryAdapter;
 
 /**
  * Created by XUE on 2015/12/9.
