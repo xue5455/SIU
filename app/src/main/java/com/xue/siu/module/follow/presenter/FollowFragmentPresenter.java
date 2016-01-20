@@ -1,6 +1,7 @@
 package com.xue.siu.module.follow.presenter;
 
 import android.util.SparseArray;
+import android.view.View;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFriendship;
 import com.avos.avoscloud.AVFriendshipQuery;
@@ -9,13 +10,13 @@ import com.avos.avoscloud.callback.AVFriendshipCallback;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
-import com.netease.hearttouch.htswiperefreshrecyclerview.OnLoadMoreListener;
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnRefreshListener;
-import com.xue.siu.common.util.HandleUtil;
+import com.xue.siu.avim.model.LeanUser;
+import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowFragment;
-import com.xue.siu.module.follow.model.UserVO;
 import com.xue.siu.module.follow.viewholder.FollowItemViewHolder;
 import com.xue.siu.module.follow.viewholder.item.FollowViewHolderItem;
 import com.xue.siu.module.follow.viewholder.item.ItemType;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by XUE on 2016/1/18.
  */
 public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragment> implements OnRefreshListener,
-        OnLoadMoreListener {
+        ItemEventListener {
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
     private List<TAdapterItem> mTAdapterItems = new ArrayList<>();
     private TRecycleViewAdapter mAdapter;
@@ -48,29 +49,14 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
 
     @Override
     public void initFragment() {
-        for (int i = 0; i < 10; i++) {
-            UserVO userVO = new UserVO();
-            userVO.setName(mTarget.getType().toString() + i);
-            mTAdapterItems.add(new FollowViewHolderItem(userVO));
-        }
-        mAdapter = new TRecycleViewAdapter(mTarget.getActivity(), mViewHolders, mTAdapterItems);
-        mTarget.setAdapter(mAdapter);
+        refreshData();
     }
 
     @Override
     public void onRefresh() {
-        HandleUtil.doDelay(new Runnable() {
-            @Override
-            public void run() {
-                mTarget.refreshFinish();
-            }
-        }, 2000);
+        refreshData();
     }
 
-    @Override
-    public void onLoadMore() {
-
-    }
 
     public void refreshData() {
         AVFriendshipQuery query = AVUser.friendshipQuery(AVUser.getCurrentUser().getObjectId());
@@ -87,7 +73,7 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
     }
 
     private void onQuerySuccess(AVFriendship friendship) {
-        List<AVUser> list = null;
+        List<LeanUser> list = null;
         switch (mTarget.getType()) {
             case FolloweeFragment:
                 list = friendship.getFollowees();
@@ -98,13 +84,30 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
         }
         if (list != null) {
             mTAdapterItems.clear();
-            for (AVUser user : list) {
-
+            for (LeanUser user : list) {
+                mTAdapterItems.add(new FollowViewHolderItem(user));
+            }
+            if (mAdapter == null) {
+                mAdapter = new TRecycleViewAdapter(getContext(), mViewHolders, mTAdapterItems);
+                mAdapter.setItemEventListener(this);
+                mTarget.setAdapter(mAdapter);
+            } else {
+                mAdapter.notifyDataSetChanged();
             }
         }
     }
 
     private void onQueryError(AVException e) {
+        ToastUtil.makeShortToast(e.getMessage());
+    }
 
+    @Override
+    public boolean onEventNotify(String eventName, View view, int position, Object... values) {
+        switch (eventName) {
+            case ItemEventListener.clickEventName:
+                //跳转到聊天界面
+                break;
+        }
+        return true;
     }
 }

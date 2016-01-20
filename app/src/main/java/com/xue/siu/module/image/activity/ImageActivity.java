@@ -52,9 +52,15 @@ public class ImageActivity extends BaseActionBarActivity<ImagePresenter> {
         navigationBar.setBackButtonClick(mPresenter);
         RecyclerView.LayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRvImage.setLayoutManager(manager);
+        mRvImage.getRecyclerView().getItemAnimator().setChangeDuration(0);
+
     }
 
     public void setAdapter(TRecycleViewAdapter adapter) {
         mRvImage.setAdapter(adapter);
+    }
+
+    public void addOnScrollListener(HTSwipeRecyclerView.OnScrollListener onScrollListener) {
+        mRvImage.addOnScrollListener(onScrollListener);
     }
 }

@@ -5,9 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
-import com.netease.hearttouch.htswiperefreshrecyclerview.HTMode;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
@@ -16,7 +14,6 @@ import com.xue.siu.module.base.activity.BaseBlankFragment;
 import com.xue.siu.module.follow.Constants;
 import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.presenter.FollowFragmentPresenter;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -25,8 +22,6 @@ import java.lang.ref.WeakReference;
 public class FollowFragment extends BaseBlankFragment<FollowFragmentPresenter> {
     private FragmentType mType;
     private HTSwipeRecyclerView mFollowRV;
-
-
     @Override
     protected void initPresenter() {
         mPresenter = new FollowFragmentPresenter(this);
@@ -56,7 +51,6 @@ public class FollowFragment extends BaseBlankFragment<FollowFragmentPresenter> {
         mFollowRV.addItemDecoration(new RecyclerViewDivider(getActivity(),
                 ResourcesUtil.getDrawable(R.drawable.shape_follow_list_divider)));
         mFollowRV.setOnRefreshListener(mPresenter);
-        mFollowRV.setOnLoadMoreListener(mPresenter);
         mFollowRV.setRefreshComplete(true);
     }
 

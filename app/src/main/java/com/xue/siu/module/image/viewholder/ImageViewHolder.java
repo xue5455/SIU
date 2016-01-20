@@ -50,11 +50,16 @@ public class ImageViewHolder extends TRecycleViewHolder<ImageVO> {
                 .setResizeOptions(new ResizeOptions(imageVO.getWidth(), height))
                 .setAutoRotateEnabled(true)
                 .build();
-        PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-                .setOldController(mSdvImage.getController())
-                .setImageRequest(request)
+        if (getScrollState() == RecyclerView.SCROLL_STATE_IDLE || Fresco.getImagePipeline().isInBitmapMemoryCache(request)) {
+            PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+                    .setOldController(mSdvImage.getController())
+                    .setImageRequest(request)
+                    .build();
+            mSdvImage.setController(controller);
+        } else {
+            mSdvImage.setImageURI(Uri.EMPTY);
+        }
 
-                .build();
-        mSdvImage.setController(controller);
+
     }
 }

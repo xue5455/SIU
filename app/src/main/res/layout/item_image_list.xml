@@ -8,7 +8,10 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/shape_image_bg"
+        android:clickable="true"
+        android:padding="3dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:fadeDuration="300"
         fresco:overlayImage="@drawable/selector_common_drawee_overlay"
