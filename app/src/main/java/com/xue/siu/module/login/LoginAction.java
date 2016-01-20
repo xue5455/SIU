@@ -5,26 +5,49 @@ import android.text.TextUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.xue.siu.R;
+import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.common.util.DialogUtil;
+import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.login.callback.LoginResultCallback;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.mainpage.model.TabType;
+import com.xue.siu.service.LeanManager;
+
+import java.util.Arrays;
 
 /**
  * Created by XUE on 2015/12/31.
  */
 public class LoginAction {
+    private final String TAG = "LoginAction";
     private String mUser;
     private String mPsw;
     private LoginResultCallback mLoginResultCallback;
+    private AVIMClientCallback mAVIMClientCallback = new AVIMClientCallback() {
+        @Override
+        public void done(AVIMClient avimClient, AVIMException e) {
+            LogUtil.d(TAG,"[AVIMClient done]");
+            if (e == null) {
+                LogUtil.d(TAG, "[Open Client] success");
+                mLoginResultCallback.loginSuccess();
+            } else {
+                LogUtil.e(TAG, "[Open Client] failed");
+                mLoginResultCallback.loginFailed("网络错误");
+            }
+        }
+    };
     private LogInCallback<AVUser> logInCallback = new LogInCallback<AVUser>() {
         @Override
         public void done(AVUser avUser, AVException e) {
             if (e == null) {
-                mLoginResultCallback.loginSuccess();
+                LogUtil.d(TAG,"[Start Open Client]");
+                AVIMClientManager.getInstance().open(mUser, mAVIMClientCallback);
             } else {
                 switch (e.getCode()) {
                     case AVException.USERNAME_PASSWORD_MISMATCH:

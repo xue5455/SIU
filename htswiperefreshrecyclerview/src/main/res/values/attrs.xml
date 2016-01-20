@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="HTSwipeRecyclerView">
+        <attr name="htClipToPadding" format="boolean" />
+        <!-- <attr name="recyclerviewPadding" format="dimension" />
+         <attr name="recyclerviewPaddingTop" format="dimension" />
+         <attr name="recyclerviewPaddingBottom" format="dimension" />
+         <attr name="recyclerviewPaddingLeft" format="dimension" />
+         <attr name="recyclerviewPaddingRight" format="dimension" />-->
+        <attr name="htMode">
+            <enum name="disable" value="1" />
+            <enum name="refresh" value="2" />
+            <enum name="loadmore" value="4" />
+            <enum name="both" value="6" />
+        </attr>
+        <attr name="htDebug" format="boolean" />
+        <attr name="htSpanCount" format="integer" />
+        <attr name="htReverseLayout" format="boolean" />
+        <attr name="htStackFromEnd" format="boolean" />
+        <attr name="htScrollbarStyle">
+            <flag name="insideOverlay" value="0x0" />
+            <flag name="insideInset" value="0x01000000" />
+            <flag name="outsideOverlay" value="0x02000000" />
+            <flag name="outsideInset" value="0x03000000" />
+        </attr>
+    </declare-styleable>
+</resources>

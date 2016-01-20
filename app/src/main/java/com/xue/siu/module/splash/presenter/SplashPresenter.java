@@ -22,7 +22,7 @@ public class SplashPresenter extends BaseActivityPresenter<SplashActivity> {
         HandleUtil.doDelay(new Runnable() {
             @Override
             public void run() {
-                LoginActivity.jumpToLoginActivity(mTarget, null, null);
+                LoginActivity.start(mTarget, null, null);
                 mTarget.finish();
             }
         }, WAIT_TIME);

@@ -2,10 +2,23 @@
     <dimen name="action_bar_height">43dp</dimen>
 
     <!-- common -->
+    <dimen name="common_edit_text_height">50dp</dimen>
+    <dimen name="common_button_height">50dp</dimen>
+    <dimen name="common_radius">2dp</dimen>
+    <!-- loading -->
+    <dimen name="refresh_dot_size">7dp</dimen>
+    <dimen name="refresh_size">24dp</dimen>
+    <dimen name="loading_more_space">8dp</dimen>
+    <dimen name="loading_more_circle_radius">18dp</dimen>
+    <dimen name="loading_more_circle_border_width">2dp</dimen>
+    <dimen name="loading_more_height">40dp</dimen>
+    <dimen name="loading_no_more_height">45dp</dimen>
+    <dimen name="loading_more_line_width">35dp</dimen>
+    <dimen name="loading_more_line_margin">10dp</dimen>
     <!--间距-->
     <dimen name="default_margin">15dp</dimen>
     <dimen name="default_content_padding">15dp</dimen>
-    <dimen name="common_button_height">50dp</dimen>
+
     <dimen name="common_text_line_space">4dp</dimen>
     <dimen name="right_arrow_margin">11dp</dimen>
     <!--导航栏-->
@@ -85,7 +98,7 @@
 
     <!--UserPageFragment upf-->
     <dimen name="upf_banner_height">200dp</dimen>
-    <dimen name="upf_avatar_size">70dp</dimen>
+    <dimen name="upf_avatar_size">80dp</dimen>
     <dimen name="upf_item_height">50dp</dimen>
     <dimen name="upf_follow_views_margin">15dp</dimen>
     <dimen name="upf_icon_size">25dp</dimen>
@@ -99,4 +112,15 @@
     <dimen name="fa_list_portrait_size">55dp</dimen>
     <dimen name="fa_list_item_horizontal_padding">15dp</dimen>
     <dimen name="fa_name_portrait_margin">10dp</dimen>
+
+    <!--QueryUserActivity qua-->
+    <dimen name="qua_divider_height">15dp</dimen>
+    <dimen name="qua_edit_height">@dimen/common_edit_text_height</dimen>
+    <dimen name="qua_edit_padding_left">5dp</dimen>
+    <!-- RegisterActivity ra-->
+    <dimen name="ra_edit_height">@dimen/common_edit_text_height</dimen>
+
+    <!-- ImageActivity ia-->
+    <dimen name="ia_image_padding">@dimen/default_content_padding</dimen>
+    <dimen name="ia_image_radius">4dp</dimen>
 </resources>

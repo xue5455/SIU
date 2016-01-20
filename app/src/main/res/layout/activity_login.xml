@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="@dimen/default_content_padding">
 
     <EditText
         android:id="@+id/edit_acc"
         android:layout_width="match_parent"
         android:layout_height="@dimen/la_edit_text_height"
-        android:layout_marginLeft="@dimen/la_view_horizontal_margin"
-        android:layout_marginRight="@dimen/la_view_horizontal_margin"
-        android:layout_marginTop="@dimen/la_view_vertical_margin"
+
         android:hint="@string/la_hint_acc"
         android:textColor="@color/black"
         android:textColorHint="@color/split_line_grey_color_e0" />
@@ -20,9 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/la_edit_text_height"
         android:layout_below="@+id/edit_acc"
-        android:layout_marginLeft="@dimen/la_view_horizontal_margin"
-        android:layout_marginRight="@dimen/la_view_horizontal_margin"
-        android:layout_marginTop="@dimen/la_view_vertical_margin"
+
         android:hint="@string/la_hint_psw"
         android:textColor="@color/black"
         android:textColorHint="@color/split_line_grey_color_e0" />
@@ -32,8 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_button_height"
         android:layout_below="@+id/edit_psw"
-        android:layout_marginLeft="@dimen/la_view_horizontal_margin"
-        android:layout_marginRight="@dimen/la_view_horizontal_margin"
-        android:layout_marginTop="@dimen/la_view_vertical_margin"
         android:text="@string/la_login"></Button>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/la_register" />
 </RelativeLayout>

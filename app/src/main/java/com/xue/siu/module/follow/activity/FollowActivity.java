@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.xue.siu.R;
-import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.view.viewpager.LineViewPagerIndicator;
 import com.xue.siu.common.view.viewpager.ViewPagerWithIndicator;
-import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.base.activity.BaseBlankActivity;
 import com.xue.siu.module.follow.Constants;
 import com.xue.siu.module.follow.FragmentType;

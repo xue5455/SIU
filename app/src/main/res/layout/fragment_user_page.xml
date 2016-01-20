@@ -12,19 +12,22 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
+
             android:layout_height="@dimen/upf_banner_height"
             android:scaleType="center"
             fresco:placeholderImage="@mipmap/ic_userpage_banner"
             fresco:placeholderImageScaleType="centerCrop" />
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/img_avatar"
+
+            android:id="@+id/sdv_portrait"
             android:layout_width="@dimen/upf_avatar_size"
             android:layout_height="@dimen/upf_avatar_size"
             android:layout_centerInParent="true"
             fresco:placeholderImage="@mipmap/ic_userpage_banner"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundAsCircle="true"
+            fresco:fadeDuration="300"
             fresco:roundedCornerRadius="40dp" />
     </RelativeLayout>
 

@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/SIU.iml" filepath="$PROJECT_DIR$/SIU.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/eventbus/eventbus.iml" filepath="$PROJECT_DIR$/eventbus/eventbus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/htrecycleview/htrecycleview.iml" filepath="$PROJECT_DIR$/htrecycleview/htrecycleview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/htswiperefreshrecyclerview/htswiperefreshrecyclerview.iml" filepath="$PROJECT_DIR$/htswiperefreshrecyclerview/htswiperefreshrecyclerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
     </modules>
   </component>

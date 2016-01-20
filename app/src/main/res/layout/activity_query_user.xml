@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qua_divider_height"
+        android:background="@color/grey_f4" />
+
+    <EditText
+        android:id="@+id/et_query"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qua_edit_height"
+        android:hint="@string/qua_input_user"
+        android:paddingLeft="@dimen/qua_edit_padding_left"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black_alpha50"
+        android:textSize="@dimen/text_size_15" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qua_divider_height"
+        android:background="@color/grey_f4" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/qua_no_result"
+            android:textColor="@color/black_alpha50"
+            android:textSize="@dimen/text_size_15" />
+    </FrameLayout>
+</LinearLayout>

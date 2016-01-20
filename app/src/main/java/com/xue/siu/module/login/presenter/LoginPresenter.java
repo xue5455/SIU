@@ -15,13 +15,14 @@ import com.xue.siu.module.login.activity.LoginActivity;
 import com.xue.siu.module.login.callback.LoginResultCallback;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.mainpage.model.TabType;
+import com.xue.siu.module.register.activity.RegisterActivity;
 
 /**
  * Created by XUE on 2015/12/11.
  */
 public class LoginPresenter extends BaseActivityPresenter<LoginActivity> implements View.OnClickListener,
         LoginResultCallback {
-
+    public static final int REQUEST_CODE_REGISTER = 1;
     private static final String TAG = "LoginPresenter";
     private LoginAction mLoginAction;
 
@@ -31,7 +32,7 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
 
     @Override
     protected void initActivity() {
-        login();
+//        login();
     }
 
     @Override
@@ -41,10 +42,13 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
             case R.id.btn_login:
                 login();
                 break;
+            case R.id.btn_register:
+                register();
+                break;
         }
     }
 
-    private void login() {
+    public void login() {
         DialogUtil.showProgressDialog(mTarget, false);
         if (mLoginAction == null)
             mLoginAction = new LoginAction(this);
@@ -68,5 +72,9 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
     public void loginFailed(String errorMsg) {
         DialogUtil.hideProgressDialog(mTarget);
         ToastUtil.makeShortToast(errorMsg);
+    }
+
+    public void register() {
+        RegisterActivity.start(mTarget, REQUEST_CODE_REGISTER);
     }
 }

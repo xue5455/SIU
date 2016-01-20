@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_f4"
+    android:orientation="horizontal">
+    <LinearLayout android:id="@+id/liner_loading" android:layout_width="match_parent"
+        android:layout_height="@dimen/loading_more_height"
+        android:gravity="center">
+        <com.netease.yanxuan.common.view.progressdialog.ArcProgressbar
+            android:id="@+id/load_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:radius="@dimen/loading_more_circle_radius"
+            app:trokeWidth="@dimen/loading_more_circle_border_width"
+            android:layout_marginRight="@dimen/loading_more_space"
+            app:arcColor="@color/green_normal"/>
+        <TextView
+            android:id="@+id/tv_normal_refresh_footer_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/load_more"
+            android:textColor="@color/black_alpha50"
+            android:textSize="@dimen/text_size_s"/>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/liner_no_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/loading_more_height"
+        android:gravity="center">
+        <View android:layout_width="@dimen/loading_more_line_width"
+            android:layout_height="@dimen/border_width_1px"
+            android:background="@color/black_alpha15"/>
+        <TextView
+            android:id="@+id/tv_normal_refresh_footer_no_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/loading_more_line_margin"
+            android:layout_marginLeft="@dimen/loading_more_line_margin"
+            android:text="@string/load_no_more"
+            android:textColor="@color/black_alpha50"
+            android:textSize="@dimen/text_size_s"/>
+        <View android:layout_width="@dimen/loading_more_line_width"
+            android:layout_height="@dimen/border_width_1px"
+            android:background="@color/black_alpha15"/>
+    </LinearLayout>
+
+</LinearLayout>

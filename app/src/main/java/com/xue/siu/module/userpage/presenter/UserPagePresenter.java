@@ -6,6 +6,7 @@ import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowActivity;
+import com.xue.siu.module.image.activity.ImageActivity;
 import com.xue.siu.module.userpage.activity.UserPageFragment;
 
 /**
@@ -27,6 +28,9 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
             case R.id.follower_view:
                 FollowActivity.start(mTarget.getActivity(), FragmentType.FollowerFragment);
                 break;
+            case R.id.sdv_portrait:
+                ImageActivity.start(mTarget.getActivity());
+                break;
         }
     }
 
@@ -38,6 +42,7 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
 
     @Override
     public void initFragment() {
-
+        String url = "http://cdn.duitang.com/uploads/item/201503/17/20150317091106_BeVfy.thumb.224_0.jpeg";
+        mTarget.setPortraitUrl(url);
     }
 }

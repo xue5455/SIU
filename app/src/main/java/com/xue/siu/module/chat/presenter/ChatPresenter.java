@@ -5,14 +5,22 @@ import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.xue.siu.R;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ScreenObserver;
+import com.xue.siu.config.UserInfo;
 import com.xue.siu.db.MySharePreferenceHelper;
 import com.xue.siu.db.SharePreferenceC;
 import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.chat.activity.ChatActivity;
+
+import java.util.Arrays;
 
 
 /**
@@ -21,11 +29,37 @@ import com.xue.siu.module.chat.activity.ChatActivity;
 public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implements View.OnClickListener,
         TextWatcher, View.OnTouchListener, ScreenObserver.OnScreenHeightChangedListener {
 
-
+    private static final String TAG = "ChatPresenter";
     boolean mIsMenuClicked = false;
     boolean mIsEmojiClicked = false;
     boolean mIsIMVisible = false;
     int mKbHeight = 0;
+    private String mFormat = "%1$s & %2$s";
+    private String mChatName;
+    private AVIMConversationCreatedCallback mAVIMCallback = new AVIMConversationCreatedCallback() {
+        @Override
+        public void done(AVIMConversation avimConversation, AVIMException e) {
+            if (e == null) {
+                mAnimConversation = avimConversation;
+            } else {
+                LogUtil.e(TAG, "[create conversation] fails,try to create again");
+                openConversation();
+            }
+        }
+    };
+    private AVIMClientCallback mAVIMClientCallback = new AVIMClientCallback() {
+        @Override
+        public void done(AVIMClient avimClient, AVIMException e) {
+            if (e == null) {
+                avimClient.createConversation(Arrays.asList(mTarget.getUserId()),
+                        mChatName, null, mAVIMCallback);
+            } else {
+                LogUtil.e(TAG, "[open client] fails,try to open again");
+                openConversation();
+            }
+        }
+    };
+    private AVIMConversation mAnimConversation;
 
     public ChatPresenter(ChatActivity target) {
         super(target);
@@ -33,7 +67,13 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
     @Override
     protected void initActivity() {
+        mChatName = String.format("%1$s & %2$s", new Object[]{UserInfo.userId, mTarget.getUserId()});
+        openConversation();
+    }
 
+    private void openConversation() {
+        AVIMClient tom = AVIMClient.getInstance(UserInfo.userId);
+        tom.open(mAVIMClientCallback);
     }
 
     @Override
@@ -45,6 +85,8 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 break;
             case R.id.plus_btn:
                 onPlusClick();
+                break;
+            case R.id.send_btn:
                 break;
         }
     }
@@ -149,7 +191,9 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         }
     }
 
+    private void onSendClick(){
 
+    }
     @Override
     public void onSizedChanged(boolean bigger, int newHeight, int oldHeight) {
         mIsIMVisible = !bigger;

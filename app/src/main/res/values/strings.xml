@@ -3,8 +3,8 @@
     <string name="app_name">SIU</string>
     <string name="network_unavailable">网络不给力</string>
     <string name="crash_warning">很抱歉，程序出现异常，即将退出</string>
-
-
+    <string name="load_no_more">暂无更多</string>
+    <string name="load_more">正在加载更多...</string>
     <!-- tab Strings-->
     <string name="mainpage_tab_schedule">日程</string>
     <string name="mainpage_tab_group">群组</string>
@@ -19,7 +19,8 @@
     <string name="la_acc_psw_wrong">帐号或者密码错误</string>
     <string name="la_time_out">登录超时</string>
     <string name="la_acc_psw_empty">帐号或密码不能为空</string>
-
+    <string name="la_register">注册</string>
+    <string name="la_title">帐号注册</string>
     <!--ScheduleFragment sf-->
     <string name="sf_calendar_classification">日程分类</string>
 
@@ -33,4 +34,19 @@
     <!-- FollowActivity fa-->
     <string name="fa_follower">@string/upf_follower</string>
     <string name="fa_followee">@string/upf_followee</string>
+
+
+    <!-- QueryUserActivity -->
+    <string name="qua_no_result">赞无结果！</string>
+    <string name="qua_input_user">请输入用户帐号或者昵称</string>
+
+    <!-- RegisterActivity -->
+    <string name="ra_account">帐号</string>
+    <string name="ra_password">密码</string>
+    <string name="ra_confirm">确定</string>
+    <string name="ra_account_empty">帐号不能为空</string>
+    <string name="ra_password_empty">密码不能为空</string>
+
+    <!-- ImageActivity ia-->
+    <string name="ia_title">图片选择</string>
 </resources>

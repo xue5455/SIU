@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--加载动画小球-->
+    <color name="loading_dot_right">#f06410</color>
+    <color name="loading_dot_left">@color/green_normal</color>
+
     <!-- 白色 -->
     <color name="white">#FFFFFFFF</color>
     <!-- 红色 -->

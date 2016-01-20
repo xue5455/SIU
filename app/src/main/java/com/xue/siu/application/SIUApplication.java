@@ -5,14 +5,19 @@ import android.content.Context;
 
 import com.android.volley.toolbox.HurlStack;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.xue.eventbus.HTEventBus;
 import com.xue.siu.R;
+import com.xue.siu.avim.MessageHandler;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.common.util.SystemUtil;
+import com.xue.siu.common.view.refreshviewholder.DotStyleRefreshViewHolder;
 
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -48,9 +53,10 @@ public class SIUApplication extends Application {
         // 进入应用就开始在后台请求网络时间
         SystemUtil.updateSystemBias();
         AVOSCloud.initialize(context, AppInfo.LEAN_ID, AppInfo.LEAN_SECRET);
-
         // initImageLoader();
         Fresco.initialize(context);
+        AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MessageHandler(this));
+        HTSwipeRecyclerView.initRefreshViewHolder(DotStyleRefreshViewHolder.class);
     }
 
 

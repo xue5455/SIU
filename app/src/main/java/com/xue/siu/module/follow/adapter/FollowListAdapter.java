@@ -9,23 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xue.siu.R;
-import com.xue.siu.common.util.LogUtil;
+import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.module.chat.activity.ChatActivity;
-import com.xue.siu.module.follow.model.User;
-
-import java.util.List;
 
 /**
  * Created by XUE on 2016/1/18.
  */
 public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.FollowViewHolder> implements View.OnClickListener {
     private Context mContext;
-    private SparseArray<User> mUserArray;
+    private SparseArray<LeanUser> mUserArray;
 
-    public FollowListAdapter(Context context, SparseArray<User> array) {
+    public FollowListAdapter(Context context, SparseArray<LeanUser> array) {
         mContext = context;
         mUserArray = array;
     }
@@ -41,8 +37,8 @@ public class FollowListAdapter extends RecyclerView.Adapter<FollowListAdapter.Fo
 
     @Override
     public void onBindViewHolder(FollowViewHolder holder, int position) {
-        holder.tvName.setText(mUserArray.get(position).getName());
-        holder.dvPortrait.setImageURI(Uri.parse(mUserArray.get(position).getUrl()));
+        holder.tvName.setText(mUserArray.get(position).getUsername());
+        holder.dvPortrait.setImageURI(Uri.parse(mUserArray.get(position).getPortraitUrl()));
         holder.parentView.setTag(position);
     }
 

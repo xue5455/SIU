@@ -28,8 +28,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //compile 'com.android.support:appcompat-v7:23.1.1'
     compile "com.android.support:appcompat-v7:${APPCOMPAT_V7_VERSION}"
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile "com.android.support:design:${DESIGN_VERSION}"
+    compile "com.readystatesoftware.systembartint:systembartint:${SYSTEMBAR_TINT_VERSION}"
     compile project(':eventbus')
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ormlite-core-4.49-SNAPSHOT.jar')
@@ -48,4 +48,6 @@ dependencies {
     compile "com.facebook.fresco:fresco:${FRESCO_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE_VERSION}"
     compile "com.android.support:percent:${PERCENT_VERSION}"
+    compile project(':htrecycleview')
+    compile project(':htswiperefreshrecyclerview')
 }

@@ -2,13 +2,14 @@ package com.xue.siu.module.follow.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTMode;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
-import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.view.divider.RecyclerViewDivider;
 import com.xue.siu.module.base.activity.BaseBlankFragment;
@@ -23,7 +24,8 @@ import java.lang.ref.WeakReference;
  */
 public class FollowFragment extends BaseBlankFragment<FollowFragmentPresenter> {
     private FragmentType mType;
-    private RecyclerView mFollowRV;
+    private HTSwipeRecyclerView mFollowRV;
+
 
     @Override
     protected void initPresenter() {
@@ -51,10 +53,14 @@ public class FollowFragment extends BaseBlankFragment<FollowFragmentPresenter> {
         mFollowRV = findViewById(R.id.rv_follow);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mFollowRV.setLayoutManager(manager);
-        mFollowRV.addItemDecoration(new RecyclerViewDivider(getActivity(), ResourcesUtil.getDrawable(R.drawable.shape_follow_list_divider)));
+        mFollowRV.addItemDecoration(new RecyclerViewDivider(getActivity(),
+                ResourcesUtil.getDrawable(R.drawable.shape_follow_list_divider)));
+        mFollowRV.setOnRefreshListener(mPresenter);
+        mFollowRV.setOnLoadMoreListener(mPresenter);
+        mFollowRV.setRefreshComplete(true);
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    public void setAdapter(TRecycleViewAdapter adapter) {
         mFollowRV.setAdapter(adapter);
     }
 
@@ -67,5 +73,9 @@ public class FollowFragment extends BaseBlankFragment<FollowFragmentPresenter> {
 
     public FragmentType getType() {
         return mType;
+    }
+
+    public void refreshFinish() {
+        mFollowRV.setRefreshComplete(false);
     }
 }

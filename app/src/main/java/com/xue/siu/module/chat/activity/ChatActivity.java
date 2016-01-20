@@ -1,6 +1,5 @@
 package com.xue.siu.module.chat.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
@@ -10,21 +9,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
 import com.xue.siu.R;
-import com.xue.siu.common.util.LogUtil;
+import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.common.util.ScreenObserver;
 import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.ResourcesUtil;
-import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.chat.presenter.ChatPresenter;
-import com.xue.siu.module.follow.model.User;
+import com.xue.siu.module.follow.model.UserVO;
 
 /**
  * Created by XUE on 2015/12/10.
@@ -46,9 +43,9 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     private String mName;//名字
     private String mUserId;//id
 
-    public static void start(Activity activity, User user) {
+    public static void start(Activity activity, LeanUser userVO) {
         Intent intent = new Intent(activity, ChatActivity.class);
-        intent.putExtra(INTENT_KEYS_USER, user.toBundle());
+       // intent.putExtra(INTENT_KEYS_USER, userVO.toBundle());
         activity.startActivity(intent);
     }
 
@@ -60,9 +57,9 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         ScreenObserver.assistActivity(this, mPresenter);
         Bundle user = getIntent().getBundleExtra(INTENT_KEYS_USER);
         if (user != null) {
-            mUrl = user.getString(User.BUNDLE_KEY_URL);
-            mUserId = user.getString(User.BUNDLE_KEY_ID);
-            mName = user.getString(User.BUNDLE_KEY_NAME);
+            mUrl = user.getString(UserVO.BUNDLE_KEY_URL);
+            mUserId = user.getString(UserVO.BUNDLE_KEY_ID);
+            mName = user.getString(UserVO.BUNDLE_KEY_NAME);
             setTitle(mName);
         }
     }
@@ -157,5 +154,17 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         params.height = height;
         mEmojiContainer.setLayoutParams(params);
         mPlusMenuContainer.setLayoutParams(params);
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
+
+    public String getUserId() {
+        return mUserId;
+    }
+
+    public String getName() {
+        return mName;
     }
 }
