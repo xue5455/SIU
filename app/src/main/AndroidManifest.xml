@@ -44,6 +44,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".module.register.activity.RegisterActivity" />
         <activity android:name=".module.image.activity.ImageActivity" />
+        <activity android:name=".module.userpage.activity.UserDataActivity" />
+        <activity android:name=".module.query.activity.QueryUserActivity" />
+        <activity android:name=".module.query.activity.QueryResultActivity" />
 
         <service android:name="com.avos.avoscloud.PushService" />
 

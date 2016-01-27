@@ -10,7 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.xue.siu.R;
+import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.module.base.activity.BaseBlankActivity;
+import com.xue.siu.module.chat.view.BubbleDrawable;
 import com.xue.siu.module.splash.presenter.SplashPresenter;
 
 /**

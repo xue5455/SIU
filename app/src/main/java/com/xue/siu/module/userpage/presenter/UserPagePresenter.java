@@ -29,7 +29,7 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
                 FollowActivity.start(mTarget.getActivity(), FragmentType.FollowerFragment);
                 break;
             case R.id.sdv_portrait:
-                ImageActivity.start(mTarget.getActivity());
+                ImageActivity.start(mTarget.getActivity(),1);
                 break;
         }
     }

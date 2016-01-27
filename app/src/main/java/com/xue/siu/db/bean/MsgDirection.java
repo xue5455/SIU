@@ -11,4 +11,8 @@ public enum MsgDirection {
     MsgDirection(int direction) {
         this.direction = direction;
     }
+
+    public int getValue(){
+        return direction;
+    }
 }

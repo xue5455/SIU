@@ -6,19 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.module.follow.model.UserVO;
 
 /**
  * Created by XUE on 2016/1/19.
  */
 @TRecycleViewHolderAnnotation(resId = R.layout.item_follow_list)
-public class FollowItemViewHolder extends TRecycleViewHolder<UserVO> implements View.OnClickListener {
+public class FollowItemViewHolder extends TRecycleViewHolder<AVUser> implements View.OnClickListener {
     private SimpleDraweeView mSdvPortrait;
     private TextView mTvName;
     private View mContainer;
@@ -32,14 +34,16 @@ public class FollowItemViewHolder extends TRecycleViewHolder<UserVO> implements 
         mSdvPortrait = findViewById(R.id.dv_portrait);
         mTvName = findViewById(R.id.tv_name);
         mContainer = findViewById(R.id.rl_container);
+        mContainer.setOnClickListener(this);
     }
 
     @Override
-    public void refresh(TAdapterItem<UserVO> item) {
-        UserVO userVO = item.getDataModel();
-        mSdvPortrait.setImageURI(Uri.parse(userVO.getUrl()));
-        mTvName.setText(userVO.getName());
-        mContainer.setOnClickListener(this);
+    public void refresh(TAdapterItem<AVUser> item) {
+//        UserVO userVO = item.getDataModel();
+//        mSdvPortrait.setImageURI(Uri.parse(userVO.getUrl()));
+//        mTvName.setText(userVO.getName());
+//        mContainer.setOnClickListener(this);
+        mTvName.setText(item.getDataModel().getUsername());
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Pair;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenUtil;
@@ -159,4 +161,5 @@ public class MainPageActivity extends BaseBlankActivity<MainPagePresenter> imple
         }
 
     }
+
 }

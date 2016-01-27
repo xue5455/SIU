@@ -1,10 +1,13 @@
 package com.xue.siu.module.query.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xue.siu.R;
@@ -17,8 +20,11 @@ import com.xue.siu.module.query.presenter.QueryUserPresenter;
 public class QueryUserActivity extends BaseActionBarActivity<QueryUserPresenter> {
     private EditText mEtUser;
     private RecyclerView mRvResult;
-    private TextView mTvEmpty;
 
+    public static void start(Activity activity){
+        Intent intent = new Intent(activity,QueryUserActivity.class);
+        activity.startActivity(intent);
+    }
     @Override
     protected void initPresenter() {
         mPresenter = new QueryUserPresenter(this);
@@ -34,21 +40,13 @@ public class QueryUserActivity extends BaseActionBarActivity<QueryUserPresenter>
 
     private void initContentView() {
         setNavigationBarBlack();
-        mTvEmpty = findView(R.id.tv_empty);
         mRvResult = findView(R.id.rv_result);
         mEtUser = findView(R.id.et_query);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRvResult.setLayoutManager(layoutManager);
-    }
+        mEtUser.addTextChangedListener(mPresenter);
 
-    public void notifyResult() {
-        if (mRvResult.getAdapter().getItemCount() > 0) {
-            mTvEmpty.setVisibility(View.GONE);
-        } else {
-            mTvEmpty.setVisibility(View.VISIBLE);
-        }
     }
-
     public void setAdapter(RecyclerView.Adapter adapter) {
         mRvResult.setAdapter(adapter);
     }

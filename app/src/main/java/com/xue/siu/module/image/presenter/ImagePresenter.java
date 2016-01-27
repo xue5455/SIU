@@ -9,12 +9,14 @@ import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.common.util.HandleUtil;
@@ -37,27 +39,33 @@ import event.util.AsyncExecutor;
 /**
  * Created by XUE on 2016/1/19.
  */
-public class ImagePresenter extends BaseActivityPresenter<ImageActivity> implements View.OnClickListener, HTSwipeRecyclerView.OnScrollListener {
+public class ImagePresenter extends BaseActivityPresenter<ImageActivity> implements View.OnClickListener,
+        HTSwipeRecyclerView.OnScrollListener,ItemEventListener {
     private Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     private ContentResolver mContentResolver;
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
     private List<TAdapterItem> mTAdapterItems = new ArrayList<>();
     private TRecycleViewAdapter mAdapter;
     private int mImageViewWidth;//ImageView的宽度
+    private QueryTask mQueryTask;
+    private int mCountLimit;//数量限制
 
     public ImagePresenter(ImageActivity target) {
         super(target);
         mViewHolders.put(ItemType.ITEM_COMMON, ImageViewHolder.class);
-        mImageViewWidth = (ScreenUtil.getDisplayWidth() - 4 * ResourcesUtil.getDimenPxSize(R.dimen.ia_image_padding)) / 2;
+        mImageViewWidth = (ScreenUtil.getDisplayWidth() - 6 * ResourcesUtil.getDimenPxSize(R.dimen.ia_image_padding)) / 3;
     }
 
     @Override
     protected void initActivity() {
         mAdapter = new TRecycleViewAdapter(mTarget, mViewHolders, mTAdapterItems);
+        mAdapter.setItemEventListener(this);
         mTarget.setAdapter(mAdapter);
         mTarget.addOnScrollListener(this);
         mContentResolver = mTarget.getContentResolver();
-        new QueryTask().execute();
+        mQueryTask = new QueryTask();
+        mQueryTask.execute();
+        mCountLimit = mTarget.getIntent().getIntExtra(mTarget.KEY_IMAGE_LIMIT, 1);
     }
 
     @Override
@@ -81,6 +89,21 @@ public class ImagePresenter extends BaseActivityPresenter<ImageActivity> impleme
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mQueryTask != null)
+            mQueryTask.cancel(true);
+    }
+
+    @Override
+    public boolean onEventNotify(String eventName, View view, int position, Object... values) {
+        if(TextUtils.equals(ItemEventListener.clickEventName,eventName)){
+            String path = ((ImageVO)mTAdapterItems.get(position).getDataModel()).getPath();
+            mTarget.jumpToCutImageActivity(path);
+        }
+        return true;
+    }
 
     class QueryTask extends AsyncTask<Void, ImageViewHolderItem, Void> {
 
@@ -91,7 +114,7 @@ public class ImagePresenter extends BaseActivityPresenter<ImageActivity> impleme
             Cursor cursor = mContentResolver.query(mImageUri, null,
                     MediaStore.Images.Media.MIME_TYPE + "=? or "
                             + MediaStore.Images.Media.MIME_TYPE + "=?",
-                    new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_MODIFIED);
+                    new String[]{"image/jpeg", "image/png"}, MediaStore.Images.Media.DATE_ADDED);
 
             if (cursor == null) {
                 return null;
@@ -106,9 +129,8 @@ public class ImagePresenter extends BaseActivityPresenter<ImageActivity> impleme
                 BitmapFactory.decodeFile(path, options);
                 if (options.outWidth < 200 || options.outHeight < 200)
                     continue;
-                LogUtil.d("xxj", "height " + options.outHeight);
                 ImageVO imageVO = new ImageVO();
-                imageVO.setPath(schema + path);
+                imageVO.setPath(path);
                 imageVO.setWidth(mImageViewWidth);
                 double scale = 1.0d * mImageViewWidth / options.outWidth;
                 int height = (int) (options.outHeight * scale);

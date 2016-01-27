@@ -10,7 +10,25 @@ public enum MsgStatus {
     RECV_NOR(4),//收到的消息还未查看
     RECV_ACKED(5);//收到的消息已查看
     private int status;
-    MsgStatus(int status){
+
+    MsgStatus(int status) {
         this.status = status;
+    }
+
+    public static MsgStatus getStatus(int status) {
+        switch (status) {
+            case 1:
+                return SENDING;
+            case 2:
+                return SENT_SUCCESS;
+            case 3:
+                return SENT_FAIL;
+            case 4:
+                return RECV_NOR;
+            case 5:
+                return RECV_ACKED;
+            default:
+                return null;
+        }
     }
 }

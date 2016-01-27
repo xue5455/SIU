@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 
+import com.avos.avoscloud.AVUser;
+import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.common.util.ScreenObserver;
@@ -21,31 +24,39 @@ import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.chat.presenter.ChatPresenter;
+import com.xue.siu.module.chat.view.EditContainer;
 import com.xue.siu.module.follow.model.UserVO;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by XUE on 2015/12/10.
  */
 public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
-    private RecyclerView mMsgRcv;
-    private Button mSendBtn;
-    private Button mEmojiBtn;
-    private Button mPlusBtn;
-    private EditText mMsgEdit;
-    private ViewGroup mEmojiContainer;//表情菜单
-    private ViewGroup mPlusMenuContainer;//plus 菜单
-    private ViewPager mEmojiPager;//表情的ViewPager;
-    private GridView mPlusGv;//Plus菜单的GridView
-
+    @Bind(R.id.rv_msg)
+    HTSwipeRecyclerView mRvMsg;
+    @Bind(R.id.ec_view)
+    EditContainer mEditContainer;
     public static final String INTENT_KEYS_USER = "user";
-
+    public static final String INTENT_KEYS_CONVERSATION_ID = "conversationId";
     private String mUrl;//头像地址
     private String mName;//名字
     private String mUserId;//id
+    private AVUser mUser;
+    private String mConversationId;
 
-    public static void start(Activity activity, LeanUser userVO) {
+    public static void start(Activity activity, AVUser userVO) {
         Intent intent = new Intent(activity, ChatActivity.class);
-       // intent.putExtra(INTENT_KEYS_USER, userVO.toBundle());
+        // intent.putExtra(INTENT_KEYS_USER, userVO.toBundle());
+        intent.putExtra(INTENT_KEYS_USER, userVO);
+        activity.startActivity(intent);
+    }
+
+    public static void start(Activity activity, AVUser user, String conversationId) {
+        Intent intent = new Intent(activity, ChatActivity.class);
+        intent.putExtra(INTENT_KEYS_CONVERSATION_ID, conversationId);
+        intent.putExtra(INTENT_KEYS_USER, user);
         activity.startActivity(intent);
     }
 
@@ -53,38 +64,24 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRealContentView(R.layout.activity_chat);
+        ButterKnife.bind(this);
         initViews();
         ScreenObserver.assistActivity(this, mPresenter);
-        Bundle user = getIntent().getBundleExtra(INTENT_KEYS_USER);
-        if (user != null) {
-            mUrl = user.getString(UserVO.BUNDLE_KEY_URL);
-            mUserId = user.getString(UserVO.BUNDLE_KEY_ID);
-            mName = user.getString(UserVO.BUNDLE_KEY_NAME);
-            setTitle(mName);
+        mUser = getIntent().getParcelableExtra(INTENT_KEYS_USER);
+        mConversationId = getIntent().getStringExtra(INTENT_KEYS_CONVERSATION_ID);
+        if (mUser != null) {
+            setTitle(mUser.getUsername());
         }
     }
 
     private void initViews() {
         getWindow().getDecorView().setBackgroundColor(ResourcesUtil.getColor(R.color.chat_bg));
-        setTitle("聊天界面");
         setNavigationBarBlack();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mMsgRcv = findView(R.id.msg_recycler_view);
-        mMsgRcv.setLayoutManager(layoutManager);
-        mMsgRcv.setOnTouchListener(mPresenter);
-        mMsgEdit = findView(R.id.msg_edit);
-        mMsgEdit.addTextChangedListener(mPresenter);
-        mMsgEdit.setOnTouchListener(mPresenter);
-        mSendBtn = findView(R.id.send_btn);
-        mSendBtn.setOnClickListener(mPresenter);
-        mEmojiBtn = findView(R.id.emoji_btn);
-        mEmojiBtn.setOnClickListener(mPresenter);
-        mPlusBtn = findView(R.id.plus_btn);
-        mPlusBtn.setOnClickListener(mPresenter);
-        mPlusMenuContainer = findView(R.id.chat_menu_root_view);
-        mEmojiContainer = findView(R.id.chat_emoji_root_view);
-        KeyboardView view = new KeyboardView(this, null);
+        mRvMsg.setLayoutManager(layoutManager);
+        mRvMsg.getRecyclerView().setOnTouchListener(mPresenter);
+        mEditContainer.setOnClickListener(mPresenter);
+        mEditContainer.setOnTouchListener(mPresenter);
     }
 
     @Override
@@ -94,54 +91,41 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
 
 
     public void shutInputMethod() {
-
-        KeyboardUtil.hidekeyboard(mMsgEdit);
+        mEditContainer.hideKeyboard();
     }
 
     public void showInputMethod() {
-
-        mMsgEdit.requestFocus();
-        KeyboardUtil.showkeyboard(mMsgEdit);
+        mEditContainer.showInputMethod();
     }
 
     public void shutMenuAndEmoji() {
-        mEmojiContainer.setVisibility(View.GONE);
-        mPlusMenuContainer.setVisibility(View.GONE);
+        mEditContainer.hideMenuAndEmoji();
     }
 
     public void shutMenu() {
-        mPlusMenuContainer.setVisibility(View.GONE);
+        mEditContainer.hideMenu();
     }
 
     public void shutEmoji() {
-        mEmojiContainer.setVisibility(View.GONE);
+        mEditContainer.hideEmoji();
     }
 
     public void showPlusMenu() {
-        mPlusMenuContainer.setVisibility(View.VISIBLE);
-        mEmojiContainer.setVisibility(View.GONE);
-
+        mEditContainer.showAdditionalMenu();
     }
 
     public void showEmojiMenu() {
-        mEmojiContainer.setVisibility(View.VISIBLE);
-        mPlusMenuContainer.setVisibility(View.GONE);
-    }
-
-    public void showSendBtn() {
-        mSendBtn.setVisibility(View.VISIBLE);
-    }
-
-    public void hideSendBtn() {
-        mSendBtn.setVisibility(View.GONE);
+//        mEmojiContainer.setVisibility(View.VISIBLE);
+//        mPlusMenuContainer.setVisibility(View.GONE);
+        mEditContainer.showEmoji();
     }
 
     public boolean isEmojiVisible() {
-        return mEmojiContainer.getVisibility() == View.VISIBLE;
+        return mEditContainer.isEmojiVisible();
     }
 
     public boolean isPMenuVisible() {
-        return mPlusMenuContainer.getVisibility() == View.VISIBLE;
+        return mEditContainer.isMenuVisible();
     }
 
     /**
@@ -150,10 +134,11 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
      * @param height
      */
     public void updateContainerHeight(int height) {
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mEmojiContainer.getLayoutParams();
-        params.height = height;
-        mEmojiContainer.setLayoutParams(params);
-        mPlusMenuContainer.setLayoutParams(params);
+        mEditContainer.updateMenuHeight(height);
+    }
+
+    public String getMsgContent() {
+        return mEditContainer.getContent();
     }
 
     public String getUrl() {
@@ -161,10 +146,22 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     }
 
     public String getUserId() {
-        return mUserId;
+        return mUser.getUsername();
     }
 
     public String getName() {
         return mName;
+    }
+
+    public void setAdapter(TRecycleViewAdapter adapter) {
+        mRvMsg.setAdapter(adapter);
+    }
+
+    public AVUser getUser() {
+        return mUser;
+    }
+
+    public String getConversationId() {
+        return mConversationId == null ? "" : mConversationId;
     }
 }

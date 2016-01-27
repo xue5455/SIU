@@ -1,27 +1,26 @@
 package com.xue.siu.module.userpage.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.netease.hearttouch.htrecycleview.util.LogUtil;
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.module.base.activity.BaseActivity;
 import com.xue.siu.module.base.activity.BaseBlankFragment;
-import com.xue.siu.module.base.activity.BaseFragment;
-import com.xue.siu.module.chat.view.BubbleInDrawable;
+import com.xue.siu.module.image.activity.ImageActivity;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.userpage.presenter.UserPagePresenter;
 
 import java.lang.ref.WeakReference;
-
-import butterknife.Bind;
 
 /**
  * Created by XUE on 2015/12/9.
@@ -98,5 +97,16 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
 
     public void setPortraitUrl(String url) {
         mSdvPortrait.setImageURI(Uri.parse(url));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtil.d("xxj","onActivityResult");
+        if (requestCode == ImageActivity.REQUEST_GET_IMAGE && resultCode == Activity.RESULT_OK) {
+            //上传图片
+            String path = data.getStringExtra(ImageActivity.KEY_IMAGE_PATH);
+            LogUtil.d("xxj", "path is " + path);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -46,6 +46,8 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
     private void setup() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
+        if (isInEditMode())
+            return;
         mPaint.setColor(ResourcesUtil.getColor(R.color.green_normal));
     }
 

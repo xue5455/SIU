@@ -2,8 +2,11 @@ package com.xue.siu.module.follow.presenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
+
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.follow.Constants;
@@ -11,10 +14,12 @@ import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowActivity;
 import com.xue.siu.module.follow.activity.FollowFragment;
 import com.xue.siu.module.follow.adapter.FollowPageAdapter;
+import com.xue.siu.module.query.activity.QueryUserActivity;
+
 /**
  * Created by XUE on 2016/1/16.
  */
-public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener {
+public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener, ItemEventListener {
 
     SparseArray<Fragment> mFragmentArray = new SparseArray<>();
 
@@ -51,6 +56,17 @@ public class FollowPresenter extends BaseActivityPresenter<FollowActivity> imple
             case R.id.tv_followee:
                 mTarget.setCurrentItem(0, true);
                 break;
+            case R.id.iv_search:
+                QueryUserActivity.start(mTarget);
+                break;
         }
+    }
+
+    @Override
+    public boolean onEventNotify(String eventName, View view, int position, Object... values) {
+        if (TextUtils.equals(eventName, ItemEventListener.clickEventName)) {
+
+        }
+        return true;
     }
 }

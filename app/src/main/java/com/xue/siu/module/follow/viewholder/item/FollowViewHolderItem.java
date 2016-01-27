@@ -1,15 +1,16 @@
 package com.xue.siu.module.follow.viewholder.item;
 
+import com.avos.avoscloud.AVUser;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.xue.siu.avim.model.LeanUser;
 
 /**
  * Created by XUE on 2016/1/19.
  */
-public class FollowViewHolderItem implements TAdapterItem<LeanUser> {
-    LeanUser mUserVo;
+public class FollowViewHolderItem implements TAdapterItem<AVUser> {
+    AVUser mUserVo;
 
-    public FollowViewHolderItem(LeanUser userVO) {
+    public FollowViewHolderItem(AVUser userVO) {
         mUserVo = userVO;
     }
 
@@ -24,7 +25,7 @@ public class FollowViewHolderItem implements TAdapterItem<LeanUser> {
     }
 
     @Override
-    public LeanUser getDataModel() {
+    public AVUser getDataModel() {
         return mUserVo;
     }
 }

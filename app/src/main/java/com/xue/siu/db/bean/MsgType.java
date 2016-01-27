@@ -6,24 +6,18 @@ import android.text.TextUtils;
  * Created by XUE on 2015/12/10.
  */
 public enum MsgType {
-    Text("text"),//文字消息
-    Image("image"),//图片消息
-    Schedule("schedule");//日程消息
+    Text(4),//文字消息
+    Image(5),//图片消息
+    Schedule(6);//日程消息
 
-    private String str;
+    private int type;
 
-    private MsgType(String str) {
-        this.str = str;
+    private MsgType(int type) {
+        this.type = type;
     }
 
 
-    public static MsgType getMsgType(String msgType) {
-        if (TextUtils.equals(msgType, "text"))
-            return Text;
-        else if (TextUtils.equals(msgType, "image"))
-            return Image;
-        else if (TextUtils.equals(msgType, "schedule"))
-            return Schedule;
-        return null;
+    public int getValue() {
+        return type;
     }
 }

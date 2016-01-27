@@ -3,34 +3,16 @@ package com.xue.siu.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.android.volley.toolbox.HurlStack;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.xue.eventbus.HTEventBus;
-import com.xue.siu.R;
-import com.xue.siu.avim.MessageHandler;
-import com.xue.siu.common.util.LogUtil;
+import com.xue.siu.avim.DefaultMessageHandler;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.common.util.SystemUtil;
 import com.xue.siu.common.view.refreshviewholder.DotStyleRefreshViewHolder;
-
-import java.io.InputStream;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by XUE on 2015/12/9.
@@ -55,7 +37,7 @@ public class SIUApplication extends Application {
         AVOSCloud.initialize(context, AppInfo.LEAN_ID, AppInfo.LEAN_SECRET);
         // initImageLoader();
         Fresco.initialize(context);
-        AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new MessageHandler(this));
+        AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new DefaultMessageHandler(this));
         HTSwipeRecyclerView.initRefreshViewHolder(DotStyleRefreshViewHolder.class);
     }
 

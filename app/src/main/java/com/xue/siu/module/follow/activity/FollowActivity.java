@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
+import com.xue.siu.common.view.letterbar.LetterBar;
 import com.xue.siu.common.view.viewpager.LineViewPagerIndicator;
 import com.xue.siu.common.view.viewpager.ViewPagerWithIndicator;
 import com.xue.siu.module.base.activity.BaseBlankActivity;
@@ -27,7 +30,8 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
     private TextView mFolloweeTv;
     private TextView mFollowerTv;
     private int[] mFollowTextColor = new int[]{R.color.white, R.color.green_normal};
-
+    private LetterBar mLetterBar;
+    private ImageView mIvSearch;
     public static void start(Activity activity, FragmentType type) {
         Intent intent = new Intent(activity, FollowActivity.class);
         intent.putExtra(Constants.FRAGMENT_TYPE_KEY, type.toString());
@@ -62,6 +66,9 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
         mFollowerTv = findView(R.id.tv_follower);
         mFolloweeTv.setOnClickListener(mPresenter);
         mFollowerTv.setOnClickListener(mPresenter);
+        mLetterBar = findView(R.id.view_letter);
+        mIvSearch = findView(R.id.iv_search);
+        mIvSearch.setOnClickListener(mPresenter);
     }
 
     public void initAdapter(FragmentStatePagerAdapter adapter) {
@@ -109,8 +116,10 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
     public void onPageScrollStateChanged(int state) {
         if (state == ViewPager.SCROLL_STATE_IDLE) {
             //显示SideBar
+            mLetterBar.setVisibility(View.VISIBLE);
         } else {
             //隐藏SideBar
+            mLetterBar.setVisibility(View.GONE);
         }
     }
 }

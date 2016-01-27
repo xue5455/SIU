@@ -1,5 +1,7 @@
 package com.xue.siu.db.bean;
 
+import android.net.Uri;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,8 +12,8 @@ import com.j256.ormlite.table.DatabaseTable;
 public class SIUMessage {
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField(columnName = "group")
-    private String group;//讨论组，若为空，则为私有消息，若不为空，则为讨论组消息
+    @DatabaseField(columnName = "conersationid")
+    private String conversationId;//讨论组，若为空，则为私有消息，若不为空，则为讨论组消息
     @DatabaseField(columnName = "fuser")
     private String fUser;//消息发出方
     @DatabaseField(columnName = "tuser")
@@ -23,27 +25,31 @@ public class SIUMessage {
     @DatabaseField(columnName = "stime")
     private long sTime;//消息时间
     @DatabaseField(columnName = "mode")
-    private MsgDirection mode;//消息模式
+    private MsgDirection direction;//消息模式
     @DatabaseField(columnName = "status")
     private MsgStatus status;//消息状态
 
-    public SIUMessage(String group, String fUser, String tUser, MsgType type, String content, long sTime, MsgDirection mode, MsgStatus status) {
-        this.group = group;
+    public SIUMessage() {
+
+    }
+
+    public SIUMessage(String conversationId, String fUser, String tUser, MsgType type, String content, long sTime, MsgDirection direction, MsgStatus status) {
+        this.conversationId = conversationId;
         this.fUser = fUser;
         this.tUser = tUser;
         this.type = type;
         this.content = content;
         this.sTime = sTime;
-        this.mode = mode;
+        this.direction = direction;
         this.status = status;
     }
 
-    public String getGroup() {
-        return group;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
     public int getId() {
@@ -102,11 +108,11 @@ public class SIUMessage {
         this.status = status;
     }
 
-    public MsgDirection getMode() {
-        return mode;
+    public MsgDirection getDirection() {
+        return direction;
     }
 
-    public void setMode(MsgDirection mode) {
-        this.mode = mode;
+    public void setDirection(MsgDirection direction) {
+        this.direction = direction;
     }
 }

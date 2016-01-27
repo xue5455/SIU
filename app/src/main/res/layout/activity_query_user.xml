@@ -35,13 +35,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/tv_empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/qua_no_result"
-            android:textColor="@color/black_alpha50"
-            android:textSize="@dimen/text_size_15" />
     </FrameLayout>
 </LinearLayout>

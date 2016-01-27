@@ -16,15 +16,18 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.module.image.viewholder.item.ImageVO;
+
+import java.io.File;
 
 /**
  * Created by XUE on 2016/1/19.
  */
 @TRecycleViewHolderAnnotation(resId = R.layout.item_image_list)
-public class ImageViewHolder extends TRecycleViewHolder<ImageVO> {
+public class ImageViewHolder extends TRecycleViewHolder<ImageVO> implements View.OnClickListener{
     private SimpleDraweeView mSdvImage;
 
     public ImageViewHolder(View itemView, Context context, RecyclerView recyclerView) {
@@ -44,8 +47,8 @@ public class ImageViewHolder extends TRecycleViewHolder<ImageVO> {
         LayoutParams params = (LayoutParams) mSdvImage.getLayoutParams();
         params.height = height;
         mSdvImage.setLayoutParams(params);
-        LogUtil.d("ImageViewHolder", path);
-        Uri uri = Uri.parse(path);
+
+        Uri uri = Uri.fromFile(new File(path));
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setResizeOptions(new ResizeOptions(imageVO.getWidth(), height))
                 .setAutoRotateEnabled(true)
@@ -56,10 +59,19 @@ public class ImageViewHolder extends TRecycleViewHolder<ImageVO> {
                     .setImageRequest(request)
                     .build();
             mSdvImage.setController(controller);
+            mSdvImage.setOnClickListener(this);
         } else {
             mSdvImage.setImageURI(Uri.EMPTY);
+            mSdvImage.setOnClickListener(null);
         }
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onEventNotify(ItemEventListener.clickEventName,v,getAdapterPosition());
+        }
     }
 }

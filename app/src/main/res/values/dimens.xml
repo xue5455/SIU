@@ -69,9 +69,18 @@
     <!-- 聊天菜单和表情= -->
     <dimen name="chat_menu_height">290dip</dimen>
     <dimen name="chat_input_height">48dip</dimen>
-    <dimen name="emoji_btn_size">32dip</dimen>
-
-
+    <dimen name="chat_emoji_btn_size">32dip</dimen>
+    <dimen name="chat_bubble_radius">5dp</dimen>
+    <dimen name="chat_bubble_left_padding">8dp</dimen>
+    <dimen name="chat_bubble_top_margin">5dp</dimen>
+    <dimen name="chat_bubble_open_length">8dp</dimen>
+    <dimen name="chat_portrait_size">50dp</dimen>
+    <dimen name="chat_text_min_width">65dp</dimen>
+    <dimen name="chat_text_min_height">@dimen/chat_portrait_size</dimen>
+    <dimen name="chat_text_padding_left">10dp</dimen>
+    <dimen name="chat_text_padding_right">10dp</dimen>
+    <dimen name="chat_text_padding_vertical">5dp</dimen>
+    <dimen name="chat_portrait_content_margin">6dp</dimen>
     <!-- 登录页面 LoginActivity la-->
     <dimen name="la_edit_text_height">45dip</dimen>
     <dimen name="la_view_horizontal_margin">20dip</dimen>
@@ -117,10 +126,11 @@
     <dimen name="qua_divider_height">15dp</dimen>
     <dimen name="qua_edit_height">@dimen/common_edit_text_height</dimen>
     <dimen name="qua_edit_padding_left">5dp</dimen>
+    <dimen name="qua_result_item_height">80dp</dimen>
     <!-- RegisterActivity ra-->
     <dimen name="ra_edit_height">@dimen/common_edit_text_height</dimen>
 
     <!-- ImageActivity ia-->
-    <dimen name="ia_image_padding">@dimen/default_content_padding</dimen>
+    <dimen name="ia_image_padding">5dp</dimen>
     <dimen name="ia_image_radius">4dp</dimen>
 </resources>

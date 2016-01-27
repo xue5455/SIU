@@ -2,6 +2,7 @@ package com.xue.siu.module.follow.presenter;
 
 import android.util.SparseArray;
 import android.view.View;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFriendship;
 import com.avos.avoscloud.AVFriendshipQuery;
@@ -13,6 +14,7 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnRefreshListener;
 import com.xue.siu.avim.model.LeanUser;
+import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
@@ -20,6 +22,9 @@ import com.xue.siu.module.follow.activity.FollowFragment;
 import com.xue.siu.module.follow.viewholder.FollowItemViewHolder;
 import com.xue.siu.module.follow.viewholder.item.FollowViewHolderItem;
 import com.xue.siu.module.follow.viewholder.item.ItemType;
+import com.xue.siu.module.userpage.activity.UserDataActivity;
+import com.xue.siu.module.userpage.usertype.FriendshipType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +34,7 @@ import java.util.List;
 public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragment> implements OnRefreshListener,
         ItemEventListener {
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
-    private List<TAdapterItem> mTAdapterItems = new ArrayList<>();
+    private List<TAdapterItem<AVUser>> mTAdapterItems = new ArrayList<>();
     private TRecycleViewAdapter mAdapter;
     private AVFriendshipCallback mFriendshipCallback = new AVFriendshipCallback() {
         @Override
@@ -49,6 +54,9 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
 
     @Override
     public void initFragment() {
+        mAdapter = new TRecycleViewAdapter(getContext(), mViewHolders, mTAdapterItems);
+        mAdapter.setItemEventListener(this);
+        mTarget.setAdapter(mAdapter);
         refreshData();
     }
 
@@ -73,7 +81,7 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
     }
 
     private void onQuerySuccess(AVFriendship friendship) {
-        List<LeanUser> list = null;
+        List<AVUser> list = null;
         switch (mTarget.getType()) {
             case FolloweeFragment:
                 list = friendship.getFollowees();
@@ -83,17 +91,17 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
                 break;
         }
         if (list != null) {
+            LogUtil.d("xxj", "list size is " + list.size());
+        } else {
+            LogUtil.d("xxj", "list is null");
+        }
+        if (list != null && list.size() > 0) {
             mTAdapterItems.clear();
-            for (LeanUser user : list) {
+            for (AVUser user : list) {
                 mTAdapterItems.add(new FollowViewHolderItem(user));
             }
-            if (mAdapter == null) {
-                mAdapter = new TRecycleViewAdapter(getContext(), mViewHolders, mTAdapterItems);
-                mAdapter.setItemEventListener(this);
-                mTarget.setAdapter(mAdapter);
-            } else {
-                mAdapter.notifyDataSetChanged();
-            }
+            mAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -105,7 +113,10 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
     public boolean onEventNotify(String eventName, View view, int position, Object... values) {
         switch (eventName) {
             case ItemEventListener.clickEventName:
-                //跳转到聊天界面
+                UserDataActivity.start(mTarget.getActivity(),
+                        mTAdapterItems.get(position).getDataModel(),
+                        mTarget.getType() == FragmentType.FolloweeFragment ? FriendshipType.FOLLOWEE
+                                : FriendshipType.FOLLOWER);
                 break;
         }
         return true;

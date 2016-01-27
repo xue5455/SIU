@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.facebook.drawee.view.SimpleDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="40dip"
-    android:layout_height="40dip"
-    fresco:actualImageScaleType="focusCrop"
+    android:id="@+id/sdv_portrait"
+    android:layout_width="@dimen/chat_portrait_size"
+    android:layout_height="@dimen/chat_portrait_size"
+    fresco:actualImageScaleType="centerCrop"
     fresco:failureImage="@color/black_alpha50"
-    fresco:roundAsCircle="true"
     fresco:failureImageScaleType="centerInside"
     fresco:placeholderImage="@color/black_alpha50"
-    fresco:placeholderImageScaleType="centerInside">
-
-</com.facebook.drawee.view.SimpleDraweeView>
+    fresco:placeholderImageScaleType="centerInside"
+    fresco:roundAsCircle="true"/>
