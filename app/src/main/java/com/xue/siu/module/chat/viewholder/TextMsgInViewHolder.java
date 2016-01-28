@@ -58,7 +58,7 @@ public class TextMsgInViewHolder extends TRecycleViewHolder<MessageUserWrapper> 
         mTvContent.setText(message.getContent());
         mTvTime.setText(String.valueOf(message.getsTime()));
         mTvName.setText(user.getUsername());
-        mSdvPortrait.setImageURI(Uri.EMPTY);
+//        mSdvPortrait.setImageURI(Uri.EMPTY);
     }
 
     @Override

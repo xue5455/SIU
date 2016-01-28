@@ -17,7 +17,6 @@ import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.SIUMessage;
 import com.xue.siu.module.chat.view.BubbleDrawable;
-import com.xue.siu.module.chat.view.BubbleLayout;
 import com.xue.siu.module.chat.viewholder.item.MessageUserWrapper;
 
 /**
@@ -53,7 +52,7 @@ public class ImageMsgOutViewHolder extends TRecycleViewHolder<MessageUserWrapper
     public void refresh(TAdapterItem<MessageUserWrapper> item) {
         SIUMessage msg = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
-        mSdvPortrait.setImageURI(Uri.EMPTY);
+//        mSdvPortrait.setImageURI(Uri.EMPTY);
 
         mSdvContent.setImageURI(Uri.EMPTY);
 

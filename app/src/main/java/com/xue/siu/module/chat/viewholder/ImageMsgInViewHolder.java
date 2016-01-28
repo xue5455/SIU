@@ -52,7 +52,7 @@ public class ImageMsgInViewHolder extends TRecycleViewHolder<MessageUserWrapper>
     public void refresh(TAdapterItem<MessageUserWrapper> item) {
         SIUMessage msg = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
-        mSdvPortrait.setImageURI(Uri.EMPTY);
+//        mSdvPortrait.setImageURI(Uri.EMPTY);
 
         mSdvContent.setImageURI(Uri.EMPTY);
 

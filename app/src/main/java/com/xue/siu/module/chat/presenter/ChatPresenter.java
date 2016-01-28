@@ -1,9 +1,14 @@
 package com.xue.siu.module.chat.presenter;
 
+import android.os.Looper;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -12,21 +17,23 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
-import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.avim.ActivityMessageHandler;
+import com.xue.siu.common.util.HandleUtil;
+import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.MessageUtil;
 import com.xue.siu.common.util.ScreenObserver;
+import com.xue.siu.common.view.sizechangedlayout.OnSizeChangedListener;
 import com.xue.siu.db.SharePreferenceC;
 import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.db.bean.MsgDirection;
@@ -57,15 +64,24 @@ import java.util.List;
 /**
  * Created by XUE on 2015/12/10.
  */
-public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implements View.OnClickListener,
-        View.OnTouchListener, ScreenObserver.OnScreenHeightChangedListener, OnRcvMessageListener,
-        ItemEventListener {
+public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implements
+        View.OnClickListener,
+        OnRcvMessageListener,
+        ItemEventListener, HTSwipeRecyclerView.OnScrollListener,
+        ScreenObserver.OnScreenHeightChangedListener,
+        TextWatcher {
 
     private static final String TAG = "ChatPresenter";
-    boolean mIsMenuClicked = false;
-    boolean mIsEmojiClicked = false;
-    boolean mIsIMVisible = false;
-    int mKbHeight = 0;
+    /* is emoji button clicked */
+    private boolean mEmoji;
+    /* is menu button clicked */
+    private boolean mMenu;
+    /* is input method showing */
+    private boolean mIsIMVisible = false;
+    /* Keyboard height */
+    int mKeyboardHeight = 0;
+
+    /* 聊天相关 */
     private AVIMConversationCreatedCallback mAVIMCallback = new AVIMConversationCreatedCallback() {
         @Override
         public void done(AVIMConversation avimConversation, AVIMException e) {
@@ -78,6 +94,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             }
         }
     };
+    /* The person i'm chatting with */
+    private AVUser mUser;
+
+    private String mConversationId;
 
     private AVIMConversation mAnimConversation;
 
@@ -102,124 +122,57 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
     @Override
     protected void initActivity() {
+        mUser = mTarget.getIntent().getParcelableExtra(mTarget.INTENT_KEYS_USER);
+        mConversationId = mTarget.getIntent().getStringExtra(mTarget.INTENT_KEYS_CONVERSATION_ID);
+        if (mUser != null) {
+            mTarget.setTitle(mUser.getUsername());
+        }
         mAdapter = new TRecycleViewAdapter(mTarget, mViewHolders, mList);
         mAdapter.setItemEventListener(this);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                mTarget.scrollToBottom(false);
+            }
+        });
         mTarget.setAdapter(mAdapter);
-        mMsgHandler = new ActivityMessageHandler(mTarget, mTarget.getUserId(), this);
+        mMsgHandler = new ActivityMessageHandler(mTarget, mUser.getUsername(), this);
         openConversation();
     }
 
     private void openConversation() {
         AVIMClient client = AVIMClientManager.getInstance().getClient();
-        if (!TextUtils.isEmpty(mTarget.getConversationId())) {
-            mAnimConversation = client.getConversation(mTarget.getConversationId());
+        if (!TextUtils.isEmpty(mConversationId)) {
+            mAnimConversation = client.getConversation(mConversationId);
             if (mAnimConversation != null) {
                 return;
             }
         }
 
-        client.createConversation(Arrays.asList(mTarget.getUserId()), "null", null, false, true, mAVIMCallback);
+        client.createConversation(Arrays.asList(mUser.getUsername()), "null", null, false, true, mAVIMCallback);
     }
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id) {
+        switch (v.getId()) {
             case R.id.btn_emoji:
                 onEmojiClick();
                 break;
             case R.id.btn_plus:
-                onPlusClick();
+                onMenuClick();
                 break;
             case R.id.btn_send:
                 onSendClick();
                 break;
-        }
-    }
-
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        int id = v.getId();
-        switch (id) {
             case R.id.rv_msg:
-                return onRecyclerTouch(event);
-            case R.id.et_msg:
-                return onMsgEditTouch(event);
-        }
-        return false;
-    }
-
-    private boolean onRecyclerTouch(MotionEvent event) {
-        //当点击或者移动消息列表时，关闭输入法、表情、plus菜单
-        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-            if (mIsIMVisible)
-                mTarget.shutInputMethod();
-            else if (mTarget.isEmojiVisible() || mTarget.isPMenuVisible())
-                mTarget.shutMenuAndEmoji();
-        }
-        return false;
-    }
-
-    private boolean onMsgEditTouch(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            mTarget.showInputMethod();
-        }
-        return false;
-    }
-
-    private void onEmojiClick() {
-        mIsEmojiClicked = true;
-        if (mIsIMVisible) {
-            //输入法已经打开,则关闭输入法
-            mTarget.shutInputMethod();
-        } else {
-            //输入法没打开，判断表情页面或者菜单是否打开
-            if (mTarget.isEmojiVisible()) {
-                //表情页面已打开，则开启输入法
-                mTarget.showInputMethod();
-
-                return;
-            }
-            if (mTarget.isPMenuVisible()) {
-                //菜单已经打开，则开启表情页，关闭菜单
-                mTarget.showEmojiMenu();
-                mTarget.shutMenu();
-                mIsEmojiClicked = false;
-                return;
-            }
-            //都没打开，则打开表情
-            mTarget.showEmojiMenu();
-            mIsEmojiClicked = false;
-        }
-    }
-
-    private void onPlusClick() {
-        mIsMenuClicked = true;
-        if (mIsIMVisible) {
-            //输入法已经打开,则关闭输入法
-            mTarget.shutInputMethod();
-        } else {
-            //输入法没打开，判断表情页面或者菜单是否打开
-            if (mTarget.isPMenuVisible()) {
-                //菜单页面已打开，则开启输入法
-                mTarget.showInputMethod();
-                return;
-            }
-            if (mTarget.isEmojiVisible()) {
-                //表情页面已经打开，则开启菜单，关闭表情页面
-                mTarget.showPlusMenu();
-                mTarget.shutEmoji();
-                mIsMenuClicked = false;
-                return;
-            }
-            mTarget.showPlusMenu();
-            mIsMenuClicked = false;
+                onScrollStateChanged(null, RecyclerView.SCROLL_STATE_DRAGGING);
+                break;
         }
     }
 
     private void onSendClick() {
-        String content = mTarget.getMsgContent();
+        String content = mTarget.getContent();
         AVIMTextMessage message = MessageUtil.convertStrToMessage(content);
         mAnimConversation.sendMessage(message, new AVIMConversationCallback() {
             @Override
@@ -230,48 +183,73 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 }
             }
         });
-        SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg(mAnimConversation.getConversationId(), mTarget.getUserId(), message);
+        SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg(mAnimConversation.getConversationId(), mUser.getUsername(), message);
         addMessageToList(message1);
+        mTarget.clearMsg();
+    }
+
+    private void onEmojiClick() {
+        if (mTarget.isMenuVisible() || !mIsIMVisible) {
+            mTarget.setEmojiVisibility(true);
+            mTarget.setMenuVisibility(false);
+            return;
+        }
+        mEmoji = true;
+        showOrCloseInput();
+    }
+
+    private void onMenuClick() {
+        if (mTarget.isEmojiVisible() || !mIsIMVisible) {
+            mTarget.setMenuVisibility(true);
+            mTarget.setEmojiVisibility(false);
+            return;
+        }
+        mMenu = true;
+        showOrCloseInput();
+    }
+
+    private void showOrCloseInput() {
+        mTarget.setInputMethodVisibility(!mIsIMVisible);
     }
 
     @Override
-    public void onSizedChanged(boolean bigger, int newHeight, int oldHeight) {
+    public void onSizeChanged(boolean bigger, int newHeight, int oldHeight) {
+        mTarget.scrollToBottom(false);
         mIsIMVisible = !bigger;
-        if (mIsMenuClicked || mIsEmojiClicked) {
-            if (mIsMenuClicked) {
-                mIsMenuClicked = false;
-                if (bigger) {
-                    //点击plus按钮后，变大，则输入法被隐藏，此时需要打开菜单
-                    mTarget.showPlusMenu();
-                } else {
-                    //点击plus按钮后，变小，则输入法被打开，此时需要关闭菜单
-                    mTarget.shutMenu();
-                }
-                return;
-            }
-            if (mIsEmojiClicked) {
-                mIsEmojiClicked = false;
-                if (bigger) {
-                    //点击EMOJI按钮后，变大，则输入法被隐藏，此时需要打开表情
-                    mTarget.showEmojiMenu();
-                } else {
-                    //点击EMOJI按钮后，变小，则输入法被打开，此时需要关闭表情
-                    mTarget.shutEmoji();
-                }
+        if (bigger) {
+            //indicates that the input method is closed,reason could be either emoji and menu are gonna showed or list is touched;
+            if (mEmoji) {
+                /* Emoji is gonna showed */
+                mEmoji = false;
+                mTarget.setEmojiVisibility(true);
+            } else if (mMenu) {
+                mMenu = false;
+                mTarget.setMenuVisibility(true);
+            } else {
+                /* list is touched,both emoji and menu should be closed */
+                mTarget.setEmojiVisibility(false);
+                mTarget.setMenuVisibility(false);
             }
         } else {
-            //界面的变化是由点击列表和输入框引起的
-            LogUtil.d("xue", "caused by touch edit_Text");
-            if (mTarget.isPMenuVisible() || mTarget.isEmojiVisible())
-                mTarget.shutMenuAndEmoji();
+            //indicates that the input method is showed
+            /* both emoji and menu should be closed */
+            mTarget.setEmojiVisibility(false);
+            mTarget.setMenuVisibility(false);
+            mEmoji = false;
+            mMenu = false;
         }
+        if (oldHeight != 0)
+            updateMenuHeight(bigger, newHeight, oldHeight);
+    }
 
+    private void updateMenuHeight(boolean bigger, int newHeight, int oldHeight) {
 
         int kbHeight = Math.abs(newHeight - oldHeight);
-        if (kbHeight != mKbHeight && !bigger) {
+        LogUtil.d(TAG, "KeyboardHeight:" + kbHeight);
+        if (kbHeight != mKeyboardHeight) {
             SharePreferenceHelper.putGlobalInt(SharePreferenceC.KB_HEIGHT, kbHeight);
-            mTarget.updateContainerHeight(kbHeight);
-            mKbHeight = kbHeight;
+            mTarget.setMenuHeight(kbHeight);
+            mKeyboardHeight = kbHeight;
         }
     }
 
@@ -281,16 +259,15 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     @Override
     public void onResume() {
         super.onResume();
-        mKbHeight = SharePreferenceHelper.getGlobalInt(SharePreferenceC.KB_HEIGHT, 0);
+        mKeyboardHeight = SharePreferenceHelper.getGlobalInt(SharePreferenceC.KB_HEIGHT, 0);
         AVIMMessageManager.registerMessageHandler(AVIMMessage.class, mMsgHandler);
         /* 查找数据库获取聊天记录 */
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mTarget.shutInputMethod();
+        mTarget.setInputMethodVisibility(false);
         AVIMMessageManager.unregisterMessageHandler(AVIMMessage.class, mMsgHandler);
     }
 
@@ -301,7 +278,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
     private void addMessageToList(SIUMessage message) {
         Object[] objects = new Object[]{message,
-                message.getDirection() == MsgDirection.IN ? mTarget.getUser() : AVUser.getCurrentUser()};
+                message.getDirection() == MsgDirection.IN ? mUser.getUsername() : AVUser.getCurrentUser()};
         Class<? extends BaseMsgViewHolderItem> clazz = mViewHolderItems.get(message.getDirection()
                 .getValue() * message.getType().getValue());
         Class[] params = new Class[]{SIUMessage.class, AVUser.class};
@@ -338,5 +315,39 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
         }
         return true;
+    }
+
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+            if (mIsIMVisible)
+                mTarget.setInputMethodVisibility(false);
+            else if (mTarget.isEmojiVisible() || mTarget.isMenuVisible()) {
+                mTarget.setMenuVisibility(false);
+                mTarget.setEmojiVisibility(false);
+            }
+        }
+    }
+
+    @Override
+    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+    }
+
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        int length = s.toString().length();
+        mTarget.setSendButtonVisibility(length > 0);
     }
 }

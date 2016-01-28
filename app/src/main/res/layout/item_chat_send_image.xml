@@ -13,15 +13,15 @@
         android:gravity="center"
         android:textColor="@color/black_alpha80"
         android:textSize="@dimen/text_size_10"
-        tools:text="15:00"/>
+        tools:text="15:00" />
 
     <RelativeLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dip"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip">
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="6dip">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_portrait"
@@ -33,7 +33,8 @@
             app:failureImageScaleType="centerInside"
             app:placeholderImage="@color/black_alpha50"
             app:placeholderImageScaleType="centerInside"
-            app:roundAsCircle="true"/>
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="@dimen/chat_portrait_size"/>
 
         <TextView
             android:id="@+id/tv_name"
@@ -49,7 +50,7 @@
             android:id="@+id/layout_mask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_text"
+            android:layout_below="@+id/tv_name"
             android:layout_marginRight="@dimen/chat_portrait_content_margin"
             android:layout_toLeftOf="@+id/sdv_portrait"
             app:porterduffxfermode="DST_IN">
@@ -58,9 +59,9 @@
                 android:id="@+id/sdv_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:placeholderImage="@color/black_alpha50"
                 app:overlayImage="@drawable/selector_chat_image_bg"
-                />
+                app:placeholderImage="@mipmap/ic_classification_fun"
+                app:placeholderImageScaleType="centerCrop" />
         </com.xue.siu.common.view.maskablelayout.MaskableLayout>
     </RelativeLayout>
 </LinearLayout>

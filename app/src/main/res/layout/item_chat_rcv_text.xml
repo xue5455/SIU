@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dip"
-        android:paddingLeft="20dip"
+        android:paddingLeft="6dip"
         android:paddingRight="20dip">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -31,7 +31,8 @@
             app:failureImageScaleType="centerInside"
             app:placeholderImage="@color/black_alpha50"
             app:placeholderImageScaleType="centerInside"
-            app:roundAsCircle="true"/>
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="@dimen/chat_portrait_size"/>
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
@@ -47,13 +48,14 @@
             android:id="@+id/layout_mask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_text"
+            android:layout_below="@+id/tv_name"
             android:layout_marginLeft="@dimen/chat_portrait_content_margin"
             android:layout_toRightOf="@+id/sdv_portrait"
-            app:porterduffxfermode="DST_IN">
+            app:porterduffxfermode="DST_ATOP">
 
             <TextView
                 android:id="@+id/tv_msg"
+                android:textSize="@dimen/chat_content_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_chat_text_bg"
@@ -61,8 +63,8 @@
                 android:minHeight="@dimen/chat_text_min_height"
                 android:minWidth="@dimen/chat_text_min_width"
                 android:paddingBottom="@dimen/chat_text_padding_vertical"
-                android:paddingLeft="@dimen/chat_text_padding_left"
-                android:paddingRight="@dimen/chat_text_padding_right"
+                android:paddingLeft="@dimen/chat_text_send_padding_right"
+                android:paddingRight="@dimen/chat_text_default_padding"
                 android:paddingTop="@dimen/chat_text_padding_vertical"
                 tools:text="1"></TextView>
         </com.xue.siu.common.view.maskablelayout.MaskableLayout>

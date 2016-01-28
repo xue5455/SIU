@@ -40,7 +40,10 @@ public class BubbleDrawable extends Drawable {
         mRect = new Rect();
         mDirection = direction;
     }
-
+    public BubbleDrawable(MsgDirection direction,int color){
+        this(direction);
+        mPaint.setColor(color);
+    }
     @Override
     public void setBounds(int l, int t, int r, int b) {
         super.setBounds(l, t, r, b);

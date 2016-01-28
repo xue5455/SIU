@@ -13,6 +13,7 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.SIUMessage;
@@ -45,7 +46,7 @@ public class TextMsgOutViewHolder extends TRecycleViewHolder<MessageUserWrapper>
         mTvName = findViewById(R.id.tv_name);
         mSdvPortrait = findViewById(R.id.sdv_portrait);
         mLayoutMask = findViewById(R.id.layout_mask);
-        mLayoutMask.setMask(new BubbleDrawable(MsgDirection.OUT));
+        mLayoutMask.setMask(new BubbleDrawable(MsgDirection.OUT, ResourcesUtil.getColor(R.color.green_normal)));
         mSdvPortrait.setOnClickListener(this);
         mTvContent.setOnLongClickListener(this);
     }
@@ -57,7 +58,7 @@ public class TextMsgOutViewHolder extends TRecycleViewHolder<MessageUserWrapper>
         mTvContent.setText(message.getContent());
         mTvTime.setText(String.valueOf(message.getsTime()));
         mTvName.setText(user.getUsername());
-        mSdvPortrait.setImageURI(Uri.EMPTY);
+//        mSdvPortrait.setImageURI(Uri.EMPTY);
     }
 
     @Override

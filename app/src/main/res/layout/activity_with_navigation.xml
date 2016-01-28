@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:paddingTop="@dimen/action_bar_height" />
+        android:layout_marginTop="@dimen/action_bar_height" />
 
     <FrameLayout
         android:id="@+id/navigation_bar_container"

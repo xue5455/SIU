@@ -2,6 +2,7 @@ package com.xue.siu.common.util;
 
 import android.app.Activity;
 import android.graphics.Rect;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
@@ -48,9 +49,10 @@ public class ScreenObserver {
             }
         });
         frameLayoutParams = (FrameLayout.LayoutParams) mChildOfContent.getLayoutParams();
-
-        mStatusBarHeight = ScreenUtil.getStatusBarHeight();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            mStatusBarHeight = ScreenUtil.getStatusBarHeight();
+        else
+            mStatusBarHeight = 0;
     }
 
     private void possiblyResizeChildOfContent() {
@@ -70,7 +72,7 @@ public class ScreenObserver {
             }
             mChildOfContent.requestLayout();
             if (mScreenHeightListener != null)
-                mScreenHeightListener.onSizedChanged(bigger,usableHeightNow,usableHeightPrevious);
+                mScreenHeightListener.onSizeChanged(bigger, usableHeightNow, usableHeightPrevious);
             usableHeightPrevious = usableHeightNow;
         }
     }
@@ -83,7 +85,7 @@ public class ScreenObserver {
     }
 
     public interface OnScreenHeightChangedListener {
-        void onSizedChanged(boolean bigger,int newHeight,int oldHeight);
+        void onSizeChanged(boolean bigger, int newHeight, int oldHeight);
     }
 }
 
