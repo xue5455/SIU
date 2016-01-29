@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dip">
 
     <TextView
         android:id="@+id/tv_time"
@@ -16,10 +17,9 @@
         tools:text="15:00" />
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dip"
+
         android:paddingLeft="@dimen/default_content_padding"
         android:paddingRight="6dip">
 
@@ -52,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/chat_portrait_content_margin"
             android:layout_toLeftOf="@+id/sdv_portrait"
             app:porterduffxfermode="DST_ATOP">
@@ -60,6 +61,7 @@
                 android:id="@+id/tv_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:background="@drawable/selector_chat_text_bg"
                 android:gravity="center|left"
                 android:minHeight="@dimen/chat_text_min_height"

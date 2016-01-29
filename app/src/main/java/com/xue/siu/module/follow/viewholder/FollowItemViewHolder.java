@@ -43,6 +43,7 @@ public class FollowItemViewHolder extends TRecycleViewHolder<AVUser> implements 
 //        mSdvPortrait.setImageURI(Uri.parse(userVO.getUrl()));
 //        mTvName.setText(userVO.getName());
 //        mContainer.setOnClickListener(this);
+        mSdvPortrait.setImageURI(Uri.parse(item.getDataModel().get("portraitUrl").toString()));
         mTvName.setText(item.getDataModel().getUsername());
     }
 

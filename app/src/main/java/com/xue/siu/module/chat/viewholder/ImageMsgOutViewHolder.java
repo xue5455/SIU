@@ -13,6 +13,7 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.common.util.TimeUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.SIUMessage;
@@ -53,10 +54,10 @@ public class ImageMsgOutViewHolder extends TRecycleViewHolder<MessageUserWrapper
         SIUMessage msg = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
 //        mSdvPortrait.setImageURI(Uri.EMPTY);
-
+        mSdvPortrait.setImageURI(Uri.parse(user.get("portraitUrl").toString()));
         mSdvContent.setImageURI(Uri.EMPTY);
 
-        mTvTime.setText(String.valueOf(msg.getsTime()));
+        mTvTime.setText(TimeUtil.convertLongToString(msg.getsTime()));
         mTvName.setText(user.getUsername());
     }
 

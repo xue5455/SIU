@@ -8,17 +8,25 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "tb_user")
 public class User {
+    public static final String COLUMN_ACCOUNT = "account";
+    public static final String COLUMN_NICKNAME = "nickname";
+    public static final String COLUMN_NOTE_NAME = "note_name";
+    public static final String COLUMN_CONVERSATION_ID = "conversationId";
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField(columnName = "account")
+    @DatabaseField(columnName = COLUMN_ACCOUNT)
     private String account;//用户帐号
-    @DatabaseField(columnName = "nickname")
+    @DatabaseField(columnName = COLUMN_NICKNAME)
     private String nickname;//用户昵称
-    @DatabaseField(columnName = "markedname")
-    private String markedName;//备注名
+    @DatabaseField(columnName = COLUMN_NOTE_NAME)
+    private String noteName;//备注名
+    @DatabaseField(columnName = COLUMN_CONVERSATION_ID)
+    private String conversationId = "";
+    public User(){
 
-    public User(String markedName, String nickname, String account) {
-        this.markedName = markedName;
+    }
+    public User(String noteName, String nickname, String account) {
+        this.noteName = noteName;
         this.nickname = nickname;
         this.account = account;
     }
@@ -47,11 +55,19 @@ public class User {
         this.nickname = nickname;
     }
 
-    public String getMarkedName() {
-        return markedName;
+    public String getNoteName() {
+        return noteName;
     }
 
-    public void setMarkedName(String markedName) {
-        this.markedName = markedName;
+    public void setNoteName(String noteName) {
+        this.noteName = noteName;
+    }
+
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
+    }
+
+    public String getConversationId() {
+        return conversationId;
     }
 }

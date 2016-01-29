@@ -65,6 +65,7 @@ public class UserDataPresenter extends BaseActivityPresenter<UserDataActivity> i
         mType = (FriendshipType) mTarget.getIntent().getSerializableExtra(mTarget.KEY_FRIENDSHIP);
         updateButton();
         mTarget.setUserName(mUser.getUsername());
+        mTarget.setPortraitUrl(mUser.get("portraitUrl").toString());
     }
 
     @Override

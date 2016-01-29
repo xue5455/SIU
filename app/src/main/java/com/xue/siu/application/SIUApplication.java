@@ -10,6 +10,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.eventbus.HTEventBus;
 import com.xue.siu.avim.DefaultMessageHandler;
+import com.xue.siu.common.util.EmojiUtil;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.common.util.SystemUtil;
 import com.xue.siu.common.view.refreshviewholder.DotStyleRefreshViewHolder;
@@ -39,6 +40,7 @@ public class SIUApplication extends Application {
         Fresco.initialize(context);
         AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new DefaultMessageHandler(this));
         HTSwipeRecyclerView.initRefreshViewHolder(DotStyleRefreshViewHolder.class);
+        EmojiUtil.init();
     }
 
 

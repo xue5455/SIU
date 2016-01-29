@@ -34,8 +34,13 @@ public class HTSwipeRecyclerView extends LinearLayout {
      * 维护自定义滚动接口列表
      */
     private ArrayList<OnScrollListener> mOnScrollListeners = new ArrayList<>();
-
-    /** 一些xml可已进行定义的属性值 */
+    /**
+     * 监听布局高度和宽度的变化
+     */
+    private OnLayoutSizeChangedListener mOnLayoutSizeChangedListener;
+    /**
+     * 一些xml可已进行定义的属性值
+     */
     private int mScrollbarStyle;
     private boolean mClipToPadding;
     private boolean mDebug = false;
@@ -1164,6 +1169,10 @@ public class HTSwipeRecyclerView extends LinearLayout {
         }
     }
 
+    public void setOnLayoutSizeChangedListener(OnLayoutSizeChangedListener layoutSizeChangedListener) {
+        this.mOnLayoutSizeChangedListener = layoutSizeChangedListener;
+    }
+
     public enum RefreshStatus {
         IDLE, PULL_DOWN, RELEASE_REFRESH, REFRESHING
     }
@@ -1193,4 +1202,16 @@ public class HTSwipeRecyclerView extends LinearLayout {
         void onScrolled(RecyclerView recyclerView, int dx, int dy);
     }
 
+    public interface OnLayoutSizeChangedListener {
+        void onSizeChanged(int w, int h, int oldW, int oldH);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
+        if (oldH == 0 || oldW == 0)
+            return;//初次sizeChange 忽略
+        if (mOnLayoutSizeChangedListener != null)
+            mOnLayoutSizeChangedListener.onSizeChanged(w, h, oldW, oldH);
+    }
 }

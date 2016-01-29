@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dip">
 
     <TextView
         android:id="@+id/tv_time"
@@ -19,7 +20,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dip"
+
         android:paddingLeft="@dimen/default_content_padding"
         android:paddingRight="6dip">
 
@@ -34,7 +35,7 @@
             app:placeholderImage="@color/black_alpha50"
             app:placeholderImageScaleType="centerInside"
             app:roundAsCircle="true"
-            app:roundedCornerRadius="@dimen/chat_portrait_size"/>
+            app:roundedCornerRadius="@dimen/chat_portrait_size" />
 
         <TextView
             android:id="@+id/tv_name"

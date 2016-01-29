@@ -10,23 +10,31 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "tb_message")
 public class SIUMessage {
+    public static final String COLUMN_CONVERSATION_ID = "conversationId";
+    public static final String COLUMN_FROM_USER = "fromUser";
+    public static final String COLUMN_TO_USER = "toUser";
+    public static final String COLUMN_TYPE = "type";
+    public static final String COLUMN_CONTENT = "content";
+    public static final String COLUMN_S_TIME = "sTime";
+    public static final String COLUMN_DIRECTION = "direction";
+    public static final String COLUMN_STATUS = "status";
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField(columnName = "conersationid")
+    @DatabaseField(columnName = COLUMN_CONVERSATION_ID)
     private String conversationId;//讨论组，若为空，则为私有消息，若不为空，则为讨论组消息
-    @DatabaseField(columnName = "fuser")
+    @DatabaseField(columnName = COLUMN_FROM_USER)
     private String fUser;//消息发出方
-    @DatabaseField(columnName = "tuser")
+    @DatabaseField(columnName = COLUMN_TO_USER)
     private String tUser;//消息接收方
-    @DatabaseField(columnName = "type")
+    @DatabaseField(columnName = COLUMN_TYPE)
     private MsgType type;//消息类型
-    @DatabaseField(columnName = "content")
+    @DatabaseField(columnName = COLUMN_CONTENT)
     private String content;//消息内容
-    @DatabaseField(columnName = "stime")
+    @DatabaseField(columnName = COLUMN_S_TIME)
     private long sTime;//消息时间
-    @DatabaseField(columnName = "mode")
+    @DatabaseField(columnName = COLUMN_DIRECTION)
     private MsgDirection direction;//消息模式
-    @DatabaseField(columnName = "status")
+    @DatabaseField(columnName = COLUMN_STATUS)
     private MsgStatus status;//消息状态
 
     public SIUMessage() {

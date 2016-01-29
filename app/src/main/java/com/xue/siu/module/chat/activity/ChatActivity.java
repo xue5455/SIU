@@ -2,13 +2,10 @@ package com.xue.siu.module.chat.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,15 +15,13 @@ import com.avos.avoscloud.AVUser;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
-import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ScreenObserver;
 import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
+import com.xue.siu.module.chat.adapter.FaceVpAdapter;
 import com.xue.siu.module.chat.presenter.ChatPresenter;
-import com.xue.siu.module.chat.view.EditContainer;
-import com.xue.siu.module.follow.model.UserVO;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,7 +50,7 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
 
     public static void start(Activity activity, AVUser userVO) {
         Intent intent = new Intent(activity, ChatActivity.class);
-        // intent.putExtra(INTENT_KEYS_USER, userVO.toBundle());
+        intent.putExtra(INTENT_KEYS_CONVERSATION_ID, "");
         intent.putExtra(INTENT_KEYS_USER, userVO);
         activity.startActivity(intent);
     }
@@ -87,7 +82,9 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         mBtnSend.setOnClickListener(mPresenter);
         mBtnMenu.setOnClickListener(mPresenter);
         mRvMsg.getRecyclerView().setOnClickListener(mPresenter);
+        mRvMsg.setOnLayoutSizeChangedListener(mPresenter);
         mEtMsg.addTextChangedListener(mPresenter);
+        mVpEmoji.setAdapter(new FaceVpAdapter(this));
     }
 
     @Override
@@ -126,7 +123,6 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     public void setMenuHeight(int height) {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mGvMenu.getLayoutParams();
         params.height = height;
-        LogUtil.d("ChatPresenter","height is " + height);
         mGvMenu.setLayoutParams(params);
         mVpEmoji.setLayoutParams(params);
         mGvMenu.invalidate();

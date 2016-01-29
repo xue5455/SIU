@@ -75,8 +75,8 @@
     <dimen name="chat_bubble_top_margin">5dp</dimen>
     <dimen name="chat_bubble_open_length">8dp</dimen>
     <dimen name="chat_portrait_size">50dp</dimen>
-    <dimen name="chat_text_min_width">65dp</dimen>
-    <dimen name="chat_text_min_height">@dimen/chat_portrait_size</dimen>
+    <dimen name="chat_text_min_width">61.1dp</dimen>
+    <dimen name="chat_text_min_height">47dp</dimen>
     <dimen name="chat_text_default_padding">10dp</dimen>
     <dimen name="chat_text_send_padding_right">18dp</dimen>
     <dimen name="chat_text_recv_padding_left">18dp</dimen>

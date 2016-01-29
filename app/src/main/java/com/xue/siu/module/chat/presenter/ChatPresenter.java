@@ -1,14 +1,11 @@
 package com.xue.siu.module.chat.presenter;
 
-import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.SparseArray;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -28,17 +25,17 @@ import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.avim.ActivityMessageHandler;
-import com.xue.siu.common.util.HandleUtil;
-import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.MessageUtil;
 import com.xue.siu.common.util.ScreenObserver;
-import com.xue.siu.common.view.sizechangedlayout.OnSizeChangedListener;
 import com.xue.siu.db.SharePreferenceC;
 import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.MsgType;
 import com.xue.siu.db.bean.SIUMessage;
+import com.xue.siu.db.bean.User;
+import com.xue.siu.db.dao.SIUMessageDao;
+import com.xue.siu.db.dao.UserDao;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.chat.activity.ChatActivity;
 import com.xue.siu.module.chat.listener.OnRcvMessageListener;
@@ -69,7 +66,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         OnRcvMessageListener,
         ItemEventListener, HTSwipeRecyclerView.OnScrollListener,
         ScreenObserver.OnScreenHeightChangedListener,
-        TextWatcher {
+        TextWatcher,HTSwipeRecyclerView.OnLayoutSizeChangedListener {
 
     private static final String TAG = "ChatPresenter";
     /* is emoji button clicked */
@@ -80,16 +77,21 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     private boolean mIsIMVisible = false;
     /* Keyboard height */
     int mKeyboardHeight = 0;
-
+    private UserDao mUserDao;
+    private SIUMessageDao mMsgDao;
     /* 聊天相关 */
     private AVIMConversationCreatedCallback mAVIMCallback = new AVIMConversationCreatedCallback() {
         @Override
         public void done(AVIMConversation avimConversation, AVIMException e) {
             if (e == null) {
                 mAnimConversation = avimConversation;
+                mUserDao.saveConversationId(mUser, avimConversation.getConversationId());
+                if (!mQueried)
+                    queryMessage(avimConversation.getConversationId());
                 LogUtil.d(TAG, "[create conversation] success");
             } else {
-                LogUtil.e(TAG, "[create conversation] fails,try to create again");
+                LogUtil.e(TAG, "[create conversation] fails " + e.getMessage());
+                e.printStackTrace();
                 openConversation();
             }
         }
@@ -98,7 +100,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     private AVUser mUser;
 
     private String mConversationId;
-
+    private boolean mQueried = false;//是否已经查询过聊天记录
     private AVIMConversation mAnimConversation;
 
     private List<TAdapterItem<MessageUserWrapper>> mList = new ArrayList<>();
@@ -138,7 +140,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         });
         mTarget.setAdapter(mAdapter);
         mMsgHandler = new ActivityMessageHandler(mTarget, mUser.getUsername(), this);
+        mUserDao = new UserDao(mTarget.getApplicationContext());
+        mMsgDao = new SIUMessageDao(mTarget.getApplicationContext());
         openConversation();
+
     }
 
     private void openConversation() {
@@ -148,9 +153,19 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             if (mAnimConversation != null) {
                 return;
             }
+        } else {
+            User user = mUserDao.query(mUser.getUsername());
+            if (user != null) {
+                mConversationId = user.getConversationId();
+                mQueried = true;
+                queryMessage(mConversationId);
+                mAnimConversation = client.getConversation(mConversationId);
+                if (mAnimConversation != null)
+                    return;
+            }
         }
 
-        client.createConversation(Arrays.asList(mUser.getUsername()), "null", null, false, true, mAVIMCallback);
+        client.createConversation(Arrays.asList(mUser.getUsername()), "test", null, false, true, mAVIMCallback);
     }
 
     @Override
@@ -165,9 +180,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             case R.id.btn_send:
                 onSendClick();
                 break;
-            case R.id.rv_msg:
-                onScrollStateChanged(null, RecyclerView.SCROLL_STATE_DRAGGING);
-                break;
+        }
+        if (v instanceof RecyclerView) {
+            LogUtil.d(TAG,"onRecyclerView Click");
+            onScrollStateChanged(null, RecyclerView.SCROLL_STATE_DRAGGING);
         }
     }
 
@@ -185,6 +201,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         });
         SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg(mAnimConversation.getConversationId(), mUser.getUsername(), message);
         addMessageToList(message1);
+        addMsgToDB(message1);
         mTarget.clearMsg();
     }
 
@@ -214,7 +231,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
     @Override
     public void onSizeChanged(boolean bigger, int newHeight, int oldHeight) {
-        mTarget.scrollToBottom(false);
+
         mIsIMVisible = !bigger;
         if (bigger) {
             //indicates that the input method is closed,reason could be either emoji and menu are gonna showed or list is touched;
@@ -245,7 +262,6 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     private void updateMenuHeight(boolean bigger, int newHeight, int oldHeight) {
 
         int kbHeight = Math.abs(newHeight - oldHeight);
-        LogUtil.d(TAG, "KeyboardHeight:" + kbHeight);
         if (kbHeight != mKeyboardHeight) {
             SharePreferenceHelper.putGlobalInt(SharePreferenceC.KB_HEIGHT, kbHeight);
             mTarget.setMenuHeight(kbHeight);
@@ -274,6 +290,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     @Override
     public void onRcvMessage(SIUMessage message) {
         addMessageToList(message);
+    }
+
+    public void addMsgToDB(SIUMessage message) {
+        mMsgDao.add(message);
     }
 
     private void addMessageToList(SIUMessage message) {
@@ -349,5 +369,23 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     public void afterTextChanged(Editable s) {
         int length = s.toString().length();
         mTarget.setSendButtonVisibility(length > 0);
+    }
+
+    private void queryMessage(String conversationId) {
+        if (conversationId != null) {
+            List<SIUMessage> list = mMsgDao.query(conversationId);
+            transformDataToItem(list);
+        }
+    }
+
+    private void transformDataToItem(List<SIUMessage> list) {
+        for (SIUMessage msg : list) {
+            addMessageToList(msg);
+        }
+    }
+
+    @Override
+    public void onSizeChanged(int w, int h, int oldW, int oldH) {
+        mTarget.scrollToBottom(false);
     }
 }

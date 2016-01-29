@@ -8,7 +8,7 @@
     <LinearLayout android:id="@+id/liner_loading" android:layout_width="match_parent"
         android:layout_height="@dimen/loading_more_height"
         android:gravity="center">
-        <com.netease.yanxuan.common.view.progressdialog.ArcProgressbar
+        <com.xue.siu.common.view.progressbar.ArcProgressbar
             android:id="@+id/load_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

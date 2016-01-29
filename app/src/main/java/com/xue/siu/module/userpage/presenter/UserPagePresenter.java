@@ -2,6 +2,7 @@ package com.xue.siu.module.userpage.presenter;
 
 import android.view.View;
 
+import com.avos.avoscloud.AVUser;
 import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
@@ -42,7 +43,7 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
 
     @Override
     public void initFragment() {
-        String url = "http://cdn.duitang.com/uploads/item/201503/17/20150317091106_BeVfy.thumb.224_0.jpeg";
+        String url = AVUser.getCurrentUser().get("portraitUrl").toString();
         mTarget.setPortraitUrl(url);
     }
 }

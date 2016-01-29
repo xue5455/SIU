@@ -12,10 +12,12 @@ import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.xue.siu.db.OrmDBHelper;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.MsgStatus;
 import com.xue.siu.db.bean.MsgType;
 import com.xue.siu.db.bean.SIUMessage;
+import com.xue.siu.db.dao.SIUMessageDao;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,9 +29,11 @@ import java.util.List;
  */
 public class DefaultMessageHandler extends AVIMMessageHandler {
     private Context mContext;
+    private SIUMessageDao mDao;
 
     public DefaultMessageHandler(Context context) {
         mContext = context;
+        mDao = new SIUMessageDao(mContext);
     }
 
     //接收到消息后的处理逻辑
@@ -39,6 +43,8 @@ public class DefaultMessageHandler extends AVIMMessageHandler {
         if (TextUtils.equals(clientId, AVIMClientManager.getInstance().getClientId())) {
             //通知数据库添加消息
             SIUMessage siuMessage = convertMessage(message);
+            // OrmDBHelper.getHelper(mContext).getDao(SIUMessage.class).
+            mDao.add(siuMessage);
         }
     }
 

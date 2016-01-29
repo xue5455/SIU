@@ -8,4 +8,5 @@ public interface ItemType {
     int TYPE_TEXT_OUT = 2;
     int TYPE_IMAGE_IN = 3;
     int TYPE_IMAGE_OUT = 4;
+    int TYPE_FACE = 5;
 }
