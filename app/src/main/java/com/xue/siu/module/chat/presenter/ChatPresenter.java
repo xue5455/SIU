@@ -2,6 +2,9 @@ package com.xue.siu.module.chat.presenter;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.SparseArray;
@@ -25,34 +28,31 @@ import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.avim.ActivityMessageHandler;
+import com.xue.siu.common.util.EmojiUtil;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.MessageUtil;
+import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenObserver;
+import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.db.SharePreferenceC;
 import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.db.bean.MsgDirection;
-import com.xue.siu.db.bean.MsgType;
 import com.xue.siu.db.bean.SIUMessage;
 import com.xue.siu.db.bean.User;
 import com.xue.siu.db.dao.SIUMessageDao;
 import com.xue.siu.db.dao.UserDao;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.chat.activity.ChatActivity;
+import com.xue.siu.module.chat.adapter.FaceVpAdapter;
 import com.xue.siu.module.chat.listener.OnRcvMessageListener;
 import com.xue.siu.module.chat.viewholder.ImageMsgInViewHolder;
 import com.xue.siu.module.chat.viewholder.ImageMsgOutViewHolder;
 import com.xue.siu.module.chat.viewholder.TextMsgInViewHolder;
 import com.xue.siu.module.chat.viewholder.TextMsgOutViewHolder;
-import com.xue.siu.module.chat.viewholder.item.BaseMsgViewHolderItem;
-import com.xue.siu.module.chat.viewholder.item.ImageMsgInViewHolderItem;
-import com.xue.siu.module.chat.viewholder.item.ImageMsgOutViewHolderItem;
+import com.xue.siu.module.chat.viewholder.item.MsgViewHolderItem;
 import com.xue.siu.module.chat.viewholder.item.ItemType;
 import com.xue.siu.module.chat.viewholder.item.MessageUserWrapper;
-import com.xue.siu.module.chat.viewholder.item.TextMsgInViewHolderItem;
-import com.xue.siu.module.chat.viewholder.item.TextMsgOutViewHolderItem;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +66,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         OnRcvMessageListener,
         ItemEventListener, HTSwipeRecyclerView.OnScrollListener,
         ScreenObserver.OnScreenHeightChangedListener,
-        TextWatcher,HTSwipeRecyclerView.OnLayoutSizeChangedListener {
+        TextWatcher, HTSwipeRecyclerView.OnLayoutSizeChangedListener {
 
     private static final String TAG = "ChatPresenter";
     /* is emoji button clicked */
@@ -76,7 +76,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     /* is input method showing */
     private boolean mIsIMVisible = false;
     /* Keyboard height */
-    int mKeyboardHeight = 0;
+    int mKeyboardHeight = ResourcesUtil.getDimenPxSize(R.dimen.chat_menu_height);
     private UserDao mUserDao;
     private SIUMessageDao mMsgDao;
     /* 聊天相关 */
@@ -100,15 +100,18 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     private AVUser mUser;
 
     private String mConversationId;
-    private boolean mQueried = false;//是否已经查询过聊天记录
+    /* Indicates whether we have queried messages from database */
+    private boolean mQueried = false;
     private AVIMConversation mAnimConversation;
 
     private List<TAdapterItem<MessageUserWrapper>> mList = new ArrayList<>();
+    /* Message List Adapter */
     private TRecycleViewAdapter mAdapter;
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
-
-    private final SparseArray<Class<? extends BaseMsgViewHolderItem>> mViewHolderItems = new SparseArray<>();
+    /* Message handler which handles received messages */
     private AVIMMessageHandler mMsgHandler;
+    /* Face Adapter */
+    private FaceVpAdapter mFaceVpAdapter;
 
     public ChatPresenter(ChatActivity target) {
         super(target);
@@ -116,10 +119,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         mViewHolders.put(ItemType.TYPE_IMAGE_OUT, ImageMsgOutViewHolder.class);
         mViewHolders.put(ItemType.TYPE_TEXT_OUT, TextMsgOutViewHolder.class);
         mViewHolders.put(ItemType.TYPE_TEXT_IN, TextMsgInViewHolder.class);
-        mViewHolderItems.put(MsgDirection.IN.getValue() * MsgType.Text.getValue(), TextMsgInViewHolderItem.class);
-        mViewHolderItems.put(MsgDirection.OUT.getValue() * MsgType.Text.getValue(), TextMsgOutViewHolderItem.class);
-        mViewHolderItems.put(MsgDirection.IN.getValue() * MsgType.Image.getValue(), ImageMsgInViewHolderItem.class);
-        mViewHolderItems.put(MsgDirection.OUT.getValue() * MsgType.Image.getValue(), ImageMsgOutViewHolderItem.class);
+
     }
 
     @Override
@@ -143,7 +143,12 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         mUserDao = new UserDao(mTarget.getApplicationContext());
         mMsgDao = new SIUMessageDao(mTarget.getApplicationContext());
         openConversation();
-
+        int viewPagerHeight = SharePreferenceHelper.getGlobalInt(SharePreferenceC.KB_HEIGHT, 0);
+        mFaceVpAdapter = new FaceVpAdapter(mTarget, viewPagerHeight == 0
+                ? getFaceVpHeight(mKeyboardHeight)
+                : getFaceVpHeight(viewPagerHeight));
+        mFaceVpAdapter.setItemEventListener(this);
+        mTarget.setEmojiAdapter(mFaceVpAdapter);
     }
 
     private void openConversation() {
@@ -182,7 +187,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 break;
         }
         if (v instanceof RecyclerView) {
-            LogUtil.d(TAG,"onRecyclerView Click");
+            LogUtil.d(TAG, "onRecyclerView Click");
             onScrollStateChanged(null, RecyclerView.SCROLL_STATE_DRAGGING);
         }
     }
@@ -206,9 +211,12 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     }
 
     private void onEmojiClick() {
-        if (mTarget.isMenuVisible() || !mIsIMVisible) {
+        if (mTarget.isMenuVisible()) {
             mTarget.setEmojiVisibility(true);
             mTarget.setMenuVisibility(false);
+            return;
+        } else if (!mTarget.isEmojiVisible() && !mIsIMVisible) {
+            mTarget.setEmojiVisibility(true);
             return;
         }
         mEmoji = true;
@@ -216,9 +224,12 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     }
 
     private void onMenuClick() {
-        if (mTarget.isEmojiVisible() || !mIsIMVisible) {
+        if (mTarget.isEmojiVisible()) {
             mTarget.setMenuVisibility(true);
             mTarget.setEmojiVisibility(false);
+            return;
+        } else if (!mTarget.isMenuVisible() && !mIsIMVisible) {
+            mTarget.setMenuVisibility(true);
             return;
         }
         mMenu = true;
@@ -256,16 +267,17 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             mMenu = false;
         }
         if (oldHeight != 0)
-            updateMenuHeight(bigger, newHeight, oldHeight);
+            updateMenuHeight(newHeight, oldHeight);
     }
 
-    private void updateMenuHeight(boolean bigger, int newHeight, int oldHeight) {
+    private void updateMenuHeight(int newHeight, int oldHeight) {
 
         int kbHeight = Math.abs(newHeight - oldHeight);
         if (kbHeight != mKeyboardHeight) {
             SharePreferenceHelper.putGlobalInt(SharePreferenceC.KB_HEIGHT, kbHeight);
             mTarget.setMenuHeight(kbHeight);
             mKeyboardHeight = kbHeight;
+            invalidateEmoji();
         }
     }
 
@@ -275,9 +287,13 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     @Override
     public void onResume() {
         super.onResume();
-        mKeyboardHeight = SharePreferenceHelper.getGlobalInt(SharePreferenceC.KB_HEIGHT, 0);
+        int height = SharePreferenceHelper.getGlobalInt(SharePreferenceC.KB_HEIGHT, 0);
+        if (height != 0) {
+            mKeyboardHeight = height;
+            mTarget.setMenuHeight(mKeyboardHeight);
+            invalidateEmoji();
+        }
         AVIMMessageManager.registerMessageHandler(AVIMMessage.class, mMsgHandler);
-        /* 查找数据库获取聊天记录 */
     }
 
     @Override
@@ -297,27 +313,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     }
 
     private void addMessageToList(SIUMessage message) {
-        Object[] objects = new Object[]{message,
-                message.getDirection() == MsgDirection.IN ? mUser.getUsername() : AVUser.getCurrentUser()};
-        Class<? extends BaseMsgViewHolderItem> clazz = mViewHolderItems.get(message.getDirection()
-                .getValue() * message.getType().getValue());
-        Class[] params = new Class[]{SIUMessage.class, AVUser.class};
-        BaseMsgViewHolderItem item;
-        try {
-            Constructor<? extends BaseMsgViewHolderItem> constructor = clazz.getConstructor(params);
-            item = constructor.newInstance(objects);
-            mList.add(item);
-            mAdapter.notifyItemInserted(mList.size() - 1);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
+        MsgViewHolderItem item = new MsgViewHolderItem(message, message.getDirection() == MsgDirection.IN ?
+                mUser : AVUser.getCurrentUser(), message.getDirection().getValue() * message.getType().getValue());
+        mList.add(item);
+        mAdapter.notifyItemInserted(mList.size() - 1);
     }
 
     @Override
@@ -328,6 +327,17 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 case R.id.sdv_portrait:
                     break;
                 case R.id.sdv_img:
+                    break;
+                case R.id.sdv_face:
+                    EmojiUtil.FaceWrapper wrapper = (EmojiUtil.FaceWrapper) values[0];
+                    if (wrapper != null) {
+                        int size = ResourcesUtil.getDimenPxSize(R.dimen.chat_face_size);
+                        SpannableString spannableString = TextUtil.replaceTextWithImage(mTarget,
+                                wrapper.getKey(), wrapper.getId(),
+                                size,
+                                size);
+                        mTarget.addText(spannableString);
+                    }
                     break;
             }
         } else if (eventName.equals(ItemEventListener.longClickEventName)) {
@@ -387,5 +397,20 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         mTarget.scrollToBottom(false);
+    }
+
+    public void invalidateEmoji() {
+        mFaceVpAdapter.setHeight(getFaceVpHeight(mKeyboardHeight));
+        mFaceVpAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * @param height : this height is the height of keyboard
+     * @return
+     */
+    private int getFaceVpHeight(int height) {
+        return height - 2 * ResourcesUtil.getDimenPxSize(R.dimen.chat_vp_vertical_padding)
+                - ResourcesUtil.getDimenPxSize(R.dimen.chat_indicator_margin_bottom)
+                - ResourcesUtil.getDimenPxSize(R.dimen.chat_indicator_height);
     }
 }

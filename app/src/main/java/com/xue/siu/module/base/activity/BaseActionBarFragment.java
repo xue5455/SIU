@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
-import com.xue.siu.common.view.NavigationBar;
+import com.xue.siu.common.view.navigationbar.NavigationBar;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 
 /**

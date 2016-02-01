@@ -68,6 +68,9 @@
 
     <!-- 聊天菜单和表情= -->
     <dimen name="chat_menu_height">290dip</dimen>
+    <dimen name="chat_face_height">240dp</dimen>
+    <dimen name="chat_indicator_height">30dp</dimen>
+    <dimen name="chat_indicator_margin_bottom">20dp</dimen>
     <dimen name="chat_input_height">48dip</dimen>
     <dimen name="chat_emoji_btn_size">32dip</dimen>
     <dimen name="chat_bubble_radius">5dp</dimen>
@@ -83,8 +86,11 @@
     <dimen name="chat_text_padding_vertical">5dp</dimen>
     <dimen name="chat_portrait_content_margin">6dp</dimen>
     <dimen name="chat_bubble_margin_top">25dp</dimen>
-
+    <dimen name="chat_et_min_height">40dp</dimen>
+    <dimen name="chat_face_size">30dp</dimen>
     <dimen name ="chat_content_text_size">15sp</dimen>
+
+    <dimen name="chat_vp_vertical_padding">20dp</dimen>
     <!-- 登录页面 LoginActivity la-->
     <dimen name="la_edit_text_height">45dip</dimen>
     <dimen name="la_view_horizontal_margin">20dip</dimen>

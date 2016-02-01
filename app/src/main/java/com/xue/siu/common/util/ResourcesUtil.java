@@ -2,6 +2,9 @@ package com.xue.siu.common.util;
 
 import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ArrayRes;
@@ -42,7 +45,7 @@ public class ResourcesUtil {
         return AppProfile.getContext().getResources().getDimensionPixelSize(dimenId);
     }
 
-    public static Drawable getDrawable(@DrawableRes int drawableID){
+    public static Drawable getDrawable(@DrawableRes int drawableID) {
 
 //        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP_MR1){
 //            return SDK22.getDrawable(drawableID);
@@ -69,5 +72,16 @@ public class ResourcesUtil {
 
     public static Resources getResources() {
         return AppProfile.getContext().getResources();
+    }
+
+    public static Bitmap getBitmap(int resId, int width, int height) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+        Matrix matrix = new Matrix();
+        float sx = 1.0f * width / bitmap.getWidth();
+        float sy = 1.0f * height / bitmap.getHeight();
+        matrix.setScale(sx, sy);
+        Bitmap bitmap1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+        bitmap.recycle();
+        return bitmap1;
     }
 }

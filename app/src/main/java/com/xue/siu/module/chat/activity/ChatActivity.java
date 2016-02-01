@@ -3,13 +3,18 @@ package com.xue.siu.module.chat.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.SpannableString;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.avos.avoscloud.AVUser;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
@@ -19,6 +24,9 @@ import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ScreenObserver;
 import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.ResourcesUtil;
+import com.xue.siu.common.view.viewpager.DotViewPagerIndicator;
+import com.xue.siu.db.SharePreferenceC;
+import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.chat.adapter.FaceVpAdapter;
 import com.xue.siu.module.chat.presenter.ChatPresenter;
@@ -44,6 +52,11 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     Button mBtnSend;
     @Bind(R.id.et_msg)
     EditText mEtMsg;
+    @Bind(R.id.layout_face)
+    View mContainerFace;
+    @Bind(R.id.indicator_dot)
+    DotViewPagerIndicator mDotIndicator;
+
     public static final String INTENT_KEYS_USER = "user";
     public static final String INTENT_KEYS_CONVERSATION_ID = "conversationId";
 
@@ -84,7 +97,6 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         mRvMsg.getRecyclerView().setOnClickListener(mPresenter);
         mRvMsg.setOnLayoutSizeChangedListener(mPresenter);
         mEtMsg.addTextChangedListener(mPresenter);
-        mVpEmoji.setAdapter(new FaceVpAdapter(this));
     }
 
     @Override
@@ -94,7 +106,7 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
 
 
     public void setEmojiVisibility(boolean show) {
-        mVpEmoji.setVisibility(show ? View.VISIBLE : View.GONE);
+        mContainerFace.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public void setMenuVisibility(boolean show) {
@@ -102,7 +114,7 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     }
 
     public boolean isEmojiVisible() {
-        return mVpEmoji.getVisibility() == View.VISIBLE;
+        return mContainerFace.getVisibility() == View.VISIBLE;
     }
 
     public boolean isMenuVisible() {
@@ -110,9 +122,10 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     }
 
     public void setInputMethodVisibility(boolean show) {
-        if (show)
+        if (show) {
+            mEtMsg.requestFocus();
             KeyboardUtil.showkeyboard(mEtMsg);
-        else
+        } else
             KeyboardUtil.hidekeyboard(mEtMsg);
     }
 
@@ -120,12 +133,20 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         mRvMsg.setAdapter(adapter);
     }
 
+    public void setEmojiAdapter(PagerAdapter adapter) {
+        mVpEmoji.setAdapter(adapter);
+        mDotIndicator.setAdapter(adapter);
+        mVpEmoji.addOnPageChangeListener(mDotIndicator);
+    }
+
     public void setMenuHeight(int height) {
+        int faceHeight = height - ResourcesUtil.getDimenPxSize(R.dimen.chat_indicator_height)
+                - ResourcesUtil.getDimenPxSize(R.dimen.chat_indicator_margin_bottom);
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mGvMenu.getLayoutParams();
         params.height = height;
-        mGvMenu.setLayoutParams(params);
-        mVpEmoji.setLayoutParams(params);
         mGvMenu.invalidate();
+        LinearLayout.LayoutParams faceParams = (LinearLayout.LayoutParams) mVpEmoji.getLayoutParams();
+        faceParams.height = faceHeight;
         mVpEmoji.invalidate();
     }
 
@@ -146,5 +167,28 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
 
     public void clearMsg() {
         mEtMsg.setText("");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isMenuVisible()) {
+            setMenuVisibility(false);
+            return;
+        }
+        if (isEmojiVisible()) {
+            setEmojiVisibility(false);
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    public void addText(SpannableString spannableString) {
+        int index = mEtMsg.getSelectionStart();
+        Editable edit_text = mEtMsg.getEditableText();
+        if (index < 0 || index >= edit_text.length()) {
+            edit_text.append(spannableString);
+        } else {
+            edit_text.insert(index, spannableString);
+        }
     }
 }

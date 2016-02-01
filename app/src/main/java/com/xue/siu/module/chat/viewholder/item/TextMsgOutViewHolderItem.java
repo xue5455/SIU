@@ -6,7 +6,7 @@ import com.xue.siu.db.bean.SIUMessage;
 /**
  * Created by XUE on 2016/1/27.
  */
-public class TextMsgOutViewHolderItem extends BaseMsgViewHolderItem {
+public class TextMsgOutViewHolderItem extends MsgViewHolderItem {
 
 
     public TextMsgOutViewHolderItem(SIUMessage msg, AVUser user) {

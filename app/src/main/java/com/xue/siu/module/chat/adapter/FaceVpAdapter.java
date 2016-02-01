@@ -13,9 +13,11 @@ import android.widget.GridView;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.common.util.EmojiUtil;
+import com.xue.siu.module.chat.listener.OnEmojiClickListener;
 import com.xue.siu.module.chat.viewholder.FaceViewHolder;
 import com.xue.siu.module.chat.viewholder.item.FaceViewHolderItem;
 import com.xue.siu.module.chat.viewholder.item.ItemType;
@@ -32,12 +34,17 @@ public class FaceVpAdapter extends PagerAdapter {
     private SparseArray<Class<? extends TRecycleViewHolder<EmojiUtil.FaceWrapper>>> mViewHolders = new SparseArray<>();
     private View[] mViews = new View[getCount()];
     private int mViewPagerHeight;
+    private ItemEventListener mItemEventListener;
 
     public FaceVpAdapter(Context context, int height) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mViewHolders.put(ItemType.TYPE_FACE, FaceViewHolder.class);
         mViewPagerHeight = height;
+    }
+
+    public void setItemEventListener(ItemEventListener listener) {
+        mItemEventListener = listener;
     }
 
     public void setHeight(int height) {
@@ -60,7 +67,10 @@ public class FaceVpAdapter extends PagerAdapter {
         GridLayoutManager manager = new GridLayoutManager(mContext, 7);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new TRecycleViewAdapter(mContext, mViewHolders, getAdapterItems(position)));
+        FaceRvAdapter adapter = new FaceRvAdapter(mContext, mViewHolders, getAdapterItems(position), mViewPagerHeight / 3);
+        if (mItemEventListener != null)
+            adapter.setItemEventListener(mItemEventListener);
+        recyclerView.setAdapter(adapter);
         mViews[position] = recyclerView;
         container.addView(recyclerView);
         return recyclerView;
@@ -84,4 +94,5 @@ public class FaceVpAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(mViews[position]);
     }
+
 }

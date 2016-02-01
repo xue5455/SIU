@@ -1,4 +1,4 @@
-package com.xue.siu.common.view;
+package com.xue.siu.common.view.navigationbar;
 
 
 

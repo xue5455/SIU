@@ -35,10 +35,22 @@ public class EmojiUtil {
 
     public static void init() {
         mEmojiMap.put(FACE_DELETE_KEY, FACE_DELETE_ID);
+//        for(int i=0;i<mPrefixList.size();i++){
+//            PrefixWrapper wrapper = mPrefixList.get(i);
+//            initEmoji(wrapper.prefix,wrapper.imageCounts,wrapper.i);
+//        }
         for (PrefixWrapper wrapper : mPrefixList) {
             initEmoji(wrapper.prefix, wrapper.imageCounts, wrapper.suffixLimit);
         }
-
+//        int location = 20;
+//        for (int i = 0; i < getPageCount()-1; i++) {
+//            location += i % 2 == 0 ? FACE_ACTUAL_COUNT_ONE_PAGE : FACE_COUNT_ONE_PAGE;
+//            LogUtil.d(TAG, "location is " + location);
+//            mEmojiWrappers.add(location, new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID, false));
+//        }
+        if (mEmojiWrappers.size() % 21 != 0) {
+            mEmojiWrappers.add(new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID, false));
+        }
     }
 
     public static String getKey(int position) {
@@ -47,7 +59,9 @@ public class EmojiUtil {
         }
         return null;
     }
-
+    public static boolean contains(String str){
+        return mEmojiMap.containsKey(str);
+    }
     public static FaceWrapper getWrapper(int position) {
         if (position < mEmojiWrappers.size()) {
             return mEmojiWrappers.get(position);
@@ -74,10 +88,9 @@ public class EmojiUtil {
                 sb.insert(0, "[");
                 sb.append("]");
                 mEmojiMap.put(sb.toString(), drawableId);
-                final String str = sb.toString();
-                mEmojiWrappers.add(new FaceWrapper(sb.toString(), drawableId));
+                mEmojiWrappers.add(new FaceWrapper(sb.toString(), drawableId, true));
                 if (mEmojiWrappers.size() % FACE_COUNT_ONE_PAGE == FACE_ACTUAL_COUNT_ONE_PAGE) {
-                    mEmojiWrappers.add(new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID));
+                    mEmojiWrappers.add(new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID, false));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -115,6 +128,10 @@ public class EmojiUtil {
         throw new Exception("no such a drawable called " + drawableName);
     }
 
+    public static int getPageCount() {
+        return (int) Math.ceil(mEmojiMap.keySet().size() / (FACE_ACTUAL_COUNT_ONE_PAGE * 1.0f));
+    }
+
     private static class PrefixWrapper {
         String prefix;
         int imageCounts;
@@ -130,10 +147,12 @@ public class EmojiUtil {
     public static class FaceWrapper {
         String key;
         int id;
+        boolean isEmoji;
 
-        public FaceWrapper(String key, int id) {
+        public FaceWrapper(String key, int id, boolean isEmoji) {
             this.key = key;
             this.id = id;
+            this.isEmoji = isEmoji;
         }
 
         public String getKey() {
@@ -142,6 +161,10 @@ public class EmojiUtil {
 
         public int getId() {
             return id;
+        }
+
+        public boolean isEmoji() {
+            return this.isEmoji;
         }
     }
 }
