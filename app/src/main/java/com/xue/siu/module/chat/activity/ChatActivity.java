@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.SpannableString;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,13 +89,13 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
     private void initViews() {
         getWindow().getDecorView().setBackgroundColor(ResourcesUtil.getColor(R.color.chat_bg));
         setNavigationBarBlack();
+        setStatueBarColor(R.color.black);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRvMsg.setLayoutManager(layoutManager);
         mRvMsg.addOnScrollListener(mPresenter);
         mBtnEmoji.setOnClickListener(mPresenter);
         mBtnSend.setOnClickListener(mPresenter);
         mBtnMenu.setOnClickListener(mPresenter);
-        mRvMsg.getRecyclerView().setOnClickListener(mPresenter);
         mRvMsg.setOnLayoutSizeChangedListener(mPresenter);
         mEtMsg.addTextChangedListener(mPresenter);
     }
@@ -190,5 +191,14 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         } else {
             edit_text.insert(index, spannableString);
         }
+    }
+
+    /**
+     * 模拟退格键
+     */
+    public void backspace() {
+        KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0,
+                0, KeyEvent.KEYCODE_ENDCALL);
+        mEtMsg.dispatchKeyEvent(event);
     }
 }

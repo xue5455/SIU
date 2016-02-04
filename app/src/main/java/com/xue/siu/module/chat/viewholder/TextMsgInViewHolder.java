@@ -17,6 +17,7 @@ import com.xue.siu.application.AppProfile;
 import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.TimeUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
+import com.xue.siu.common.view.textview.StaticLayoutView;
 import com.xue.siu.db.bean.MsgDirection;
 import com.xue.siu.db.bean.SIUMessage;
 import com.xue.siu.module.chat.view.BubbleDrawable;
@@ -28,7 +29,7 @@ import com.xue.siu.module.chat.viewholder.item.MessageUserWrapper;
 @TRecycleViewHolderAnnotation(resId = R.layout.item_chat_rcv_text)
 public class TextMsgInViewHolder extends TRecycleViewHolder<MessageUserWrapper> implements View.OnClickListener,
         View.OnLongClickListener {
-    private TextView mTvContent;
+    private StaticLayoutView mTvContent;
 
     private TextView mTvName;
 

@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:paddingLeft="6dip"
-        android:paddingRight="20dip">
+        android:paddingLeft="@dimen/chat_send_item_padding_small"
+        android:paddingRight="@dimen/chat_send_item_padding_big">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_portrait"
@@ -57,21 +57,18 @@
             android:layout_toRightOf="@+id/sdv_portrait"
             app:porterduffxfermode="DST_ATOP">
 
-            <TextView
+            <com.xue.siu.common.view.textview.StaticLayoutView
                 android:id="@+id/tv_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_chat_text_bg"
-                android:gravity="center|left"
-                android:lineSpacingExtra="1dp"
                 android:minHeight="@dimen/chat_text_min_height"
                 android:minWidth="@dimen/chat_text_min_width"
                 android:paddingBottom="@dimen/chat_text_padding_vertical"
                 android:paddingLeft="@dimen/chat_text_send_padding_right"
                 android:paddingRight="@dimen/chat_text_default_padding"
                 android:paddingTop="@dimen/chat_text_padding_vertical"
-                android:textSize="@dimen/chat_content_text_size"
-                tools:text="1"></TextView>
+                android:textColor="@color/black" />
         </com.xue.siu.common.view.maskablelayout.MaskableLayout>
     </RelativeLayout>
 </LinearLayout>

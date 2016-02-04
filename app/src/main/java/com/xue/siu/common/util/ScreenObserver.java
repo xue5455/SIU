@@ -8,6 +8,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 import com.tencent.plus.DensityUtil;
+import com.xue.siu.R;
 import com.xue.siu.application.AppProfile;
 
 // For more information, see https://code.google.com/p/android/issues/detail?id=5497
@@ -17,7 +18,7 @@ import com.xue.siu.application.AppProfile;
  * Created by Administrator on 2015/7/22 0022.
  */
 public class ScreenObserver {
-
+    private final String TAG = "ScreenObserver";
     private OnScreenHeightChangedListener mScreenHeightListener;
 
     public static void assistActivity(Activity activity) {
@@ -28,11 +29,10 @@ public class ScreenObserver {
         new ScreenObserver(activity, listener);
 
     }
-
+    private int mContentHeight;
     private View mChildOfContent;
     private int usableHeightPrevious;
     private FrameLayout.LayoutParams frameLayoutParams;
-    private int mStatusBarHeight;
 
     private ScreenObserver(Activity activity, OnScreenHeightChangedListener listener) {
         this(activity);
@@ -49,25 +49,24 @@ public class ScreenObserver {
             }
         });
         frameLayoutParams = (FrameLayout.LayoutParams) mChildOfContent.getLayoutParams();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            mStatusBarHeight = ScreenUtil.getStatusBarHeight();
-        else
-            mStatusBarHeight = 0;
     }
 
     private void possiblyResizeChildOfContent() {
         boolean bigger;
+        if (mContentHeight == 0) {
+            mContentHeight = computeUsableHeight();
+            return;
+        }
         int usableHeightNow = computeUsableHeight();
         if (usableHeightNow != usableHeightPrevious) {
-            int usableHeightSansKeyboard = mChildOfContent.getRootView().getHeight();
+            int usableHeightSansKeyboard = mContentHeight;
             int heightDifference = usableHeightSansKeyboard - usableHeightNow;
+
             if (heightDifference > (usableHeightSansKeyboard / 4)) {
-                // keyboard probably just became visible
                 frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
                 bigger = false;
             } else {
-                // keyboard probably just became hidden
-                frameLayoutParams.height = usableHeightSansKeyboard - mStatusBarHeight;
+                frameLayoutParams.height = mContentHeight;
                 bigger = true;
             }
             mChildOfContent.requestLayout();
@@ -75,12 +74,28 @@ public class ScreenObserver {
                 mScreenHeightListener.onSizeChanged(bigger, usableHeightNow, usableHeightPrevious);
             usableHeightPrevious = usableHeightNow;
         }
+
+//        int usableHeightNow = computeUsableHeight();
+//        if (usableHeightNow != usableHeightPrevious) {
+//            int usableHeightSansKeyboard = mChildOfContent.getRootView().getHeight();
+//            int heightDifference = usableHeightSansKeyboard - usableHeightNow;
+//            if (heightDifference > (usableHeightSansKeyboard / 4)) {
+//                // keyboard probably just became visible
+//                frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
+//                bigger = false;
+//            } else {
+//                // keyboard probably just became hidden
+//                frameLayoutParams.height = usableHeightSansKeyboard - mStatusBarHeight;
+//                bigger = true;
+//            }
+//            mChildOfContent.requestLayout();
+
+//        }
     }
 
     private int computeUsableHeight() {
         Rect r = new Rect();
         mChildOfContent.getWindowVisibleDisplayFrame(r);
-
         return (r.bottom - r.top);
     }
 

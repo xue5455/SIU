@@ -19,8 +19,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/chat_send_item_padding_left"
-        android:paddingRight="@dimen/chat_send_item_padding_right">
+        android:paddingLeft="@dimen/chat_send_item_padding_big"
+        android:paddingRight="@dimen/chat_send_item_padding_small">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_portrait"
@@ -61,12 +61,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_chat_text_bg"
-                app:minimum_height="@dimen/chat_text_min_height"
-                app:minimum_width="@dimen/chat_text_min_width"
-                app:static_padding_bottom="@dimen/chat_text_padding_vertical"
-                app:static_padding_left="@dimen/chat_text_default_padding"
-                app:static_padding_right="@dimen/chat_text_send_padding_right"
-                app:static_padding_top="@dimen/chat_text_padding_vertical" />
+                android:minHeight="@dimen/chat_text_min_height"
+                android:minWidth="@dimen/chat_text_min_width"
+                android:paddingBottom="@dimen/chat_text_padding_vertical"
+                android:paddingLeft="@dimen/chat_text_default_padding"
+                android:paddingRight="@dimen/chat_text_send_padding_right"
+                android:textColor="@color/white"
+                android:paddingTop="@dimen/chat_text_padding_vertical" />
         </com.xue.siu.common.view.maskablelayout.MaskableLayout>
     </RelativeLayout>
 </LinearLayout>

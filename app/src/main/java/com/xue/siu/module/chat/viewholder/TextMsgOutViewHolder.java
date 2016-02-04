@@ -4,11 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
 import android.text.StaticLayout;
 import android.view.View;
 import android.widget.TextView;
-
 import com.avos.avoscloud.AVUser;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
@@ -16,11 +14,9 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
-import com.xue.siu.application.AppProfile;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.StaticLayoutManager;
-import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.TimeUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.common.view.textview.StaticLayoutView;
@@ -62,23 +58,12 @@ public class TextMsgOutViewHolder extends TRecycleViewHolder<MessageUserWrapper>
 
     @Override
     public void refresh(TAdapterItem<MessageUserWrapper> item) {
-        LogUtil.i("ChatPresenter","refresh");
         SIUMessage message = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
-//        SpannableStringBuilder spannableStringBuilder = message.getSpannableStringBuilder();
-//        if (spannableStringBuilder == null) {
-//            spannableStringBuilder = TextUtil.generateSpannableString(AppProfile.getContext(), message.getContent());
-//            message.setSpannableStringBuilder(spannableStringBuilder);
-//            LogUtil.i("ChatPresenter","null");
-//        }
-//        mTvContent.setText(spannableStringBuilder);
-        StaticLayout layout = StaticLayoutManager.getInstance().getLayout(message.getContent(), Color.WHITE);
-        mTvContent.setLayout(layout);
+        mTvContent.setText(message.getContent());
         mTvTime.setText(TimeUtil.convertLongToString(message.getsTime()));
         mTvName.setText(user.getUsername());
         mSdvPortrait.setImageURI(Uri.parse(user.get("portraitUrl").toString()));
-
-
     }
 
     @Override

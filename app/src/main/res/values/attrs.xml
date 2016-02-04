@@ -34,12 +34,13 @@
     </declare-styleable>
 
     <declare-styleable name="StaticLayoutView">
-
-        <attr name="minimum_width" format="dimension" />
-        <attr name="minimum_height" format="dimension" />
-        <attr name="static_padding_left" format="dimension" />
-        <attr name="static_padding_right" format="dimension" />
-        <attr name="static_padding_top" format="dimension" />
-        <attr name="static_padding_bottom" format="dimension" />
+        <attr name="android:minWidth" />
+        <attr name="android:textColor"/>
+        <attr name="android:minHeight" />
+        <attr name="android:paddingLeft" />
+        <attr name="android:paddingRight" />
+        <attr name="android:paddingTop" />
+        <attr name="android:paddingBottom" />
     </declare-styleable>
+
 </resources>

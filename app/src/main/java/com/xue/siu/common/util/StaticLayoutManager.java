@@ -45,8 +45,8 @@ public class StaticLayoutManager {
         textDir = TextDirectionHeuristics.LTR;
         alignment = Layout.Alignment.ALIGN_NORMAL;
         hardCodeWidth = ScreenUtil.getDisplayWidth() - ResourcesUtil.
-                getDimenPxSize(R.dimen.chat_send_item_padding_left) - ResourcesUtil.
-                getDimenPxSize(R.dimen.chat_send_item_padding_right) - ResourcesUtil.
+                getDimenPxSize(R.dimen.chat_send_item_padding_small) - ResourcesUtil.
+                getDimenPxSize(R.dimen.chat_send_item_padding_big) - ResourcesUtil.
                 getDimenPxSize(R.dimen.chat_text_default_padding) - ResourcesUtil.
                 getDimenPxSize(R.dimen.chat_text_send_padding_right) - ResourcesUtil.
                 getDimenPxSize(R.dimen.chat_portrait_size) - ResourcesUtil.
@@ -66,10 +66,12 @@ public class StaticLayoutManager {
         }
     }
 
-    public StaticLayout generateLayout(SpannableStringBuilder ssb, int color) {
+    private StaticLayout generateLayout(SpannableStringBuilder ssb, int color) {
         textPaint.setColor(color);
         float width = Math.min(Layout.getDesiredWidth(ssb, 0, ssb.length(), textPaint), hardCodeWidth);
-        StaticLayout layout = new StaticLayout(ssb, textPaint, (int) width, alignment, 1.0f, 0f, true);
+        TextPaint paint = new TextPaint(textPaint);
+        paint.setColor(color);
+        StaticLayout layout = new StaticLayout(ssb, paint, (int) width, alignment, 1.0f, 0f, true);
         return layout;
     }
 
@@ -77,9 +79,6 @@ public class StaticLayoutManager {
         layoutMap.clear();
     }
 
-    public void saveLayout(String content, Layout layout) {
-
-    }
 
     private static StaticLayoutManager INSTANCE = null;
 

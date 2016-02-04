@@ -36,6 +36,7 @@ import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.MessageUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenObserver;
+import com.xue.siu.common.util.StaticLayoutManager;
 import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.ThreadUtil;
 import com.xue.siu.db.SharePreferenceC;
@@ -77,6 +78,8 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     private boolean mEmoji;
     /* is menu button clicked */
     private boolean mMenu;
+    /* is list dragged */
+    private boolean mDrag;
     /* is input method showing */
     private boolean mIsIMVisible = false;
     /* Keyboard height */
@@ -92,9 +95,9 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 mUserDao.saveConversationId(mUser, avimConversation.getConversationId());
                 if (!mQueried)
                     queryMessage(avimConversation.getConversationId());
-                LogUtil.d(TAG, "[create conversation] success");
+                LogUtil.i(TAG, "[create conversation] success");
             } else {
-                LogUtil.e(TAG, "[create conversation] fails " + e.getMessage());
+                LogUtil.i(TAG, "[create conversation] fails " + e.getMessage());
                 e.printStackTrace();
                 openConversation();
             }
@@ -190,10 +193,6 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 onSendClick();
                 break;
         }
-        if (v instanceof RecyclerView) {
-            LogUtil.d(TAG, "onRecyclerView Click");
-            onScrollStateChanged(null, RecyclerView.SCROLL_STATE_DRAGGING);
-        }
     }
 
     private void onSendClick() {
@@ -204,12 +203,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             public void done(AVIMException e) {
                 if (e == null) {
                     LogUtil.d(TAG, "message send success");
-
                 }
             }
         });
         SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg(mAnimConversation.getConversationId(), mUser.getUsername(), message);
-//        SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg("1111", mUser.getUsername(), message);
         addMessageToList(message1);
         addMsgToDB(message1);
         mTarget.clearMsg();
@@ -309,6 +306,12 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        StaticLayoutManager.getInstance().clear();
+    }
+
+    @Override
     public void onRcvMessage(SIUMessage message) {
         addMessageToList(message);
     }
@@ -336,9 +339,14 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 case R.id.sdv_face:
                     EmojiUtil.FaceWrapper wrapper = (EmojiUtil.FaceWrapper) values[0];
                     if (wrapper != null) {
-                        SpannableString spannableString = TextUtil.replaceTextWithImage(mTarget,
-                                wrapper.getKey(), wrapper.getId());
-                        mTarget.addText(spannableString);
+                        if (wrapper.isEmoji()) {
+                            SpannableString spannableString = TextUtil.replaceTextWithImage(mTarget,
+                                    wrapper.getKey(), wrapper.getId());
+                            mTarget.addText(spannableString);
+                        }else{
+                            /* 退格 */
+                            mTarget.backspace();
+                        }
                     }
                     break;
             }
@@ -352,11 +360,13 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-            if (mIsIMVisible)
+            if (mIsIMVisible) {
                 mTarget.setInputMethodVisibility(false);
-            else if (mTarget.isEmojiVisible() || mTarget.isMenuVisible()) {
+                mDrag = true;
+            } else if (mTarget.isEmojiVisible() || mTarget.isMenuVisible()) {
                 mTarget.setMenuVisibility(false);
                 mTarget.setEmojiVisibility(false);
+                mDrag = true;
             }
         }
     }
@@ -384,30 +394,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
     }
 
     private void queryMessage(final String conversationId) {
-        LogUtil.d(TAG,"queryMessage");
-        ThreadUtil.runAsync(new Runnable() {
-            @Override
-            public void run() {
-                if (conversationId != null) {
-                    final List<SIUMessage> list = mMsgDao.query(conversationId);
-                    for (SIUMessage message : list) {
-                        String content = message.getContent();
-                        SpannableStringBuilder spannableStringBuilder = TextUtil.
-                                generateSpannableString(AppProfile.getContext(), content);
-                        message.setSpannableStringBuilder(spannableStringBuilder);
-                    }
-                    HandleUtil.doOnMainThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            transformDataToItem(list);
-                        }
-                    });
-                }
-            }
-        }, "query-message");
-//        if (conversationId != null) {
-//
-//        }
+        if (conversationId != null) {
+            final List<SIUMessage> list = mMsgDao.query(conversationId);
+            transformDataToItem(list);
+        }
     }
 
     private void transformDataToItem(List<SIUMessage> list) {
@@ -418,6 +408,10 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
 
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
+        if (mDrag) {
+            mDrag = false;
+            return;
+        }
         mTarget.scrollToBottom(false);
     }
 

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.text.Layout;
+import android.text.StaticLayout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.xue.siu.R;
+import com.xue.siu.common.util.StaticLayoutManager;
 
 /**
  * Created by XUE on 2016/2/3.
@@ -23,6 +26,8 @@ public class StaticLayoutView extends View {
     private int minimumWidth;
     private int minimumHeight;
     private int paddingTop, paddingBottom, paddingLeft, paddingRight;
+    private int color;
+    private String content;
 
     public StaticLayoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,18 +39,26 @@ public class StaticLayoutView extends View {
         initAttr(context, attrs);
     }
 
+    public void setText(String content) {
+        this.content = content;
+        StaticLayout layout = StaticLayoutManager.getInstance().getLayout(content, color);
+        setLayout(layout);
+    }
+
     private void initAttr(Context context, AttributeSet attrs) {
         Resources.Theme theme = context.getTheme();
         TypedArray a = theme.obtainStyledAttributes(
                 attrs,
                 R.styleable.StaticLayoutView,
                 0, 0);
-        minimumHeight = a.getDimensionPixelSize(R.styleable.StaticLayoutView_minimum_height, 0);
-        minimumWidth = a.getDimensionPixelSize(R.styleable.StaticLayoutView_minimum_width, 0);
-        paddingTop = a.getDimensionPixelSize(R.styleable.StaticLayoutView_static_padding_top, 0);
-        paddingBottom = a.getDimensionPixelSize(R.styleable.StaticLayoutView_static_padding_bottom, 0);
-        paddingLeft = a.getDimensionPixelSize(R.styleable.StaticLayoutView_static_padding_left, 0);
-        paddingRight = a.getDimensionPixelSize(R.styleable.StaticLayoutView_static_padding_right, 0);
+        minimumHeight = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_minHeight, 0);
+        minimumWidth = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_minWidth, 0);
+        paddingTop = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingTop, 0);
+        paddingBottom = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingBottom, 0);
+        paddingLeft = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingLeft, 0);
+        paddingRight = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingRight, 0);
+        color = a.getColor(R.styleable.StaticLayoutView_android_textColor, Color.BLACK);
+
     }
 
     public void setLayout(Layout layout) {

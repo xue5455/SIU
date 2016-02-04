@@ -89,8 +89,8 @@
     <dimen name="chat_et_min_height">40dp</dimen>
     <dimen name="chat_face_size">17.5dp</dimen>
     <dimen name ="chat_content_text_size">15sp</dimen>
-    <dimen name="chat_send_item_padding_right">6dp</dimen>
-    <dimen name="chat_send_item_padding_left">80dp</dimen>
+    <dimen name="chat_send_item_padding_small">6dp</dimen>
+    <dimen name="chat_send_item_padding_big">80dp</dimen>
     <dimen name="chat_vp_vertical_padding">20dp</dimen>
     <!-- 登录页面 LoginActivity la-->
     <dimen name="la_edit_text_height">45dip</dimen>
