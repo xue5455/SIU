@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.SparseArray;
+import android.view.TextureView;
 import android.view.View;
 
 import com.avos.avoscloud.AVUser;
@@ -26,14 +27,17 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
+import com.xue.siu.application.AppProfile;
 import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.avim.ActivityMessageHandler;
 import com.xue.siu.common.util.EmojiUtil;
+import com.xue.siu.common.util.HandleUtil;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.MessageUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenObserver;
 import com.xue.siu.common.util.TextUtil;
+import com.xue.siu.common.util.ThreadUtil;
 import com.xue.siu.db.SharePreferenceC;
 import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.db.bean.MsgDirection;
@@ -205,6 +209,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
             }
         });
         SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg(mAnimConversation.getConversationId(), mUser.getUsername(), message);
+//        SIUMessage message1 = MessageUtil.convertSiuToAVIMMsg("1111", mUser.getUsername(), message);
         addMessageToList(message1);
         addMsgToDB(message1);
         mTarget.clearMsg();
@@ -331,11 +336,8 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                 case R.id.sdv_face:
                     EmojiUtil.FaceWrapper wrapper = (EmojiUtil.FaceWrapper) values[0];
                     if (wrapper != null) {
-                        int size = ResourcesUtil.getDimenPxSize(R.dimen.chat_face_size);
                         SpannableString spannableString = TextUtil.replaceTextWithImage(mTarget,
-                                wrapper.getKey(), wrapper.getId(),
-                                size,
-                                size);
+                                wrapper.getKey(), wrapper.getId());
                         mTarget.addText(spannableString);
                     }
                     break;
@@ -381,11 +383,31 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         mTarget.setSendButtonVisibility(length > 0);
     }
 
-    private void queryMessage(String conversationId) {
-        if (conversationId != null) {
-            List<SIUMessage> list = mMsgDao.query(conversationId);
-            transformDataToItem(list);
-        }
+    private void queryMessage(final String conversationId) {
+        LogUtil.d(TAG,"queryMessage");
+        ThreadUtil.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                if (conversationId != null) {
+                    final List<SIUMessage> list = mMsgDao.query(conversationId);
+                    for (SIUMessage message : list) {
+                        String content = message.getContent();
+                        SpannableStringBuilder spannableStringBuilder = TextUtil.
+                                generateSpannableString(AppProfile.getContext(), content);
+                        message.setSpannableStringBuilder(spannableStringBuilder);
+                    }
+                    HandleUtil.doOnMainThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            transformDataToItem(list);
+                        }
+                    });
+                }
+            }
+        }, "query-message");
+//        if (conversationId != null) {
+//
+//        }
     }
 
     private void transformDataToItem(List<SIUMessage> list) {

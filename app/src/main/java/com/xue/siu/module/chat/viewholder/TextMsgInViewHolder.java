@@ -13,6 +13,8 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.application.AppProfile;
+import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.TimeUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.db.bean.MsgDirection;
@@ -56,7 +58,7 @@ public class TextMsgInViewHolder extends TRecycleViewHolder<MessageUserWrapper> 
     public void refresh(TAdapterItem<MessageUserWrapper> item) {
         SIUMessage message = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
-        mTvContent.setText(message.getContent());
+        mTvContent.setText( message.getContent());
         mTvTime.setText(TimeUtil.convertLongToString(message.getsTime()));
         mTvName.setText(user.getUsername());
 //        mSdvPortrait.setImageURI(Uri.EMPTY);

@@ -76,11 +76,12 @@ public class ResourcesUtil {
 
     public static Bitmap getBitmap(int resId, int width, int height) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
-        Matrix matrix = new Matrix();
-        float sx = 1.0f * width / bitmap.getWidth();
-        float sy = 1.0f * height / bitmap.getHeight();
-        matrix.setScale(sx, sy);
-        Bitmap bitmap1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+//        Matrix matrix = new Matrix();
+//        float sx = 1.0f * width / bitmap.getWidth();
+//        float sy = 1.0f * height / bitmap.getHeight();
+//        matrix.setScale(sx, sy);
+//        Bitmap bitmap1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+        Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap,width,height,true);
         bitmap.recycle();
         return bitmap1;
     }

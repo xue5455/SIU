@@ -1,6 +1,8 @@
 package com.xue.siu.db.bean;
 
 import android.net.Uri;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -37,6 +39,8 @@ public class SIUMessage {
     @DatabaseField(columnName = COLUMN_STATUS)
     private MsgStatus status;//消息状态
 
+
+    private SpannableStringBuilder spannableStringBuilder;
     public SIUMessage() {
 
     }
@@ -122,5 +126,13 @@ public class SIUMessage {
 
     public void setDirection(MsgDirection direction) {
         this.direction = direction;
+    }
+
+    public SpannableStringBuilder getSpannableStringBuilder() {
+        return spannableStringBuilder;
+    }
+
+    public void setSpannableStringBuilder(SpannableStringBuilder spannableStringBuilder) {
+        this.spannableStringBuilder = spannableStringBuilder;
     }
 }

@@ -32,4 +32,14 @@
         <!-- 进度条进度颜色 -->
         <attr name="arcColor" format="reference|color" />
     </declare-styleable>
+
+    <declare-styleable name="StaticLayoutView">
+
+        <attr name="minimum_width" format="dimension" />
+        <attr name="minimum_height" format="dimension" />
+        <attr name="static_padding_left" format="dimension" />
+        <attr name="static_padding_right" format="dimension" />
+        <attr name="static_padding_top" format="dimension" />
+        <attr name="static_padding_bottom" format="dimension" />
+    </declare-styleable>
 </resources>

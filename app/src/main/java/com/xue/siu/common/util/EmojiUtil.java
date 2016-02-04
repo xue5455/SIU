@@ -1,8 +1,12 @@
 package com.xue.siu.common.util;
 
 
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
+
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
 import com.xue.siu.R;
+import com.xue.siu.common.view.imagespan.OSImageSpan;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -25,6 +29,7 @@ public class EmojiUtil {
     public static List<FaceWrapper> mEmojiWrappers = new ArrayList<>();
     private static int mCount = 0;
 
+    private static HashMap<String, Bitmap> mFaceCache;
 
     static {
         mPrefixList.add(new PrefixWrapper("ali_", 70, 3));
@@ -35,33 +40,33 @@ public class EmojiUtil {
 
     public static void init() {
         mEmojiMap.put(FACE_DELETE_KEY, FACE_DELETE_ID);
-//        for(int i=0;i<mPrefixList.size();i++){
-//            PrefixWrapper wrapper = mPrefixList.get(i);
-//            initEmoji(wrapper.prefix,wrapper.imageCounts,wrapper.i);
-//        }
         for (PrefixWrapper wrapper : mPrefixList) {
             initEmoji(wrapper.prefix, wrapper.imageCounts, wrapper.suffixLimit);
         }
-//        int location = 20;
-//        for (int i = 0; i < getPageCount()-1; i++) {
-//            location += i % 2 == 0 ? FACE_ACTUAL_COUNT_ONE_PAGE : FACE_COUNT_ONE_PAGE;
-//            LogUtil.d(TAG, "location is " + location);
-//            mEmojiWrappers.add(location, new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID, false));
-//        }
         if (mEmojiWrappers.size() % 21 != 0) {
             mEmojiWrappers.add(new FaceWrapper(FACE_DELETE_KEY, FACE_DELETE_ID, false));
         }
+//        int maxMemory = (int) Runtime.getRuntime().maxMemory();
+//        int mCacheSize = maxMemory / 8;
+        mFaceCache = new HashMap<>();
     }
 
-    public static String getKey(int position) {
-        if (position < mEmojiWrappers.size()) {
-            return mEmojiWrappers.get(position).getKey();
-        }
-        return null;
+    public static void addFaceToCache(String faceStr, Bitmap imageSpan) {
+        mFaceCache.put(faceStr, imageSpan);
     }
-    public static boolean contains(String str){
+
+    public static Bitmap getSpanFromCache(String faceStr) {
+        return mFaceCache.get(faceStr);
+    }
+
+    public static int getDrawableRes(String key) {
+        return mEmojiMap.get(key);
+    }
+
+    public static boolean contains(String str) {
         return mEmojiMap.containsKey(str);
     }
+
     public static FaceWrapper getWrapper(int position) {
         if (position < mEmojiWrappers.size()) {
             return mEmojiWrappers.get(position);

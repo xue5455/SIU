@@ -59,11 +59,11 @@
 
             <TextView
                 android:id="@+id/tv_msg"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_chat_text_bg"
                 android:gravity="center|left"
+                android:lineSpacingExtra="1dp"
                 android:minHeight="@dimen/chat_text_min_height"
                 android:minWidth="@dimen/chat_text_min_width"
                 android:paddingBottom="@dimen/chat_text_padding_vertical"
