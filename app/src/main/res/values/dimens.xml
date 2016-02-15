@@ -144,4 +144,16 @@
     <!-- ImageActivity ia-->
     <dimen name="ia_image_padding">5dp</dimen>
     <dimen name="ia_image_radius">4dp</dimen>
+
+
+    <!-- DiscoveryFragment df -->
+    <dimen name="df_item_height">50dp</dimen>
+    <dimen name="df_padding_left">15dp</dimen>
+    <dimen name="df_icon_size">30dp</dimen>
+    <dimen name="df_icon_text_margin">20dp</dimen>
+    <dimen name="df_padding_right">15dp</dimen>
+    <dimen name="df_item_divider">20dp</dimen>
+    <dimen name="df_line_height">0.5dp</dimen>
+    <!-- NewsActivity na -->
+    <dimen name="na_tab_height">50dp</dimen>
 </resources>

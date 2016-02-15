@@ -3,6 +3,7 @@ package com.xue.siu.common.view.viewpager;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,7 +14,7 @@ import com.xue.siu.common.util.ResourcesUtil;
 /**
  * Created by XUE on 2016/1/16.
  */
-public class LineViewPagerIndicator extends View implements ViewPagerWithIndicator.ViewPagerIndicator {
+public class LineViewPagerIndicator extends View implements ViewPager.OnPageChangeListener {
     private int mChildCount = 1;//page数量
     private int mLineWidth;
     private int mViewWidth;
@@ -28,8 +29,7 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
         setup();
     }
 
-    @Override
-    public void onScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         mCurrentItem = position;
         mOffset = mCurrentItem * mDividerWidth + (int) (mDividerWidth * positionOffset);
         invalidate();
@@ -68,5 +68,16 @@ public class LineViewPagerIndicator extends View implements ViewPagerWithIndicat
 
     public void setLineWidth(int width) {
         mLineWidth = width;
+    }
+
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

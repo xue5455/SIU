@@ -13,7 +13,6 @@ import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.view.letterbar.LetterBar;
 import com.xue.siu.common.view.viewpager.LineViewPagerIndicator;
-import com.xue.siu.common.view.viewpager.ViewPagerWithIndicator;
 import com.xue.siu.module.base.activity.BaseBlankActivity;
 import com.xue.siu.module.follow.Constants;
 import com.xue.siu.module.follow.FragmentType;
@@ -22,8 +21,8 @@ import com.xue.siu.module.follow.presenter.FollowPresenter;
 /**
  * Created by XUE on 2016/1/16.
  */
-public class FollowActivity extends BaseBlankActivity<FollowPresenter> implements ViewPager.OnPageChangeListener {
-    private ViewPagerWithIndicator mFollowPager;
+public class FollowActivity extends BaseBlankActivity<FollowPresenter> {
+    private ViewPager mFollowPager;
     private LineViewPagerIndicator mLineIndicator;
     private FragmentType mEnterType;
     private ImageView mBackImg;
@@ -32,6 +31,7 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
     private int[] mFollowTextColor = new int[]{R.color.white, R.color.green_normal};
     private LetterBar mLetterBar;
     private ImageView mIvSearch;
+
     public static void start(Activity activity, FragmentType type) {
         Intent intent = new Intent(activity, FollowActivity.class);
         intent.putExtra(Constants.FRAGMENT_TYPE_KEY, type.toString());
@@ -59,9 +59,9 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
         mFollowPager = findView(R.id.follow_pager);
         mLineIndicator = findView(R.id.line_indicator);
         mLineIndicator.setLineWidth(ResourcesUtil.getDimenPxSize(R.dimen.fa_tv_width));
-        mFollowPager.setViewPagerIndicator(mLineIndicator);
+        mFollowPager.addOnPageChangeListener(mLineIndicator);
         mFollowPager.setOffscreenPageLimit(1);
-        mFollowPager.addOnPageChangeListener(this);
+        mFollowPager.addOnPageChangeListener(mPresenter);
         mFolloweeTv = findView(R.id.tv_followee);
         mFollowerTv = findView(R.id.tv_follower);
         mFolloweeTv.setOnClickListener(mPresenter);
@@ -101,25 +101,14 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> implement
         mFollowPager.setCurrentItem(position, smoothScroll);
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-    }
-
-    @Override
-    public void onPageSelected(int position) {
+    public void updateText(int position) {
         mFolloweeTv.setTextColor(ResourcesUtil.getColor(mFollowTextColor[1 - position]));
         mFollowerTv.setTextColor(ResourcesUtil.getColor(mFollowTextColor[position]));
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        if (state == ViewPager.SCROLL_STATE_IDLE) {
-            //显示SideBar
-            mLetterBar.setVisibility(View.VISIBLE);
-        } else {
-            //隐藏SideBar
-            mLetterBar.setVisibility(View.GONE);
-        }
+    public void setLetterBarVisibility(boolean show) {
+        mLetterBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
 }

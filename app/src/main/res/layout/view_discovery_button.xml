@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/selector_common_white_grey"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/df_item_height"
+        android:paddingLeft="@dimen/df_padding_left"
+        android:paddingRight="@dimen/df_padding_right">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="@dimen/df_icon_size"
+            android:layout_height="@dimen/df_icon_size"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            tools:text="text"
+            android:id="@+id/tv_df"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/df_icon_text_margin"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14" />
+
+        <ImageView
+            android:layout_width="@dimen/df_icon_size"
+            android:layout_height="@dimen/df_icon_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_forward" />
+    </RelativeLayout>
+</FrameLayout>

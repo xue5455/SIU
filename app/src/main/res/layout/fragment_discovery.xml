@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/df_item_divider">
+
+    <include
+        android:id="@+id/fl_news"
+        layout="@layout/view_discovery_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/df_item_divider" />
+
+    <include
+        android:id="@+id/fl_hot_plans"
+        layout="@layout/view_discovery_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/df_line_height" />
+
+    <include
+        android:id="@+id/fl_city_users"
+        layout="@layout/view_discovery_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/df_line_height" />
+
+    <include
+        android:id="@+id/fl_city_plans"
+        layout="@layout/view_discovery_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/df_item_divider" />
+
+    <include
+        android:id="@+id/fl_user_board"
+        layout="@layout/view_discovery_button" />
+</LinearLayout>

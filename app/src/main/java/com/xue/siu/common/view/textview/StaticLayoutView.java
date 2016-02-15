@@ -58,7 +58,6 @@ public class StaticLayoutView extends View {
         paddingLeft = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingLeft, 0);
         paddingRight = a.getDimensionPixelSize(R.styleable.StaticLayoutView_android_paddingRight, 0);
         color = a.getColor(R.styleable.StaticLayoutView_android_textColor, Color.BLACK);
-
     }
 
     public void setLayout(Layout layout) {

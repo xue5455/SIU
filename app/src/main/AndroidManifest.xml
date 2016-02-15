@@ -41,13 +41,17 @@
             android:name=".module.chat.activity.ChatActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:hardwareAccelerated="true"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".module.register.activity.RegisterActivity" />
         <activity android:name=".module.image.activity.ImageActivity" />
         <activity android:name=".module.userpage.activity.UserDataActivity" />
         <activity android:name=".module.query.activity.QueryUserActivity" />
         <activity android:name=".module.query.activity.QueryResultActivity" />
+        <activity
+            android:name=".module.news.activity.NewsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <service android:name="com.avos.avoscloud.PushService" />
 

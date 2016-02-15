@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- common fragment background color -->
+    <color name="common_background">#e0e0e0</color>
     <!--加载动画小球-->
     <color name="loading_dot_right">#f06410</color>
     <color name="loading_dot_left">@color/green_normal</color>

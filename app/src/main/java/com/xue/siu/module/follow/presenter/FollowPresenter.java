@@ -2,6 +2,7 @@ package com.xue.siu.module.follow.presenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
@@ -19,7 +20,8 @@ import com.xue.siu.module.query.activity.QueryUserActivity;
 /**
  * Created by XUE on 2016/1/16.
  */
-public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener, ItemEventListener {
+public class FollowPresenter extends BaseActivityPresenter<FollowActivity> implements View.OnClickListener,
+        ItemEventListener, ViewPager.OnPageChangeListener {
 
     SparseArray<Fragment> mFragmentArray = new SparseArray<>();
 
@@ -68,5 +70,26 @@ public class FollowPresenter extends BaseActivityPresenter<FollowActivity> imple
 
         }
         return true;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mTarget.updateText(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if (state == ViewPager.SCROLL_STATE_IDLE) {
+            //显示SideBar
+            mTarget.setLetterBarVisibility(true);
+        } else {
+            //隐藏SideBar
+            mTarget.setLetterBarVisibility(false);
+        }
     }
 }

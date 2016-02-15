@@ -55,4 +55,15 @@
     <string name="uda_follow">关注</string>
     <string name="uda_unfollow">取消关注</string>
 
+    <!-- DiscoveryFragment df -->
+    <string name="df_news">关注动态</string>
+    <string name="df_hot_plans">热门计划</string>
+    <string name="df_city_users">同城用户</string>
+    <string name="df_city_plans">同城计划</string>
+    <string name="df_user_board">红人榜</string>
+
+    <!-- NewsActivity na -->
+    <string name="na_title">动态</string>
+    <string name="na_tab_action">动态</string>
+    <string name="na_tab_calendar">日程</string>
 </resources>

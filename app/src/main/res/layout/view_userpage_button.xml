@@ -16,6 +16,7 @@
         android:textSize="@dimen/text_size_14" />
 
     <ImageView
+        android:src="@mipmap/ic_forward"
         android:layout_width="@dimen/upf_icon_size"
         android:layout_height="@dimen/upf_icon_size"
         android:layout_alignParentRight="true"
