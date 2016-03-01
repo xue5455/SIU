@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/tv_likes_news_fragment"
+    android:layout_height="wrap_content"
+    android:lineSpacingExtra="@dimen/nf_item_like_tv_line_space"
+    android:drawableLeft="@mipmap/ic_like"
+    tools:text="  xxxxx觉得很赞"
+    android:textColor="@color/green_normal"
+    android:textSize="@dimen/text_size_13">
+
+</TextView>

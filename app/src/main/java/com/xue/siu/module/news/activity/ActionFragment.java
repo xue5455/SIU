@@ -24,7 +24,7 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> {
             View rootView = super.onCreateView(inflater, container, savedInstanceState);
             setRealContentView(R.layout.fragment_news_common);
             mRootViewRef = new WeakReference<>(rootView);
-
+            initViews();
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();
             if (parent != null) {
@@ -32,6 +32,10 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> {
             }
         }
         return mRootViewRef.get();
+    }
+
+    private void initViews() {
+        mRvNews = findViewById(R.id.rv_news);
     }
 
     @Override

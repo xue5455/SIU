@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/default_content_padding">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_avatar_news_fragment"
+        android:layout_width="@dimen/nf_avatar_size"
+        android:layout_height="@dimen/nf_avatar_size"
+        app:roundAsCircle="true"
+        app:placeholderImage="@color/grey_f4"/>
+    <TextView
+        tools:text="名字"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/black_alpha80"
+        android:textSize="@dimen/text_size_14"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/nf_avatar_name_margin"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_name_news_fragment"/>
+</LinearLayout>

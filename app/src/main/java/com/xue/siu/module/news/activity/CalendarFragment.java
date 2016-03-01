@@ -24,7 +24,7 @@ public class CalendarFragment extends BaseBlankFragment<CalendarPresenter> {
             View rootView = super.onCreateView(inflater, container, savedInstanceState);
             setRealContentView(R.layout.fragment_news_common);
             mRootViewRef = new WeakReference<>(rootView);
-
+            initViews();
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();
             if (parent != null) {
@@ -33,7 +33,9 @@ public class CalendarFragment extends BaseBlankFragment<CalendarPresenter> {
         }
         return mRootViewRef.get();
     }
-
+    private void initViews(){
+        mRvNews = findViewById(R.id.rv_news);
+    }
     @Override
     protected void initPresenter() {
         mPresenter = new CalendarPresenter(this);

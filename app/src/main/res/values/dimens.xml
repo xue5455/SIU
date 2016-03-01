@@ -156,4 +156,15 @@
     <dimen name="df_line_height">0.5dp</dimen>
     <!-- NewsActivity na -->
     <dimen name="na_tab_height">50dp</dimen>
+
+    <!-- NewsFragment -->
+    <dimen name="nf_avatar_size">70dp</dimen>
+    <dimen name="nf_avatar_name_margin">10dp</dimen>
+    <dimen name="nf_item_inner_padding">95dp</dimen>
+    <dimen name="nf_item_views_margin">5dp</dimen>
+    <dimen name="nf_item_location_icon_size">14dp</dimen>
+    <dimen name="nf_location_iv_tv_margin">3dp</dimen>
+    <dimen name="nf_item_btn_margin">15dp</dimen>
+    <dimen name="nf_item_btn_operate_size">30dp</dimen>
+    <dimen name="nf_item_like_tv_line_space">3dp</dimen>
 </resources>

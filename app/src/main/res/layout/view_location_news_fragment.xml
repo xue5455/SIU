@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="@dimen/nf_item_location_icon_size"
+        android:layout_height="@dimen/nf_item_location_icon_size"
+        android:src="@mipmap/ic_location"
+        android:layout_gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/tv_location_news_fragment"
+        tools:text="武汉大学文理学部"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_12"
+        android:textColor="@color/green_normal"
+        android:layout_marginLeft="@dimen/nf_location_iv_tv_margin"
+        android:singleLine="true"/>
+</LinearLayout>
