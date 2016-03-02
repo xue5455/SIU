@@ -167,4 +167,6 @@
     <dimen name="nf_item_btn_margin">15dp</dimen>
     <dimen name="nf_item_btn_operate_size">30dp</dimen>
     <dimen name="nf_item_like_tv_line_space">3dp</dimen>
+
+    <dimen name="nf_item_pic_space">2dp</dimen>
 </resources>

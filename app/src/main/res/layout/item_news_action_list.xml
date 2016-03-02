@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/default_content_padding"
-    android:paddingRight="@dimen/default_content_padding"
-    android:orientation="vertical">
+    android:paddingRight="@dimen/default_content_padding">
 
     <include layout="@layout/view_news_item_header" />
 
@@ -15,6 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/nf_item_inner_padding"
         android:layout_marginRight="@dimen/default_content_padding" />
+
+    <FrameLayout
+        android:id="@+id/layout_pic_news_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/nf_item_inner_padding"
+        android:layout_marginRight="@dimen/default_content_padding"></FrameLayout>
 
     <include
         layout="@layout/view_location_news_fragment"
@@ -44,7 +51,7 @@
         android:id="@+id/layout_comment_news_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/nf_item_views_margin"
         android:layout_marginLeft="@dimen/nf_item_inner_padding"
-        android:layout_marginRight="@dimen/default_content_padding"></FrameLayout>
+        android:layout_marginRight="@dimen/default_content_padding"
+        android:layout_marginTop="@dimen/nf_item_views_margin"></FrameLayout>
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.module.base.activity.BaseBlankFragment;
@@ -41,5 +42,9 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> {
     @Override
     protected void initPresenter() {
         mPresenter = new ActionPresenter(this);
+    }
+
+    public void setAdapter(TRecycleViewAdapter adapter){
+        mRvNews.setAdapter(adapter);
     }
 }

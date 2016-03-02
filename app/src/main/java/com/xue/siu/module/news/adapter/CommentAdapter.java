@@ -9,27 +9,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xue.siu.common.util.HandleUtil;
+import com.xue.siu.module.news.model.CommentVO;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * Created by XUE on 2016/3/1.
  */
 public class CommentAdapter extends BaseAdapter {
     private WeakReference<Context> mContextRef;
+    private List<CommentVO> mList;
 
-    public CommentAdapter(Context context) {
-        mContextRef = new WeakReference<Context>(context);
+    public CommentAdapter(Context context, List<CommentVO> list) {
+        mContextRef = new WeakReference<>(context);
+        mList = list;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mList == null ? 0 : mList.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public CommentVO getItem(int position) {
+        return mList.get(position);
     }
 
     @Override

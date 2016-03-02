@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xue.siu.common.util.HandleUtil;
+import com.xue.siu.module.news.model.CommentVO;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -79,9 +80,9 @@ public class AsyncListView extends LinearLayout {
         @Override
         protected void onProgressUpdate(Object... values) {
             View view = (View)values[0];
-            String text = (String)values[1];
+            CommentVO text = (CommentVO)values[1];
             if (view.getParent() == null) {
-                ((TextView)view).setText(text);
+                ((TextView)view).setText(text.getContent());
                 layout.addView(view);
             }
         }

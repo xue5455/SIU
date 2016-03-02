@@ -36,4 +36,12 @@ public class LayoutCacheManager {
     public void remove(Object key) {
         mViewCache.remove(key);
     }
+
+    public View get(Object key){
+        return mViewCache.get(key);
+    }
+
+    public void clear(){
+        mViewCache.clear();
+    }
 }
