@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <EditText
+        android:background="@color/transparent"
+        android:id="@+id/et_content_publish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pa_edit_height"
+        android:gravity="left|top"
+        android:hint="@string/pa_et_hint"
+        android:textColor="@color/black_alpha80"
+        android:textColorHint="@color/black_alpha50"
+        android:textSize="@dimen/text_size_14" />
+
+    <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
+        android:id="@+id/rv_photos_publish"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:htMode="disable" />
+</LinearLayout>

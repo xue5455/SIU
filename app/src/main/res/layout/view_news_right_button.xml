@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_publish_news"
+    android:layout_width="@dimen/action_bar_height"
+    android:layout_height="@dimen/action_bar_height">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/na_right_button_padding"
+        android:background="@drawable/selector_btn_news_right_btn"
+        android:src="@mipmap/ic_camera" />
+</LinearLayout>

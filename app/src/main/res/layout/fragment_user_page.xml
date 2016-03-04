@@ -24,11 +24,11 @@
             android:layout_width="@dimen/upf_avatar_size"
             android:layout_height="@dimen/upf_avatar_size"
             android:layout_centerInParent="true"
-            fresco:placeholderImage="@mipmap/ic_userpage_banner"
+            fresco:placeholderImage="@color/grey_f4"
             fresco:placeholderImageScaleType="centerCrop"
             fresco:roundAsCircle="true"
             fresco:fadeDuration="300"
-            fresco:roundedCornerRadius="40dp" />
+            />
     </RelativeLayout>
 
     <LinearLayout

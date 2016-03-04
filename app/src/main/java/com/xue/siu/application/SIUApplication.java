@@ -7,6 +7,9 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.netease.hearttouch.htimagepicker.HTImagePicker;
+import com.netease.hearttouch.htimagepicker.HTRuntimeConfig;
+import com.netease.hearttouch.htimagepicker.imagescan.ImageScanUtil;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.eventbus.HTEventBus;
 import com.xue.siu.avim.DefaultMessageHandler;
@@ -14,6 +17,7 @@ import com.xue.siu.common.util.EmojiUtil;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.common.util.SystemUtil;
 import com.xue.siu.common.view.refreshviewholder.DotStyleRefreshViewHolder;
+import com.xue.siu.module.imagepick.activity.PickImageActivity;
 
 /**
  * Created by XUE on 2015/12/9.
@@ -41,6 +45,10 @@ public class SIUApplication extends Application {
         AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new DefaultMessageHandler(this));
         HTSwipeRecyclerView.initRefreshViewHolder(DotStyleRefreshViewHolder.class);
         EmojiUtil.init();
+        HTRuntimeConfig config = new HTRuntimeConfig(PickImageActivity.class,
+                null, null, null);
+        HTImagePicker.getDefault().init(context, config);
+        ImageScanUtil.scanImages(null, true);
     }
 
 

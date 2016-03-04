@@ -16,12 +16,17 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnLoadMoreListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnRefreshListener;
+import com.xue.siu.R;
+import com.xue.siu.avim.LeanConstants;
+import com.xue.siu.avim.util.ModelParser;
 import com.xue.siu.common.util.DialogUtil;
+import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.news.activity.ActionFragment;
 import com.xue.siu.module.news.model.ActionVO;
 import com.xue.siu.module.news.viewholder.NewsActionViewHolder;
+import com.xue.siu.module.news.viewholder.item.NewsActionViewHolderItem;
 import com.xue.siu.module.news.viewholder.item.NewsItemType;
 
 import java.util.ArrayList;
@@ -49,6 +54,7 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
     public void initFragment() {
         mAdapter = new TRecycleViewAdapter(mTarget.getContext(), mViewHolders, mAdapterItems);
         mTarget.setAdapter(mAdapter);
+        onRefresh();
     }
 
     @Override
@@ -60,20 +66,39 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
             public void done(AVFriendship avFriendship, AVException e) {
                 if (e == null) {
                     List<AVUser> list = avFriendship.getFollowees();
-                    AVQuery<AVObject> postQuery = new AVQuery<>("XPost");
-                    postQuery.whereContainedIn("creator", list);
+                    list.add(AVUser.getCurrentUser());
+                    LogUtil.i("xxj", "userList size " + list.size());
+                    AVQuery<AVObject> postQuery = new AVQuery<>(LeanConstants.POST_TABLE_NAME);
+                    postQuery.whereContainedIn(LeanConstants.CREATOR_FILED_NAME, list);
+                    postQuery.orderByDescending(LeanConstants.CREATE_TIME);
                     postQuery.findInBackground(new FindCallback<AVObject>() {
                         @Override
                         public void done(List<AVObject> list, AVException e) {
-
+                            LogUtil.i("xxj","post size " + list.size());
+                            DialogUtil.hideProgressDialog(mTarget.getActivity());
+                            if (e == null) {
+                                bindData(list);
+                            } else {
+                                ToastUtil.makeShortToast(R.string.na_hint_error);
+                            }
                         }
                     });
                 } else {
                     DialogUtil.hideProgressDialog(mTarget.getActivity());
-                    ToastUtil.makeShortToast("网络错误");
+                    ToastUtil.makeShortToast(R.string.na_hint_error);
                 }
             }
         });
+    }
+
+    private void bindData(List<AVObject> list) {
+        mTarget.setRefreshComplete();
+        for (AVObject object : list) {
+            ActionVO actionVO = (ActionVO) ModelParser.parse(object, ActionVO.class);
+            if (actionVO != null)
+                mAdapterItems.add(new NewsActionViewHolderItem(actionVO));
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

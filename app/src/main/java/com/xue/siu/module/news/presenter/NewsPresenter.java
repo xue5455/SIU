@@ -6,6 +6,7 @@ import android.view.View;
 import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.news.activity.NewsActivity;
+import com.xue.siu.module.news.activity.PublishActivity;
 
 /**
  * Created by XUE on 2016/2/15.
@@ -44,6 +45,9 @@ public class NewsPresenter extends BaseActivityPresenter<NewsActivity> implement
                 break;
             case R.id.tv_calendar:
                 mTarget.setCurrentItem(1);
+                break;
+            case R.id.btn_publish_news:
+                PublishActivity.start(mTarget);
                 break;
         }
     }

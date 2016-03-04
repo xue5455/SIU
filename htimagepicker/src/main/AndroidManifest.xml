@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.netease.hearttouch.htimagepicker">
+
+    <application android:allowBackup="false">
+
+        <!-- 选择图片页面 -->
+        <activity
+            android:name=".imagepick.activity.HTImagePickActivity"
+            android:screenOrientation="portrait" />
+        <!-- 多张图片预览页面 -->
+        <activity
+            android:name=".imagepreview.activity.HTMultiImagesPreviewActivity"
+            android:screenOrientation="portrait" />
+        <!-- 单张图片预览页面 -->
+        <activity
+            android:name=".imagepreview.activity.HTSingleImagePreviewActivity"
+            android:screenOrientation="portrait" />
+        <!-- 图片裁剪页面 -->
+        <activity
+            android:name=".imagecrop.activity.HTImageCropActivity"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

@@ -45,6 +45,7 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
 
     private void initNavigationBar() {
         setTitle(R.string.mainpage_tab_schedule);
+        setNavigationBarBlack();
     }
 
     private void initContentView(View view) {
@@ -61,7 +62,7 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
     public void onResume() {
         super.onResume();
         if (getActivity().getClass().equals(MainPageActivity.class)) {
-            ((BaseActivity) getActivity()).setStatueBarColor(R.color.black);
+            ((BaseActivity) getActivity()).setStatueBarColor(R.color.action_bar_bg);
         }
     }
 }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import com.xue.siu.R;
@@ -40,6 +42,13 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
         setNavigationBarBlack();
         setTitle(R.string.na_title);
         initViews();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setStatueBarColor(R.color.action_bar_bg);
     }
 
     private void initViews() {
@@ -55,7 +64,11 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
         mPager.setAdapter(new NewsPagerAdapter(getSupportFragmentManager(), list));
         mIndicator.setChildCount(2);
         mIndicator.setLineWidth(ScreenUtil.getDisplayWidth() / 2);
-
+        View view = LayoutInflater.from(this).inflate(R.layout.view_news_right_button, null, false);
+        setRightView(view);
+        view.setOnClickListener(mPresenter);
+        navigationBarContainer.setPadding(navigationBarContainer.getLeft(), navigationBarContainer.getTop(), 0,
+                navigationBarContainer.getBottom());
     }
 
     public void updateText(int position) {

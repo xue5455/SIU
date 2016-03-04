@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.avos.avoscloud.AVFile;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.xml.sax.helpers.ParserAdapter;
@@ -125,7 +126,7 @@ public class AsyncGridView extends ViewGroup {
                 View view = adapter.getView(i, null, layout);
                 if (view == null)
                     return null;
-                String picSrc = (String) adapter.getItem(i);
+                String picSrc = ((AVFile) adapter.getItem(i)).getUrl();
                 publishProgress(new Object[]{view, picSrc});
             }
             return null;

@@ -5,6 +5,7 @@
     <string name="crash_warning">很抱歉，程序出现异常，即将退出</string>
     <string name="load_no_more">暂无更多</string>
     <string name="load_more">正在加载更多...</string>
+    <string name="confirm">确定</string>
     <!-- tab Strings-->
     <string name="mainpage_tab_schedule">日程</string>
     <string name="mainpage_tab_group">群组</string>
@@ -30,7 +31,7 @@
     <string name="upf_calendar_collect">日程收藏</string>
     <string name="upf_message">消息</string>
     <string name="upf_setting">设置</string>
-
+    <string name="upf_hint_upload_error">头像上传失败</string>
     <!-- FollowActivity fa-->
     <string name="fa_follower">@string/upf_follower</string>
     <string name="fa_followee">@string/upf_followee</string>
@@ -66,4 +67,13 @@
     <string name="na_title">动态</string>
     <string name="na_tab_action">动态</string>
     <string name="na_tab_calendar">日程</string>
+    <string name="na_hint_error">网络错误</string>
+
+    <!-- PublishActivity pa -->
+    <string name="pa_et_hint">请输入要发布的内容</string>
+
+    <!-- PickImageActivity pia -->
+    <!-- 默认Title -->
+    <string name="pia_title">全部图片</string>
+    <string name="pia_count_format">已选择（%1$d/%2$d）</string>
 </resources>

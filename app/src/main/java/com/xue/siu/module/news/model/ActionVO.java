@@ -1,5 +1,6 @@
 package com.xue.siu.module.news.model;
 
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 public class ActionVO {
     private List<CommentVO> commentList;
     private AVUser creator;
-    private long createTime;
+    private long createdAt;
     private String content;
-    private List<String> picList;
+    private List<AVFile> picList;
     private List<AVUser> likeList;
     private String location;
 
@@ -35,12 +36,12 @@ public class ActionVO {
         this.creator = creator;
     }
 
-    public long getCreateTime() {
-        return createTime;
+    public long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getContent() {
@@ -51,11 +52,11 @@ public class ActionVO {
         this.content = content;
     }
 
-    public List<String> getPicList() {
+    public List<AVFile> getPicList() {
         return picList;
     }
 
-    public void setPicList(List<String> picList) {
+    public void setPicList(List<AVFile> picList) {
         this.picList = picList;
     }
 

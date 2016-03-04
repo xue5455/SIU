@@ -67,7 +67,7 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
         Uri uri = avatarUrl == null ? Uri.EMPTY : Uri.parse(avatarUrl);
         mSdvAvatar.setImageURI(uri);
         mTvName.setText(actionVO.getCreator().getUsername());
-        mTvTime.setText(String.valueOf(actionVO.getCreateTime()));
+        mTvTime.setText(String.valueOf(actionVO.getCreatedAt()));
         mTvContent.setText(actionVO.getContent());
         if (mLayoutComment.getTag() == null || !mLayoutComment.getTag().equals(actionVO)) {
             mLayoutComment.removeAllViews();

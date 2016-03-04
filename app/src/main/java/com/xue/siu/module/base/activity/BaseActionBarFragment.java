@@ -222,7 +222,7 @@ public abstract class BaseActionBarFragment<T extends BaseFragmentPresenter> ext
         mContentView.setPadding(0, dimens, 0, 0);
     }
 
-    public void setYxNavigationBarBlack(){
+    public void setNavigationBarBlack(){
         setNavigationBarBackground(R.drawable.navigation_bar_black);
         setTitleTextColorRes(R.color.black_navigation_bar_title_color);
     }

@@ -53,7 +53,10 @@ public class LoginActivity extends BaseBlankActivity<LoginPresenter> {
         mBtnRegister.setOnClickListener(mPresenter);
     }
 
-
+    public static void start(Context context){
+        Intent intent = new Intent(context,LoginActivity.class);
+        context.startActivity(intent);
+    }
     public static void start(Context context, Bundle bundle, String bundleKey) {
         Intent intent = new Intent(context, LoginActivity.class);
         if (bundle != null && bundleKey != null)

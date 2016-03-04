@@ -32,6 +32,7 @@ public class DiscoveryFragment extends BaseActionBarFragment<DiscoveryPresenter>
             setRealContentView(R.layout.fragment_discovery);
             mRootViewRef = new WeakReference<>(rootView);
             setTitle(R.string.mainpage_tab_discovery);
+            setNavigationBarBlack();
             initViews();
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();
@@ -43,6 +44,7 @@ public class DiscoveryFragment extends BaseActionBarFragment<DiscoveryPresenter>
     }
 
     private void initViews() {
+
         int[] texts = new int[]{R.string.df_news,
                 R.string.df_hot_plans, R.string.df_city_users,
                 R.string.df_city_plans, R.string.df_user_board};
@@ -69,7 +71,7 @@ public class DiscoveryFragment extends BaseActionBarFragment<DiscoveryPresenter>
     public void onResume() {
         super.onResume();
         if (getActivity() instanceof BaseActivity) {
-            ((BaseActivity) getActivity()).setStatueBarColor(R.color.black);
+            ((BaseActivity) getActivity()).setStatueBarColor(R.color.action_bar_bg);
         }
     }
 }

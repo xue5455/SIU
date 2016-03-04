@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_camera_pick_image"
+    android:layout_width="match_parent"
+    android:background="@color/black_alpha80"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="@dimen/pia_take_photo_icon_size"
+        android:layout_height="@dimen/pia_take_photo_icon_size"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_camera" />
+</RelativeLayout>

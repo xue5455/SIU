@@ -50,5 +50,5 @@ dependencies {
     compile "com.android.support:percent:${PERCENT_VERSION}"
     compile project(':htrecycleview')
     compile project(':htswiperefreshrecyclerview')
-
+    compile project(':htimagepicker')
 }

@@ -9,6 +9,9 @@ import com.avos.avoscloud.LogInCallback;
 import com.xue.siu.R;
 import com.xue.siu.common.util.DialogUtil;
 import com.xue.siu.common.util.ToastUtil;
+import com.xue.siu.config.UserInfo;
+import com.xue.siu.db.SharePreferenceC;
+import com.xue.siu.db.SharePreferenceHelper;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.login.LoginAction;
 import com.xue.siu.module.login.activity.LoginActivity;
@@ -63,9 +66,18 @@ public class LoginPresenter extends BaseActivityPresenter<LoginActivity> impleme
 
     @Override
     public void loginSuccess() {
+        saveInfo();
         Intent intent = new Intent(mTarget, MainPageActivity.class);
         mTarget.startActivity(intent);
         mTarget.finish();
+    }
+
+    private void saveInfo() {
+        SharePreferenceHelper.putGlobalString(SharePreferenceC.ACCOUNT, mLoginAction.getUser());
+        SharePreferenceHelper.putGlobalString(SharePreferenceC.PASSWORD, mLoginAction.getPsw());
+        UserInfo.setIsLogged(true);
+        UserInfo.setUserId(mLoginAction.getUser());
+        UserInfo.setPassword(mLoginAction.getPsw());
     }
 
     @Override

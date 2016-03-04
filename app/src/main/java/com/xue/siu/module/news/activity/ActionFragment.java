@@ -1,6 +1,7 @@
 package com.xue.siu.module.news.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,13 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> {
 
     private void initViews() {
         mRvNews = findViewById(R.id.rv_news);
+        mRvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRvNews.setOnRefreshListener(mPresenter);
+        mRvNews.setOnLoadMoreListener(mPresenter);
     }
-
+    public void setRefreshComplete(){
+        mRvNews.setRefreshComplete(false);
+    }
     @Override
     protected void initPresenter() {
         mPresenter = new ActionPresenter(this);

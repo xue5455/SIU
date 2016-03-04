@@ -5,4 +5,6 @@ package com.xue.siu.module.news.viewholder.item;
  */
 public interface NewsItemType {
     int ITEM_COMMON_ACTION = 1;
+
+    int ITEM_PUBLISH_EDIT = 2;
 }

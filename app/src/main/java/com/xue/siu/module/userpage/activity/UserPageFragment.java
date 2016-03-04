@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.netease.hearttouch.htimagepicker.HTImagePicker;
+import com.netease.hearttouch.htimagepicker.imagescan.PhotoInfo;
+import com.netease.hearttouch.htimagepicker.util.FrescoUtil;
+import com.netease.hearttouch.htimagepicker.util.image.ImageUtil;
 import com.netease.hearttouch.htrecycleview.util.LogUtil;
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
@@ -21,6 +25,7 @@ import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.userpage.presenter.UserPagePresenter;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 /**
  * Created by XUE on 2015/12/9.
@@ -95,18 +100,16 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
         }
     }
 
-    public void setPortraitUrl(String url) {
-        mSdvPortrait.setImageURI(Uri.parse(url));
+    public void pickImage() {
+        HTImagePicker.getDefault().start(getActivity(),
+                null, new ArrayList<PhotoInfo>(),
+                true, 1, false, "选择图片",
+                mPresenter);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.d("xxj","onActivityResult");
-        if (requestCode == ImageActivity.REQUEST_GET_IMAGE && resultCode == Activity.RESULT_OK) {
-            //上传图片
-            String path = data.getStringExtra(ImageActivity.KEY_IMAGE_PATH);
-            LogUtil.d("xxj", "path is " + path);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+    public void setPortrait(String url) {
+        int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
+        FrescoUtil.setImageUri(mSdvPortrait, Uri.parse(url), size,
+                size);
     }
 }

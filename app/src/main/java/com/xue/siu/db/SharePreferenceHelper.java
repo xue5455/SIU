@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by zyl06 on 6/15/15.
  */
 public class SharePreferenceHelper {
-    private static final String APP_NAME = "YanXuan";
+    private static final String APP_NAME = "OhShock";
     private static Map<String, SharedPreferences> sAccount2SP = new HashMap<>();
     //表示是否需要缓存sp引用
     private static boolean sNeedCache = true;

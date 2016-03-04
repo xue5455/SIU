@@ -1,1 +1,1 @@
-include ':app', ':eventbus', ':volley',':htrecycleview',':htswiperefreshrecyclerview'
+include ':app', ':eventbus', ':volley', ':htrecycleview', ':htswiperefreshrecyclerview', ':photoview',':htimagepicker'

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_pic_pick_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:actualImageScaleType="centerCrop"
+        app:fadeDuration="300"
+        app:placeholderImage="@color/grey_f4" />
+
+    <View
+        android:id="@+id/view_overlay_pick_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_alpha20"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/pia_pic_click_area_size"
+        android:layout_height="@dimen/pia_pic_click_area_size"
+        android:layout_alignParentRight="true"
+        android:id="@+id/rl_container_pick_image">
+
+        <CheckBox
+            android:id="@+id/cb_pick_image"
+            android:layout_width="@dimen/pia_checkbox_size"
+            android:layout_height="@dimen/pia_checkbox_size"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/pia_cb_margin_right"
+            android:layout_marginTop="@dimen/pia_cb_margin_top"
+            android:background="@null"
+            android:button="@drawable/selector_pia_photo_select_cb" />
+    </RelativeLayout>
+</RelativeLayout>

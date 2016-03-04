@@ -14,9 +14,9 @@
 
     <application
         android:name=".application.SIUApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -52,7 +52,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
+        <activity
+            android:name=".module.imagepick.activity.PickImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.news.activity.PublishActivity"
+            android:screenOrientation="portrait" />
         <service android:name="com.avos.avoscloud.PushService" />
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">

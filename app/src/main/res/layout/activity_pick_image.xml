@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
+        android:id="@+id/rv_photo_pick_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:htMode="disable" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pia_btn_complete_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_count_pick_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:paddingLeft="@dimen/default_content_padding"
+            android:textColor="@color/black_alpha50"
+            android:textSize="@dimen/text_size_14"
+            tools:text="已选择（0/8）" />
+
+        <Button
+            android:id="@+id/btn_complete_pick_image"
+            android:layout_width="@dimen/pia_btn_complete_width"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_btn_color_confirm_pick_image"
+            android:text="@string/confirm"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

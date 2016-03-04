@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.avos.avoscloud.AVFile;
 import com.xue.siu.R;
 
 import java.lang.ref.WeakReference;
@@ -17,9 +18,9 @@ import java.util.List;
 public class PictureAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private WeakReference<Context> mContextRef;
-    private List<String> mPicList;
+    private List<AVFile> mPicList;
 
-    public PictureAdapter(Context context, List<String> mPicList) {
+    public PictureAdapter(Context context, List<AVFile> mPicList) {
         this.mContextRef = new WeakReference<>(context);
         this.mPicList = mPicList;
         mInflater = LayoutInflater.from(context);
@@ -31,7 +32,7 @@ public class PictureAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public AVFile getItem(int position) {
         return mPicList.get(position);
     }
 

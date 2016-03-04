@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/pia_album_padding_left">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/pia_album_vertical_padding"
+        android:paddingTop="@dimen/pia_album_vertical_padding">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_album_pick_image"
+            android:layout_width="@dimen/pia_album_iv_size"
+            android:layout_height="@dimen/pia_album_iv_size"
+            app:roundedCornerRadius="@dimen/radius_2dp" />
+
+        <TextView
+            android:id="@+id/tv_title_album_pick_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pia_album_pic_title_margin"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:layout_gravity="center"
+            android:textColor="@color/black_alpha80"
+            android:textSize="@dimen/text_size_15"
+            tools:text="相册名称" />
+
+        <TextView
+            android:id="@+id/tv_album_pic_count_pick_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black_alpha50"
+            android:textSize="@dimen/text_size_14"
+            android:layout_marginLeft="@dimen/pia_album_title_count_margin"
+            tools:text="66" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/view_divider_album_pick_image"
+        layout="@layout/view_horizontal_line_1px_black_alpha15" />
+</LinearLayout>

@@ -2,6 +2,8 @@
 <resources>
     <!-- common fragment background color -->
     <color name="common_background">#e0e0e0</color>
+
+    <color name="action_bar_bg">#333333</color>
     <!--加载动画小球-->
     <color name="loading_dot_right">#f06410</color>
     <color name="loading_dot_left">@color/green_normal</color>
@@ -25,7 +27,6 @@
     <color name="white_alpha50">#7fFFFFFF</color>
     <color name="white_alpha40">#66FFFFFF</color>
     <color name="white_alpha90">#ddFFFFFF</color>
-
 
     <color name="black_alpha5">#0c000000</color>
     <color name="black_alpha10">#1a000000</color>
@@ -66,4 +67,7 @@
 
     <!-- FollowActivity -->
     <color name="fa_default_portrait_color">@color/grey_f4</color>
+
+
+
 </resources>

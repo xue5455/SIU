@@ -5,6 +5,9 @@
     <dimen name="common_edit_text_height">50dp</dimen>
     <dimen name="common_button_height">50dp</dimen>
     <dimen name="common_radius">2dp</dimen>
+
+    <dimen name="radius_2dp">2dp</dimen>
+    <dimen name="radius_4dp">4dp</dimen>
     <!-- loading -->
     <dimen name="refresh_dot_size">7dp</dimen>
     <dimen name="refresh_size">24dp</dimen>
@@ -118,7 +121,7 @@
 
     <!--UserPageFragment upf-->
     <dimen name="upf_banner_height">200dp</dimen>
-    <dimen name="upf_avatar_size">80dp</dimen>
+    <dimen name="upf_avatar_size">90dp</dimen>
     <dimen name="upf_item_height">50dp</dimen>
     <dimen name="upf_follow_views_margin">15dp</dimen>
     <dimen name="upf_icon_size">25dp</dimen>
@@ -156,7 +159,7 @@
     <dimen name="df_line_height">0.5dp</dimen>
     <!-- NewsActivity na -->
     <dimen name="na_tab_height">50dp</dimen>
-
+    <dimen name="na_right_button_padding">8dp</dimen>
     <!-- NewsFragment -->
     <dimen name="nf_avatar_size">70dp</dimen>
     <dimen name="nf_avatar_name_margin">10dp</dimen>
@@ -167,6 +170,27 @@
     <dimen name="nf_item_btn_margin">15dp</dimen>
     <dimen name="nf_item_btn_operate_size">30dp</dimen>
     <dimen name="nf_item_like_tv_line_space">3dp</dimen>
-
     <dimen name="nf_item_pic_space">2dp</dimen>
+    <!-- PublishActivity pa -->
+    <dimen name="pa_edit_height">100dp</dimen>
+
+    <!-- PickImageActivity pia -->
+    <dimen name="pia_gv_horizontal_space">2dp</dimen>
+    <dimen name="pia_gv_vertical_space">2dp</dimen>
+    <dimen name="pia_btn_complete_width">142dp</dimen>
+    <dimen name="pia_cb_margin_right">5dp</dimen>
+    <dimen name="pia_cb_margin_top">5dp</dimen>
+    <dimen name="pia_checkbox_size">20dp</dimen>
+    <dimen name="pia_btn_complete_height">50dp</dimen>
+    <dimen name="pia_album_list_item_height">95dp</dimen>
+    <dimen name="pia_title_iv_margin">3dp</dimen>
+    <dimen name="pia_album_iv_size">73dp</dimen>
+    <dimen name="pia_album_vertical_padding">11dp</dimen>
+    <dimen name="pia_take_photo_icon_size">32dp</dimen>
+    <!-- 当有三行以上的内容时显示的高度,三行及以下为wrap_content -->
+    <dimen name="pia_album_window_height">332.5dp</dimen>
+    <dimen name="pia_album_padding_left">15dp</dimen>
+    <dimen name="pia_album_pic_title_margin">14dp</dimen>
+    <dimen name="pia_album_title_count_margin">8dp</dimen>
+    <dimen name="pia_pic_click_area_size">40dp</dimen>
 </resources>

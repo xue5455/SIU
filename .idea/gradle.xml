@@ -12,8 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/eventbus" />
+            <option value="$PROJECT_DIR$/htimagepicker" />
             <option value="$PROJECT_DIR$/htrecycleview" />
             <option value="$PROJECT_DIR$/htswiperefreshrecyclerview" />
+            <option value="$PROJECT_DIR$/photoview" />
             <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
