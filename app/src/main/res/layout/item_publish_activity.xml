@@ -7,12 +7,13 @@
     android:orientation="vertical">
 
     <EditText
-        android:background="@color/transparent"
         android:id="@+id/et_content_publish"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pa_edit_height"
+        android:background="@color/transparent"
         android:gravity="left|top"
         android:hint="@string/pa_et_hint"
+        android:padding="@dimen/pa_edit_padding"
         android:textColor="@color/black_alpha80"
         android:textColorHint="@color/black_alpha50"
         android:textSize="@dimen/text_size_14" />
@@ -20,6 +21,9 @@
     <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
         android:id="@+id/rv_photos_publish"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/pa_rv_pic_vertical_spacing"
+        android:paddingLeft="@dimen/pa_rv_pic_horizontal_spacing"
+        android:paddingTop="@dimen/pa_rv_pic_vertical_spacing"
         app:htMode="disable" />
 </LinearLayout>

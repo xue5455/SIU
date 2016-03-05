@@ -3,6 +3,7 @@ package com.xue.siu.module.news.presenter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.news.activity.NewsActivity;
@@ -12,7 +13,7 @@ import com.xue.siu.module.news.activity.PublishActivity;
  * Created by XUE on 2016/2/15.
  */
 public class NewsPresenter extends BaseActivityPresenter<NewsActivity> implements ViewPager.
-        OnPageChangeListener, View.OnClickListener {
+        OnPageChangeListener, View.OnClickListener, ItemEventListener {
     public NewsPresenter(NewsActivity target) {
         super(target);
     }
@@ -50,5 +51,14 @@ public class NewsPresenter extends BaseActivityPresenter<NewsActivity> implement
                 PublishActivity.start(mTarget);
                 break;
         }
+    }
+
+    @Override
+    public boolean onEventNotify(String eventName, View view, int position, Object... values) {
+        switch (view.getId()) {
+            case R.id.btn_photo_publish:
+                break;
+        }
+        return false;
     }
 }

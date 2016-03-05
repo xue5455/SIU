@@ -173,7 +173,11 @@
     <dimen name="nf_item_pic_space">2dp</dimen>
     <!-- PublishActivity pa -->
     <dimen name="pa_edit_height">100dp</dimen>
-
+    <dimen name="pa_edit_padding">3dp</dimen>
+    <dimen name="pa_rv_pic_horizontal_spacing">12.5dp</dimen>
+    <dimen name="pa_rv_pic_vertical_spacing">12.5dp</dimen>
+    <dimen name="pa_btn_complete_width">55dp</dimen>
+    <dimen name="pa_btn_complete_height">30dp</dimen>
     <!-- PickImageActivity pia -->
     <dimen name="pia_gv_horizontal_space">2dp</dimen>
     <dimen name="pia_gv_vertical_space">2dp</dimen>

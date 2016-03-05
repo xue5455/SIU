@@ -71,7 +71,7 @@
 
     <!-- PublishActivity pa -->
     <string name="pa_et_hint">请输入要发布的内容</string>
-
+    <string name="pa_publish">发送</string>
     <!-- PickImageActivity pia -->
     <!-- 默认Title -->
     <string name="pia_title">全部图片</string>
