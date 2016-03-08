@@ -13,7 +13,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/na_tab_height"
-
             android:orientation="horizontal">
 
             <TextView
@@ -41,7 +40,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/common_background">
 
         <android.support.v4.view.ViewPager
@@ -49,5 +49,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/view_input_news_fragment"
+                layout="@layout/view_chat_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layout_emoji_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_emoji_news_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chat_face_height"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp" />
+
+                <com.xue.siu.common.view.viewpager.DotViewPagerIndicator
+                    android:id="@+id/view_indicator_news_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/chat_indicator_height"
+                    android:layout_marginBottom="@dimen/chat_indicator_margin_bottom" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
+
+
 </LinearLayout>

@@ -7,9 +7,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 
 import com.avos.avoscloud.AVFile;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.xue.siu.common.util.media.FrescoUtil;
 
 import org.xml.sax.helpers.ParserAdapter;
 
@@ -66,28 +68,28 @@ public class AsyncGridView extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int count = getChildCount();
-        int width = 0;
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);//获取宽度
+        int childWidthSpec = MeasureSpec.makeMeasureSpec((sizeWidth - 2 * mHorizontalSpace) / 3, MeasureSpec.EXACTLY);
+        // 计算出所有的childView的宽和高
+
+        measureChildren(childWidthSpec, heightMeasureSpec);
+        /**
+         * 记录如果是wrap_content是设置的宽和高
+         */
         int height = 0;
-        if (count == 1) {
-            measureChild(getChildAt(0), widthMeasureSpec, heightMeasureSpec);
-            width = getChildAt(0).getMeasuredWidth();
+
+        int cCount = getChildCount();
+
+        if (cCount == 0) {
+            height = 0;
+        } else if (cCount == 1) {
             height = getChildAt(0).getMeasuredHeight();
         } else {
-            measure(widthMeasureSpec, heightMeasureSpec);
-            width = getMeasuredWidth();
-            int childW = (width - (mNumCol - 1) * mHorizontalSpace) / mNumCol;
-            int childH = childW;
-            for (int i = 0; i < count; i++) {
-                LayoutParams params = getChildAt(i).getLayoutParams();
-                params.width = childW;
-                params.height = childH;
-                getChildAt(i).setLayoutParams(params);
-            }
-            int rows = (int) Math.ceil((float) count / mNumCol);
-            height = rows * childH + (rows - 1) * childH;
+            int rows = (int) Math.ceil((float) cCount / getNumCol());
+            int sizeHeight = getChildAt(0).getLayoutParams().height;
+            height = rows * sizeHeight + (rows - 1) * mVerticalSpace;
         }
-        setMeasuredDimension(width, height);
+        setMeasuredDimension(sizeWidth, height);
     }
 
     @Override
@@ -97,11 +99,11 @@ public class AsyncGridView extends ViewGroup {
         int count = getChildCount();
         if (count == 1) {
             View view = getChildAt(0);
-            view.layout(left, top, view.getMeasuredWidth(), view.getMeasuredHeight());
+            view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
         } else {
             for (int i = 0; i < count; i++) {
                 View view = getChildAt(i);
-                view.layout(left, top, view.getMeasuredWidth(), view.getMeasuredHeight());
+                view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
                 left += (view.getMeasuredWidth() + mHorizontalSpace);
                 if (i % mNumCol == mNumCol - 1) {
                     top += (view.getMeasuredHeight() + mVerticalSpace);
@@ -109,6 +111,7 @@ public class AsyncGridView extends ViewGroup {
                 }
             }
         }
+
     }
 
     private static class FillLayoutTask extends AsyncTask<Void, Object, Void> {
@@ -127,7 +130,7 @@ public class AsyncGridView extends ViewGroup {
                 if (view == null)
                     return null;
                 String picSrc = ((AVFile) adapter.getItem(i)).getUrl();
-                publishProgress(new Object[]{view, picSrc});
+                publishProgress(view, picSrc);
             }
             return null;
         }
@@ -137,8 +140,8 @@ public class AsyncGridView extends ViewGroup {
             SimpleDraweeView sdvPic = (SimpleDraweeView) objects[0];
             layout.addView(sdvPic);
             String picUrl = (String) objects[1];
-            sdvPic.setImageURI(Uri.parse(picUrl));
-
+            LayoutParams params = sdvPic.getLayoutParams();
+            FrescoUtil.setImageUri(sdvPic,picUrl,params.width,params.height);
         }
     }
 }

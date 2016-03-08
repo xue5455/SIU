@@ -30,6 +30,7 @@
         android:minHeight="@dimen/chat_et_min_height"
         android:padding="5dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black_alpha30"
         android:textSize="@dimen/chat_content_text_size"
         tools:text="" />
 

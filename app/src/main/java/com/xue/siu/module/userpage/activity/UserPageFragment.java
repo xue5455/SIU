@@ -1,29 +1,21 @@
 package com.xue.siu.module.userpage.activity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.netease.hearttouch.htimagepicker.HTImagePicker;
 import com.netease.hearttouch.htimagepicker.imagescan.PhotoInfo;
-import com.netease.hearttouch.htimagepicker.util.FrescoUtil;
-import com.netease.hearttouch.htimagepicker.util.image.ImageUtil;
-import com.netease.hearttouch.htrecycleview.util.LogUtil;
 import com.xue.siu.R;
 import com.xue.siu.common.util.ResourcesUtil;
+import com.xue.siu.common.util.media.FrescoUtil;
 import com.xue.siu.module.base.activity.BaseActivity;
 import com.xue.siu.module.base.activity.BaseBlankFragment;
-import com.xue.siu.module.image.activity.ImageActivity;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.userpage.presenter.UserPagePresenter;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -109,7 +101,8 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
 
     public void setPortrait(String url) {
         int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
-        FrescoUtil.setImageUri(mSdvPortrait, Uri.parse(url), size,
-                size);
+//        FrescoUtil.setImageUri(mSdvPortrait, Uri.parse(url), size,
+//                size);
+        FrescoUtil.setImageUri(mSdvPortrait,url,(float)size);
     }
 }

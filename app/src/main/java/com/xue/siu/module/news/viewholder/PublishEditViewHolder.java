@@ -19,6 +19,7 @@ import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.common.util.LogUtil;
+import com.xue.siu.constant.C;
 import com.xue.siu.module.news.model.PublishEditModel;
 import com.xue.siu.module.news.viewholder.item.NewsItemType;
 import com.xue.siu.module.news.viewholder.item.PublishAddViewHolderItem;
@@ -80,7 +81,7 @@ public class PublishEditViewHolder extends TRecycleViewHolder<PublishEditModel> 
         if (photoInfos.size() < 9)
             mItems.add(new PublishAddViewHolderItem());
         mPhotoAdapter.notifyDataSetChanged();
-        mEtContent.setText(mModel.getContent() == null ? "" : mModel.getContent());
+        mEtContent.setText(mModel.getContent() == null ? C.EMPTY : mModel.getContent());
     }
 
     @Override

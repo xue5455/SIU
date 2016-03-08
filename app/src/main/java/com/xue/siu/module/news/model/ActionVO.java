@@ -1,6 +1,7 @@
 package com.xue.siu.module.news.model;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 
 import java.util.List;
@@ -74,5 +75,16 @@ public class ActionVO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public static ActionVO parse(AVObject object) {
+        ActionVO actionVO = new ActionVO();
+        actionVO.setCreator((AVUser) object.get("creator"));
+        actionVO.setLocation((String) object.get("location"));
+        actionVO.setContent((String) object.get("content"));
+        actionVO.setCommentList((List<CommentVO>) object.get("commentList"));
+        actionVO.setLikeList((List<AVUser>) object.get("likeList"));
+        actionVO.setPicList((List<AVFile>) object.get("picList"));
+        return actionVO;
     }
 }

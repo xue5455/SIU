@@ -26,8 +26,8 @@
             android:layout_centerInParent="true"
             fresco:placeholderImage="@color/grey_f4"
             fresco:placeholderImageScaleType="centerCrop"
-            fresco:roundAsCircle="true"
             fresco:fadeDuration="300"
+            fresco:roundedCornerRadius="@dimen/upf_avatar_size"
             />
     </RelativeLayout>
 

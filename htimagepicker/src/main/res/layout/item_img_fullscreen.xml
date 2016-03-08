@@ -13,7 +13,7 @@
         fresco:actualImageScaleType="fitCenter"
         fresco:placeholderImageScaleType="fitCenter" />
 
-    <com.netease.hearttouch.htphotoview.PhotoView
+    <com.netease.photoview.PhotoView
         android:id="@+id/img_fullscreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

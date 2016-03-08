@@ -43,4 +43,12 @@
         <attr name="android:paddingBottom" />
     </declare-styleable>
 
+    <!--banner指示器控件属性-->
+    <declare-styleable name="BannerIndicatorLayout">
+        <attr name="indicator_space" format="dimension" />
+        <attr name="select_background" format="color|reference" />
+        <!--   <attr name="select_size" format="dimension" />-->
+        <attr name="unselect_background" format="color|reference" />
+        <!--  <attr name="unselect_size" format="dimension" />-->
+    </declare-styleable>
 </resources>

@@ -43,7 +43,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".module.register.activity.RegisterActivity" />
-        <activity android:name=".module.image.activity.ImageActivity" />
         <activity android:name=".module.userpage.activity.UserDataActivity" />
         <activity android:name=".module.query.activity.QueryUserActivity" />
         <activity android:name=".module.query.activity.QueryResultActivity" />
@@ -53,11 +52,18 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".module.imagepick.activity.PickImageActivity"
+            android:name=".module.image.imagepick.activity.PickImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.image.imagepreview.activity.SingleItemImagePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.image.imagepreview.activity.MultiItemImagesPreviewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.news.activity.PublishActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <service android:name="com.avos.avoscloud.PushService" />
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">

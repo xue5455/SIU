@@ -17,7 +17,6 @@ import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowActivity;
-import com.xue.siu.module.image.activity.ImageActivity;
 import com.xue.siu.module.userpage.activity.UserPageFragment;
 
 import java.io.IOException;

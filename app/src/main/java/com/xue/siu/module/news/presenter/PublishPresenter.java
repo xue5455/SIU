@@ -4,6 +4,11 @@ import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SaveCallback;
 import com.netease.hearttouch.htimagepicker.HTPickFinishedListener;
 import com.netease.hearttouch.htimagepicker.imagescan.AlbumInfo;
 import com.netease.hearttouch.htimagepicker.imagescan.PhotoInfo;
@@ -12,13 +17,19 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.common.util.DialogUtil;
+import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.news.activity.PublishActivity;
+import com.xue.siu.module.news.callback.UploadImageCallback;
+import com.xue.siu.module.news.model.ActionVO;
 import com.xue.siu.module.news.model.PublishEditModel;
 import com.xue.siu.module.news.viewholder.PublishEditViewHolder;
 import com.xue.siu.module.news.viewholder.item.NewsItemType;
 import com.xue.siu.module.news.viewholder.item.PublishEditViewHolderItem;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +49,14 @@ public class PublishPresenter extends BaseActivityPresenter<PublishActivity> imp
     private PublishEditModel mEditModel;
     private TRecycleViewAdapter mAdapter;
     private List<PhotoInfo> photoList = new ArrayList<>();
+    private List<AVFile> mPicList = new ArrayList<>();
+    private List<PhotoInfo> mQueueList = new ArrayList<>();
+    private UploadImageCallback mUploadCallback;
+    private AVFile mCurrentAVFile;
 
     public PublishPresenter(PublishActivity target) {
         super(target);
+        mUploadCallback = new UploadImageCallback(this);
     }
 
     @Override
@@ -80,7 +96,58 @@ public class PublishPresenter extends BaseActivityPresenter<PublishActivity> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_complete_publish:
+                mQueueList.addAll(mEditModel.getLocalPicList());
+                DialogUtil.showProgressDialog(mTarget, false);
+                uploadPhoto();
                 break;
         }
+    }
+
+    private void postContent(List<AVFile> picList) {
+        String content = mEditModel.getContent();
+        ActionVO actionVO = new ActionVO();
+        actionVO.setCreator(AVUser.getCurrentUser());
+        actionVO.setPicList(picList);
+        actionVO.setContent(content);
+        actionVO.setLocation("网商路599号 网易大厦");
+        AVObject object = new AVObject("Post");
+        object.put("content",content);
+        object.put("creator",AVUser.getCurrentUser());
+        object.put("picList",picList);
+        object.put("location","网商路599号 网易大厦");
+        object.saveInBackground();
+    }
+
+    private void uploadPhoto() {
+        if (mQueueList.size() == 0) {
+            postContent(mPicList);
+            LogUtil.i("xxj","size is 0");
+            return;
+        }
+        PhotoInfo info = mQueueList.get(0);
+        File file = new File(info.getAbsolutePath());
+        if (!file.exists()) {
+            mQueueList.remove(0);
+            uploadPhoto();
+            return;
+        }
+        try {
+            mCurrentAVFile = AVFile.withFile(AVUser.getCurrentUser().getObjectId(), file);
+            LogUtil.i("xxj","uploading");
+            mCurrentAVFile.saveInBackground(mUploadCallback);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addImageToList() {
+        mPicList.add(mCurrentAVFile);
+        mCurrentAVFile = null;
+        mQueueList.remove(0);
+        uploadPhoto();
+    }
+    public void hideProgressDialog(){
+        DialogUtil.hideProgressDialog(mTarget);
     }
 }

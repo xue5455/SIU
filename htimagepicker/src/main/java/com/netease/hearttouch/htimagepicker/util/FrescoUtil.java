@@ -1,5 +1,6 @@
 package com.netease.hearttouch.htimagepicker.util;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,6 +12,8 @@ import com.facebook.cache.common.CacheKey;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.DataSource;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
@@ -42,6 +45,7 @@ public class FrescoUtil {
         Bitmap bitmap = getBitmapFromCache(uri);
         if (bitmap != null && !bitmap.isRecycled()) {
             imageView.setImageBitmap(bitmap);
+            Log.i("xxj","setImageBitmap");
             return;
         }
 
@@ -120,5 +124,40 @@ public class FrescoUtil {
         }
 
         return bitmap;
+    }
+
+    public static void setRoundedImageUri(final SimpleDraweeView imageView, Uri uri, int width, int height) {
+        if (width >= 500 && height >= 500) {
+            imageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
+
+        Bitmap bitmap = getBitmapFromCache(uri);
+        if (bitmap != null && !bitmap.isRecycled()) {
+            imageView.setImageBitmap(bitmap);
+            RoundingParams params = imageView.getHierarchy().getRoundingParams();
+            params.setRoundAsCircle(true);
+            imageView.getHierarchy().setRoundingParams(params);
+            return;
+        }
+
+        ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().
+                setDecodeAllFrames(false).
+                build();
+
+        ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setAutoRotateEnabled(true)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .setImageDecodeOptions(decodeOptions)
+                .build();
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setOldController(imageView.getController())
+                .setImageRequest(imageRequest)
+                .setTapToRetryEnabled(true)
+                .setAutoPlayAnimations(false)
+                .build();
+        imageView.setController(controller);
+        RoundingParams params = imageView.getHierarchy().getRoundingParams();
+        params.setRoundAsCircle(true);
+        imageView.getHierarchy().setRoundingParams(params);
     }
 }

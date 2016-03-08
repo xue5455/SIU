@@ -17,7 +17,7 @@ import com.xue.siu.common.util.EmojiUtil;
 import com.xue.siu.common.util.ScreenUtil;
 import com.xue.siu.common.util.SystemUtil;
 import com.xue.siu.common.view.refreshviewholder.DotStyleRefreshViewHolder;
-import com.xue.siu.module.imagepick.activity.PickImageActivity;
+import com.xue.siu.module.image.imagepick.activity.PickImageActivity;
 
 /**
  * Created by XUE on 2015/12/9.

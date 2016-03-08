@@ -26,6 +26,8 @@ public class C {
         public static final String APK = ".apk";
 
         public static final String AAC = ".aac";
+
+        public static final String GIF = ".gif";
     }
 
     public static final String FILE_PREFIX = "file://";
