@@ -70,8 +70,6 @@ public class QueryResultPresenter extends BaseActivityPresenter<QueryResultActiv
             public void done(List<AVUser> list, AVException e) {
                 if (list != null)
                     transformDataToItems(list);
-                else
-                    LogUtil.d("xxj", "list is null");
                 DialogUtil.hideProgressDialog(mTarget);
             }
         });
@@ -88,7 +86,7 @@ public class QueryResultPresenter extends BaseActivityPresenter<QueryResultActiv
     public boolean onEventNotify(String eventName, View view, int position, Object... values) {
         if (TextUtils.equals(eventName, ItemEventListener.clickEventName)) {
             AVUser user = mTAdapterItems.get(position).getDataModel();
-            UserDataActivity.start(mTarget, user, FriendshipType.NONE);
+            UserDataActivity.start(mTarget, user);
         }
         return true;
     }

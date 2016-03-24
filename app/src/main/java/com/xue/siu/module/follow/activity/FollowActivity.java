@@ -29,7 +29,7 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> {
     private TextView mFolloweeTv;
     private TextView mFollowerTv;
     private int[] mFollowTextColor = new int[]{R.color.white, R.color.green_normal};
-    private LetterBar mLetterBar;
+   /* private LetterBar mLetterBar;*/
     private ImageView mIvSearch;
 
     public static void start(Activity activity, FragmentType type) {
@@ -43,7 +43,7 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> {
         super.onCreate(savedInstanceState);
         setRealContentView(R.layout.activity_follow);
         initContentView();
-
+        setStatueBarColor(R.color.action_bar_bg);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> {
         mFollowerTv = findView(R.id.tv_follower);
         mFolloweeTv.setOnClickListener(mPresenter);
         mFollowerTv.setOnClickListener(mPresenter);
-        mLetterBar = findView(R.id.view_letter);
+      /*  mLetterBar = findView(R.id.view_letter);*/
         mIvSearch = findView(R.id.iv_search);
         mIvSearch.setOnClickListener(mPresenter);
     }
@@ -108,7 +108,7 @@ public class FollowActivity extends BaseBlankActivity<FollowPresenter> {
     }
 
     public void setLetterBarVisibility(boolean show) {
-        mLetterBar.setVisibility(show ? View.VISIBLE : View.GONE);
+       /* mLetterBar.setVisibility(show ? View.VISIBLE : View.GONE);*/
     }
 
 }

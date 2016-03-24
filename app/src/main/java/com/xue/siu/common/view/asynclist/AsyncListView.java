@@ -11,9 +11,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.common.util.HandleUtil;
 import com.xue.siu.module.news.model.CommentVO;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,9 +25,14 @@ import java.util.concurrent.Executors;
  */
 public class AsyncListView extends LinearLayout {
     private BaseAdapter mAdapter;
+    private ItemEventListener mListener;
 
     public AsyncListView(Context context) {
         this(context, null);
+    }
+
+    public void setListener(ItemEventListener listener) {
+        mListener = listener;
     }
 
     public AsyncListView(Context context, AttributeSet attrs) {
@@ -43,7 +50,7 @@ public class AsyncListView extends LinearLayout {
     }
 
     private void fillLayout() {
-        new FillLayoutTask(this, mAdapter).execute();
+        new FillLayoutTask(this, mAdapter, mListener).execute();
     }
 
     @Override
@@ -59,10 +66,13 @@ public class AsyncListView extends LinearLayout {
     private static class FillLayoutTask extends AsyncTask<Void, Object, Void> {
         private LinearLayout layout;
         private BaseAdapter adapter;
+        private WeakReference<ItemEventListener> listenerRef;
 
-        public FillLayoutTask(LinearLayout layout, BaseAdapter adapter) {
+        public FillLayoutTask(LinearLayout layout, BaseAdapter adapter, ItemEventListener listener) {
             this.layout = layout;
             this.adapter = adapter;
+            if (listener != null)
+                listenerRef = new WeakReference<>(listener);
         }
 
         @Override
@@ -72,17 +82,24 @@ public class AsyncListView extends LinearLayout {
                 if (view == null) {
                     return null;
                 }
-                publishProgress(new Object[]{view,adapter.getItem(i)});
+                publishProgress(new Object[]{view, adapter.getItem(i)});
             }
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Object... values) {
-            View view = (View)values[0];
-            CommentVO text = (CommentVO)values[1];
+        protected void onProgressUpdate(final Object... values) {
+            View view = (View) values[0];
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listenerRef != null && listenerRef.get() != null)
+                        listenerRef.get().onEventNotify(ItemEventListener.clickEventName, v, 0, values[1]);
+                }
+            });
+            CommentVO text = (CommentVO) values[1];
             if (view.getParent() == null) {
-                ((TextView)view).setText(text.getContent());
+                ((TextView) view).setText(text.getContent());
                 layout.addView(view);
             }
         }

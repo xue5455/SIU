@@ -3,11 +3,12 @@
 
     <!-- common -->
     <dimen name="common_edit_text_height">50dp</dimen>
-    <dimen name="common_button_height">50dp</dimen>
+    <dimen name="common_button_height">45dp</dimen>
     <dimen name="common_radius">2dp</dimen>
     <dimen name="banner_indicator_space">6dp</dimen>
     <dimen name="radius_2dp">2dp</dimen>
     <dimen name="radius_4dp">4dp</dimen>
+    <dimen name="one_px">0.5dp</dimen>
     <!-- loading -->
     <dimen name="refresh_dot_size">7dp</dimen>
     <dimen name="refresh_size">24dp</dimen>
@@ -127,7 +128,11 @@
     <dimen name="upf_icon_size">25dp</dimen>
     <dimen name="upf_button_padding">30dp</dimen>
 
-
+    <!-- UserDataActivity uda -->
+    <dimen name="uda_divider_height">15dp</dimen>
+    <dimen name="uda_portrait_container_height">100dp</dimen>
+    <dimen name="uda_portrait_size">80dp</dimen>
+    <dimen name="uda_portrait_margin_left">10dp</dimen>
     <!-- FollowActivity -->
     <dimen name="fa_tv_width">50dp</dimen>
     <dimen name="fa_tv_center_margin">20dp</dimen>
@@ -138,9 +143,11 @@
 
     <!--QueryUserActivity qua-->
     <dimen name="qua_divider_height">15dp</dimen>
-    <dimen name="qua_edit_height">@dimen/common_edit_text_height</dimen>
+    <dimen name="qua_edit_height">35dp</dimen>
     <dimen name="qua_edit_padding_left">5dp</dimen>
     <dimen name="qua_result_item_height">80dp</dimen>
+    <dimen name="qua_title_divider_height">24dp</dimen>
+    <dimen name="qua_icon_size">60dp</dimen>
     <!-- RegisterActivity ra-->
     <dimen name="ra_edit_height">@dimen/common_edit_text_height</dimen>
 
@@ -160,6 +167,7 @@
     <!-- NewsActivity na -->
     <dimen name="na_tab_height">45dp</dimen>
     <dimen name="na_right_button_padding">8dp</dimen>
+    <dimen name="na_item_decoration_height">15dp</dimen>
     <!-- NewsFragment -->
     <dimen name="nf_avatar_size">70dp</dimen>
     <dimen name="nf_avatar_name_margin">10dp</dimen>
@@ -205,4 +213,17 @@
     <!-- multi preview activity -->
     <dimen name="mpa_indicator_margin_bottom">30dp</dimen>
     <dimen name="mpa_banner_indicator_space">@dimen/banner_indicator_space</dimen>
+
+
+    <!-- NewCalendarActivity nca-->
+    <dimen name="nca_divider_margin_left">61.5dp</dimen>
+    <dimen name="nca_icon_margin_left">30dp</dimen>
+    <dimen name="nca_divider_vertical_margin">10dp</dimen>
+    <dimen name="nca_et_height">40dp</dimen>
+    <dimen name="nca_views_margin_left">7dp</dimen>
+    <dimen name="nca_cb_size">25dp</dimen>
+    <dimen name="nca_icon_size">22dp</dimen>
+    <dimen name="nca_triangle_size">18dp</dimen>
+    <dimen name="nca_time_layout_vertical_padding">7dp</dimen>
+    <dimen name="nca_btn_more_options_height">30dp</dimen>
 </resources>

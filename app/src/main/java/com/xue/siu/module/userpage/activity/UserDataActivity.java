@@ -35,12 +35,10 @@ public class UserDataActivity extends BaseActionBarActivity<UserDataPresenter> {
     TextView mTvName;
 
     public static final String KEY_USER = "user";
-    public static final String KEY_FRIENDSHIP = "friendship";
 
-    public static void start(Activity activity, AVUser user, FriendshipType type) {
+    public static void start(Activity activity, AVUser user) {
         Intent intent = new Intent(activity, UserDataActivity.class);
         intent.putExtra(KEY_USER, user);
-        intent.putExtra(KEY_FRIENDSHIP, type);
         activity.startActivity(intent);
     }
 
@@ -55,6 +53,9 @@ public class UserDataActivity extends BaseActionBarActivity<UserDataPresenter> {
         setRealContentView(R.layout.activity_user_data);
         ButterKnife.bind(this);
         initContentView();
+        setNavigationBarBlack();
+        setStatueBarColor(R.color.action_bar_bg);
+        setTitle(R.string.uda_title);
     }
 
     @Override

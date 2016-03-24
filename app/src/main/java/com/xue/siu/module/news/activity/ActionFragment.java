@@ -21,7 +21,8 @@ import java.lang.ref.WeakReference;
 /**
  * Created by XUE on 2016/2/15.
  */
-public class ActionFragment extends BaseBlankFragment<ActionPresenter> implements HTSwipeRecyclerView.OnLayoutSizeChangedListener {
+public class ActionFragment extends BaseBlankFragment<ActionPresenter> implements
+        HTSwipeRecyclerView.OnLayoutSizeChangedListener {
     private HTSwipeRecyclerView mRvNews;
     private NewsEventListener mNewsListener;
 
@@ -80,6 +81,5 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         int diff = oldH - h;
-        LogUtil.i("xxj","LayoutSizeChanged " + diff);
     }
 }

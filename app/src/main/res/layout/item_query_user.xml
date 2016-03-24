@@ -1,25 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/qua_result_item_height"
     android:background="@drawable/selector_common_white_grey"
-    android:orientation="horizontal"
-    android:padding="@dimen/default_content_padding">
+    android:paddingLeft="@dimen/default_content_padding"
+    android:paddingRight="@dimen/default_content_padding">
+
+    <RelativeLayout
+        android:id="@+id/rl_icon"
+        android:layout_width="@dimen/qua_icon_size"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="@dimen/qua_icon_size"
+            android:layout_height="@dimen/qua_icon_size"
+            android:layout_centerInParent="true"
+            app:placeholderImage="@color/green_normal"
+            app:roundedCornerRadius="@dimen/radius_2dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_search_big" />
+    </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_prefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:text="@string/qua_search" />
+        android:layout_marginLeft="@dimen/default_content_padding"
+        android:layout_toRightOf="@+id/rl_icon"
+        android:text="@string/qua_search"
+        android:textSize="@dimen/text_size_14" />
 
     <TextView
         android:id="@+id/tv_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_gravity="center"
+        android:layout_toRightOf="@+id/tv_prefix"
         android:singleLine="true"
         android:textColor="@color/green_normal"
+        android:textSize="@dimen/text_size_14"
         tools:text="关键字" />
-</LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_px"
+        android:background="@color/divider_grey"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

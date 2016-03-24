@@ -59,7 +59,7 @@ public class PickImageActivity extends HTBaseImagePickActivity {
         initContentView();
         mNavigationBar.setShowBackButton(true);
         mNavigationBar.setSepLineVisiable(true);
-        setStatueBarColor(R.color.black);
+        setStatueBarColor(R.color.action_bar_bg);
     }
 
     @Override

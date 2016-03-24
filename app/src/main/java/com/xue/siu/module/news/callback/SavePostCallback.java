@@ -6,9 +6,13 @@ import com.xue.siu.avim.base.AVIMResultListener;
 import com.xue.siu.avim.base.BaseCallback;
 
 /**
- * Created by XUE on 2016/3/7.
+ * Created by XUE on 2016/3/8.
  */
-public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
+public class SavePostCallback extends BaseCallback<SaveCallback,Object> {
+
+    public SavePostCallback(AVIMResultListener listener) {
+        super(listener);
+    }
 
     @Override
     protected boolean isRelatedToActivity() {
@@ -20,7 +24,7 @@ public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
         callback = new SaveCallback() {
             @Override
             public void done(AVException e) {
-                result(null, e);
+                result(null,e);
             }
         };
     }
@@ -29,9 +33,4 @@ public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
     protected String getCbName() {
         return getClass().getName();
     }
-
-    public UploadImageCallback(AVIMResultListener listener) {
-        super(listener);
-    }
-
 }

@@ -10,6 +10,7 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.xue.siu.R;
 import com.xue.siu.avim.AVIMClientManager;
+import com.xue.siu.avim.LeanFriendshipCache;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
@@ -23,8 +24,7 @@ import java.util.List;
  * Created by XUE on 2016/1/21.
  */
 public class UserDataPresenter extends BaseActivityPresenter<UserDataActivity> implements View.OnClickListener {
-    AVUser mUser;
-    FriendshipType mType;
+    private AVUser mUser;
     /**
      * Is the user followed
      */
@@ -42,27 +42,19 @@ public class UserDataPresenter extends BaseActivityPresenter<UserDataActivity> i
         }
     };
 
+
     public UserDataPresenter(UserDataActivity target) {
         super(target);
     }
 
     private void updateButton() {
-        switch (mType) {
-            case NONE:
-            case FOLLOWER:
-                mIsFollowed = false;
-                break;
-            case FOLLOWEE:
-                mIsFollowed = true;
-                break;
-        }
+        mIsFollowed = LeanFriendshipCache.getInstance().isFollowed(mUser.getUsername());
         mTarget.updateButton(mIsFollowed);
     }
 
     @Override
     protected void initActivity() {
         mUser = mTarget.getIntent().getParcelableExtra(mTarget.KEY_USER);
-        mType = (FriendshipType) mTarget.getIntent().getSerializableExtra(mTarget.KEY_FRIENDSHIP);
         updateButton();
         mTarget.setUserName(mUser.getUsername());
         mTarget.setPortraitUrl(mUser.get("portraitUrl").toString());

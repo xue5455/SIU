@@ -1,6 +1,7 @@
 package com.xue.siu.module.news.presenter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -17,10 +18,14 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.avim.base.AVIMResultListener;
 import com.xue.siu.common.util.DialogUtil;
 import com.xue.siu.common.util.LogUtil;
+import com.xue.siu.common.util.TextUtil;
+import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseActivityPresenter;
 import com.xue.siu.module.news.activity.PublishActivity;
+import com.xue.siu.module.news.callback.SavePostCallback;
 import com.xue.siu.module.news.callback.UploadImageCallback;
 import com.xue.siu.module.news.model.ActionVO;
 import com.xue.siu.module.news.model.PublishEditModel;
@@ -37,7 +42,7 @@ import java.util.List;
  * Created by XUE on 2016/3/4.
  */
 public class PublishPresenter extends BaseActivityPresenter<PublishActivity> implements
-        ItemEventListener, HTPickFinishedListener, View.OnClickListener {
+        ItemEventListener, HTPickFinishedListener, View.OnClickListener, AVIMResultListener {
 
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders =
             new SparseArray<Class<? extends TRecycleViewHolder>>() {
@@ -111,17 +116,16 @@ public class PublishPresenter extends BaseActivityPresenter<PublishActivity> imp
         actionVO.setContent(content);
         actionVO.setLocation("网商路599号 网易大厦");
         AVObject object = new AVObject("Post");
-        object.put("content",content);
-        object.put("creator",AVUser.getCurrentUser());
-        object.put("picList",picList);
-        object.put("location","网商路599号 网易大厦");
-        object.saveInBackground();
+        object.put("content", content);
+        object.put("creator", AVUser.getCurrentUser());
+        object.put("picList", picList);
+        object.put("location", "网商路599号 网易大厦");
+        object.saveInBackground(new SavePostCallback(this).getCallback());
     }
 
     private void uploadPhoto() {
         if (mQueueList.size() == 0) {
             postContent(mPicList);
-            LogUtil.i("xxj","size is 0");
             return;
         }
         PhotoInfo info = mQueueList.get(0);
@@ -133,8 +137,7 @@ public class PublishPresenter extends BaseActivityPresenter<PublishActivity> imp
         }
         try {
             mCurrentAVFile = AVFile.withFile(AVUser.getCurrentUser().getObjectId(), file);
-            LogUtil.i("xxj","uploading");
-            mCurrentAVFile.saveInBackground(mUploadCallback);
+            mCurrentAVFile.saveInBackground(mUploadCallback.getCallback());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -147,7 +150,21 @@ public class PublishPresenter extends BaseActivityPresenter<PublishActivity> imp
         mQueueList.remove(0);
         uploadPhoto();
     }
-    public void hideProgressDialog(){
+
+
+    @Override
+    public void onLeanError(String cbName, AVException e) {
         DialogUtil.hideProgressDialog(mTarget);
+        ToastUtil.makeShortToast(R.string.pa_net_error);
+    }
+
+    @Override
+    public void onLeanSuccess(String cbName, Object... values) {
+        if (TextUtils.equals(cbName, UploadImageCallback.class.getName())) {
+            addImageToList();
+        } else if (TextUtils.equals(cbName, SavePostCallback.class.getName())) {
+            mTarget.setResult(mTarget.RESULT_OK);
+            mTarget.finish();
+        }
     }
 }

@@ -77,6 +77,8 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
     public void refresh(TAdapterItem<ActionVO> item) {
         ActionVO actionVO = item.getDataModel();
         String avatarUrl = (String) actionVO.getCreator().get(AdditionalKeys.KEY_AVATAR);
+        String location = actionVO.getLocation();
+        mTvLocation.setText(location);
         if (avatarUrl != null)
             FrescoUtil.setImageUri(mSdvAvatar, avatarUrl, (float) AVATAR_SIZE);
         else
@@ -92,6 +94,7 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
                     mLayoutComment.addView(LayoutCacheManager.getInstance().get(actionVO));
                 } else {
                     AsyncListView listView = new AsyncListView(context);
+                    listView.setListener(listener);
                     LayoutCacheManager.getInstance().put(actionVO, listView);
                     listView.setAdapter(new CommentAdapter(context, actionVO.getCommentList()));
                 }
@@ -102,11 +105,11 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
                 mLayoutPic.setTag(actionVO);
                 if (LayoutCacheManager.getInstance().contains(getAdapterPosition())) {
                     View view = LayoutCacheManager.getInstance().get(getAdapterPosition());
-                    ((ViewGroup) view.getParent()).removeAllViews();
+                    if (view.getParent() != null)
+                        ((ViewGroup) view.getParent()).removeAllViews();
                     mLayoutPic.addView(LayoutCacheManager.getInstance().get(getAdapterPosition()));
                 } else {
                     AsyncGridView gridView = new AsyncGridView(context);
-                    adaptLayoutHeight(actionVO.getPicList().size(), gridView);
                     LayoutCacheManager.getInstance().put(getAdapterPosition(), gridView);
                     gridView.setHorizontalSpace(PIC_SPACE);
                     gridView.setVerticalSpace(PIC_SPACE);
@@ -116,17 +119,18 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
                     gridView.setAdapter(adapter);
                     mLayoutPic.addView(gridView);
                 }
+                adaptLayoutHeight(actionVO.getPicList().size(), mLayoutPic);
             }
     }
 
     private void adaptLayoutHeight(int count, View view) {
-        ViewGroup.LayoutParams params;
+        ViewGroup.LayoutParams params = view.getLayoutParams();
         if (count <= 1) {
-            params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.height = count == 0 ? 0 : PIC_SIZE;
         } else {
             int rows = (int) Math.ceil((float) count / 3);
             int height = rows * PIC_SIZE + (rows - 1) * PIC_SPACE;
-            params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+            params.height = height;
         }
         view.setLayoutParams(params);
     }

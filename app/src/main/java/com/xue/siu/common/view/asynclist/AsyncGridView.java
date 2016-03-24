@@ -23,13 +23,21 @@ public class AsyncGridView extends ViewGroup {
     private int mVerticalSpace = 0;
     private int mHorizontalSpace = 0;
     private int mNumCol = 1;
-
+    private int picSize;
     public AsyncGridView(Context context) {
         super(context);
     }
 
     public AsyncGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public int getPicSize() {
+        return picSize;
+    }
+
+    public void setPicSize(int picSize) {
+        this.picSize = picSize;
     }
 
     public void setAdapter(BaseAdapter adapter) {
@@ -65,6 +73,7 @@ public class AsyncGridView extends ViewGroup {
         removeAllViews();
         new FillLayoutTask(this, mAdapter).execute();
     }
+
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -141,7 +150,7 @@ public class AsyncGridView extends ViewGroup {
             layout.addView(sdvPic);
             String picUrl = (String) objects[1];
             LayoutParams params = sdvPic.getLayoutParams();
-            FrescoUtil.setImageUri(sdvPic,picUrl,params.width,params.height);
+            FrescoUtil.setImageUri(sdvPic, picUrl, params.width, params.height);
         }
     }
 }

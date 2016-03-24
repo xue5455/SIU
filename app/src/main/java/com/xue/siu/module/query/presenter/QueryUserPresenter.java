@@ -24,7 +24,8 @@ import java.util.List;
 /**
  * Created by XUE on 2016/1/19.
  */
-public class QueryUserPresenter extends BaseActivityPresenter<QueryUserActivity> implements TextWatcher, ItemEventListener {
+public class QueryUserPresenter extends BaseActivityPresenter<QueryUserActivity> implements
+        TextWatcher, ItemEventListener, View.OnClickListener {
 
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
     private List<TAdapterItem<String>> mAdapterItems = new ArrayList<>();
@@ -75,5 +76,14 @@ public class QueryUserPresenter extends BaseActivityPresenter<QueryUserActivity>
             QueryResultActivity.start(mTarget, mKeyWord);
         }
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.query_user_back_btn:
+                mTarget.finish();
+                break;
+        }
     }
 }

@@ -62,12 +62,14 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
         icon.setImageResource(R.mipmap.ic_followee);
         TextView text = (TextView) view.findViewById(R.id.follow_view);
         text.setText(ResourcesUtil.getString(R.string.upf_followee));
+        mFolloweeView = (TextView)view.findViewById(R.id.num_view);
         view = findViewById(R.id.follower_view);
         view.setOnClickListener(mPresenter);
         icon = (ImageView) view.findViewById(R.id.icon_view);
         icon.setImageResource(R.mipmap.ic_follower);
         text = (TextView) view.findViewById(R.id.follow_view);
         text.setText(ResourcesUtil.getString(R.string.upf_follower));
+        mFollowerView = (TextView)view.findViewById(R.id.num_view);
         view = findViewById(R.id.calendar_btn);
         view.setOnClickListener(mPresenter);
         text = (TextView) view.findViewById(R.id.button_text);
@@ -95,14 +97,20 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
     public void pickImage() {
         HTImagePicker.getDefault().start(getActivity(),
                 null, new ArrayList<PhotoInfo>(),
-                true, 1, false, "选择图片",
+                true, 1, false, "全部图片",
                 mPresenter);
     }
 
     public void setPortrait(String url) {
         int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
-//        FrescoUtil.setImageUri(mSdvPortrait, Uri.parse(url), size,
-//                size);
-        FrescoUtil.setImageUri(mSdvPortrait,url,(float)size);
+        FrescoUtil.setImageUri(mSdvPortrait, url, (float) size);
+    }
+
+    public void setFollowerCount(int count){
+        mFollowerView.setText(String.valueOf(count));
+    }
+
+    public void setFolloweeCount(int count){
+        mFolloweeView.setText(String.valueOf(count));
     }
 }

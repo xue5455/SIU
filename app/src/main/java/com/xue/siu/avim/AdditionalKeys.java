@@ -5,4 +5,5 @@ package com.xue.siu.avim;
  */
 public class AdditionalKeys {
     public static final String KEY_AVATAR = "portraitUrl";
+    public static final String KEY_LOCATION = "location";
 }

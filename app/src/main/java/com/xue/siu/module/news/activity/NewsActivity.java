@@ -19,6 +19,7 @@ import com.xue.siu.common.util.KeyboardUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenObserver;
 import com.xue.siu.common.util.ScreenUtil;
+import com.xue.siu.common.view.asynclist.LayoutCacheManager;
 import com.xue.siu.common.view.viewpager.DotViewPagerIndicator;
 import com.xue.siu.common.view.viewpager.LineViewPagerIndicator;
 import com.xue.siu.constant.C;
@@ -165,5 +166,12 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
             mEtContent.clearFocus();
             KeyboardUtil.hidekeyboard(mEtContent);
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        LayoutCacheManager.getInstance().clear();
+        super.onDestroy();
     }
 }

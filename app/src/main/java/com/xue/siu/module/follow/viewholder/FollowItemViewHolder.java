@@ -3,6 +3,7 @@ package com.xue.siu.module.follow.viewholder;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
+import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.module.follow.model.UserVO;
 
@@ -39,12 +41,12 @@ public class FollowItemViewHolder extends TRecycleViewHolder<AVUser> implements 
 
     @Override
     public void refresh(TAdapterItem<AVUser> item) {
-//        UserVO userVO = item.getDataModel();
-//        mSdvPortrait.setImageURI(Uri.parse(userVO.getUrl()));
-//        mTvName.setText(userVO.getName());
-//        mContainer.setOnClickListener(this);
-        mSdvPortrait.setImageURI(Uri.parse(item.getDataModel().get("portraitUrl").toString()));
-        mTvName.setText(item.getDataModel().getUsername());
+        mSdvPortrait.setImageURI(Uri.parse(item.getDataModel().get(LeanConstants.PORTRAIT).toString()));
+        String nickname = (String) item.getDataModel().get(LeanConstants.NICK_NAME);
+        if (nickname == null || TextUtils.isEmpty(nickname)) {
+            nickname = item.getDataModel().getUsername();
+        }
+        mTvName.setText(nickname);
     }
 
     @Override

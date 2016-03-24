@@ -13,12 +13,15 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
 import com.netease.hearttouch.htrecycleview.TRecycleViewHolder;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnRefreshListener;
+import com.xue.siu.avim.LeanFriendshipCache;
+import com.xue.siu.avim.base.AVIMResultListener;
 import com.xue.siu.avim.model.LeanUser;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
 import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowFragment;
+import com.xue.siu.module.follow.callback.FriendshipCallback;
 import com.xue.siu.module.follow.viewholder.FollowItemViewHolder;
 import com.xue.siu.module.follow.viewholder.item.FollowViewHolderItem;
 import com.xue.siu.module.follow.viewholder.item.ItemType;
@@ -31,8 +34,10 @@ import java.util.List;
 /**
  * Created by XUE on 2016/1/18.
  */
-public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragment> implements OnRefreshListener,
-        ItemEventListener {
+public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragment> implements
+        OnRefreshListener,
+        ItemEventListener,
+        AVIMResultListener {
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders = new SparseArray<>();
     private List<TAdapterItem<AVUser>> mTAdapterItems = new ArrayList<>();
     private TRecycleViewAdapter mAdapter;
@@ -46,6 +51,7 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
             }
         }
     };
+    private FriendshipCallback friendshipCallback;
 
     public FollowFragmentPresenter(FollowFragment target) {
         super(target);
@@ -54,6 +60,7 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
 
     @Override
     public void initFragment() {
+        friendshipCallback = new FriendshipCallback(this);
         mAdapter = new TRecycleViewAdapter(getContext(), mViewHolders, mTAdapterItems);
         mAdapter.setItemEventListener(this);
         mTarget.setAdapter(mAdapter);
@@ -77,7 +84,7 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
                 query.include("follower");
                 break;
         }
-        query.getInBackground(mFriendshipCallback);
+        query.getInBackground(friendshipCallback.getCallback());
     }
 
     private void onQuerySuccess(AVFriendship friendship) {
@@ -85,15 +92,12 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
         switch (mTarget.getType()) {
             case FolloweeFragment:
                 list = friendship.getFollowees();
+                LeanFriendshipCache.getInstance().setFolloweeCache(list);
                 break;
             case FollowerFragment:
                 list = friendship.getFollowers();
+                LeanFriendshipCache.getInstance().setFollowerCache(list);
                 break;
-        }
-        if (list != null) {
-            LogUtil.d("xxj", "list size is " + list.size());
-        } else {
-            LogUtil.d("xxj", "list is null");
         }
         if (list != null && list.size() > 0) {
             mTAdapterItems.clear();
@@ -101,7 +105,6 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
                 mTAdapterItems.add(new FollowViewHolderItem(user));
             }
             mAdapter.notifyDataSetChanged();
-
         }
     }
 
@@ -114,11 +117,21 @@ public class FollowFragmentPresenter extends BaseFragmentPresenter<FollowFragmen
         switch (eventName) {
             case ItemEventListener.clickEventName:
                 UserDataActivity.start(mTarget.getActivity(),
-                        mTAdapterItems.get(position).getDataModel(),
-                        mTarget.getType() == FragmentType.FolloweeFragment ? FriendshipType.FOLLOWEE
-                                : FriendshipType.FOLLOWER);
+                        mTAdapterItems.get(position).getDataModel());
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onLeanError(String cbName, AVException e) {
+        if (cbName.equals(FriendshipCallback.class.getName()))
+            onQueryError(e);
+    }
+
+    @Override
+    public void onLeanSuccess(String cbName, Object... values) {
+        if (cbName.equals(FriendshipCallback.class.getName()))
+            onQuerySuccess((AVFriendship) values[0]);
     }
 }

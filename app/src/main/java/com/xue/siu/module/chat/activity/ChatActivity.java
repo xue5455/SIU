@@ -83,7 +83,7 @@ public class ChatActivity extends BaseActionBarActivity<ChatPresenter> {
         ButterKnife.bind(this);
         initViews();
         ScreenObserver.assistActivity(this, mPresenter);
-
+        setStatueBarColor(R.color.action_bar_bg);
     }
 
     private void initViews() {

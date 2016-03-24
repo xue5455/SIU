@@ -36,7 +36,9 @@ import com.xue.siu.module.image.imagepreview.activity.SingleItemImagePreviewActi
 import com.xue.siu.module.news.activity.ActionFragment;
 import com.xue.siu.module.news.model.ActionVO;
 import com.xue.siu.module.news.viewholder.NewsActionViewHolder;
+import com.xue.siu.module.news.viewholder.NewsDecorationViewHolder;
 import com.xue.siu.module.news.viewholder.item.NewsActionViewHolderItem;
+import com.xue.siu.module.news.viewholder.item.NewsDecorationViewHolderItem;
 import com.xue.siu.module.news.viewholder.item.NewsItemType;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
             new SparseArray<Class<? extends TRecycleViewHolder>>() {
                 {
                     put(NewsItemType.ITEM_COMMON_ACTION, NewsActionViewHolder.class);
+                    put(NewsItemType.ITEM_COMMON_DECORATION, NewsDecorationViewHolder.class);
                 }
             };
     private TRecycleViewAdapter mAdapter;
@@ -159,6 +162,7 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
 
         @Override
         protected Void doInBackground(Void... params) {
+            int i = 0;
             for (AVObject object : avList) {
                 ActionVO actionVO = ActionVO.parse(object);
                 try {
@@ -168,10 +172,13 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
                     List<AVObject> obList = relation.getQuery().find();
                     for (AVObject object1 : obList) {
                         files.add(AVFile.withAVObject(object1));
-                        LogUtil.i("xxj", "url " + object1.get("url"));
                     }
                     actionVO.setPicList(files);
                     mAdapterItems.add(new NewsActionViewHolderItem(actionVO));
+                    i++;
+                    if (i < avList.size()) {
+                        mAdapterItems.add(new NewsDecorationViewHolderItem());
+                    }
                 } catch (AVException e) {
                     e.printStackTrace();
                 }
@@ -184,7 +191,6 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
         protected void onProgressUpdate(Void... params) {
             mAdapter.notifyDataSetChanged();
             DialogUtil.hideProgressDialog(mTarget.getActivity());
-            LogUtil.i("xxj", "notify");
         }
     }
 }

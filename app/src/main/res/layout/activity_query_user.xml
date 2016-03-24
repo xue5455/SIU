@@ -1,39 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qua_divider_height"
-        android:background="@color/grey_f4" />
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/action_bar_bg"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/et_query"
+        <RelativeLayout
+            android:layout_width="@dimen/action_bar_height"
+            android:layout_height="@dimen/action_bar_height">
+
+            <ImageButton
+                android:id="@+id/query_user_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@color/transparent"
+                android:src="@drawable/selector_back_btn_navigationbar_white" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/one_px"
+            android:layout_height="@dimen/qua_title_divider_height"
+            android:layout_gravity="center_vertical"
+            android:background="@color/black" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/query_user_et"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/qua_edit_height"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/default_content_padding"
+                android:background="@drawable/shape_query_edittext_bg"
+                android:drawableLeft="@mipmap/ic_search"
+                android:hint="@string/qua_input_user"
+                android:paddingLeft="@dimen/qua_edit_padding_left"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_alpha50"
+                android:textSize="@dimen/text_size_13" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
+        android:id="@+id/query_user_rv"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qua_edit_height"
-        android:hint="@string/qua_input_user"
-        android:paddingLeft="@dimen/qua_edit_padding_left"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black_alpha50"
-        android:textSize="@dimen/text_size_15" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/qua_divider_height"
-        android:background="@color/grey_f4" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:htMode="disable"></com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView>
 </LinearLayout>

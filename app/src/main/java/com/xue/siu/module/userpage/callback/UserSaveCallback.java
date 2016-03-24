@@ -1,4 +1,4 @@
-package com.xue.siu.module.news.callback;
+package com.xue.siu.module.userpage.callback;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
@@ -6,9 +6,12 @@ import com.xue.siu.avim.base.AVIMResultListener;
 import com.xue.siu.avim.base.BaseCallback;
 
 /**
- * Created by XUE on 2016/3/7.
+ * Created by XUE on 2016/3/23.
  */
-public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
+public class UserSaveCallback extends BaseCallback<SaveCallback,Object>{
+    public UserSaveCallback(AVIMResultListener listener) {
+        super(listener);
+    }
 
     @Override
     protected boolean isRelatedToActivity() {
@@ -20,7 +23,7 @@ public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
         callback = new SaveCallback() {
             @Override
             public void done(AVException e) {
-                result(null, e);
+                result(null,e);
             }
         };
     }
@@ -29,9 +32,4 @@ public class UploadImageCallback extends BaseCallback<SaveCallback,Object> {
     protected String getCbName() {
         return getClass().getName();
     }
-
-    public UploadImageCallback(AVIMResultListener listener) {
-        super(listener);
-    }
-
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 
 import com.xue.siu.R;
@@ -19,8 +20,7 @@ import java.lang.ref.WeakReference;
  * Created by XUE on 2015/12/9.
  */
 public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
-    GridView categoryGv;
-
+    private GridView categoryGv;
     @Override
     protected void initPresenter() {
         mPresenter = new SchedulePresenter(this);

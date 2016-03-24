@@ -8,4 +8,5 @@ public class LeanConstants {
     public static final String PORTRAIT="portraitUrl";
     public static final String POST_TABLE_NAME ="Post";
     public static final String CREATOR_FILED_NAME="creator";
+    public static final String NICK_NAME="nickname";
 }

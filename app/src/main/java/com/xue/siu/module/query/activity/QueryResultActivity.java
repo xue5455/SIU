@@ -42,12 +42,17 @@ public class QueryResultActivity extends BaseActionBarActivity<QueryResultPresen
         setRealContentView(R.layout.activity_query_result);
         ButterKnife.bind(this);
         initContentView();
+        setStatueBarColor(R.color.action_bar_bg);
+        setTitle(R.string.qra_title);
+        setNavigationBarBlack();
     }
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
     }
+
     private void initContentView() {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvResult.setLayoutManager(manager);
