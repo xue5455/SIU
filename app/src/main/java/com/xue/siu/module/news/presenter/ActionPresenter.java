@@ -163,6 +163,7 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
         @Override
         protected Void doInBackground(Void... params) {
             int i = 0;
+            mAdapterItems.clear();
             for (AVObject object : avList) {
                 ActionVO actionVO = ActionVO.parse(object);
                 try {

@@ -1,5 +1,7 @@
 package com.xue.siu.module.userpage.presenter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 
@@ -23,6 +25,7 @@ import com.xue.siu.module.follow.FragmentType;
 import com.xue.siu.module.follow.activity.FollowActivity;
 import com.xue.siu.module.follow.callback.FriendshipCallback;
 import com.xue.siu.module.news.callback.UploadImageCallback;
+import com.xue.siu.module.userpage.activity.MyUserDataActivity;
 import com.xue.siu.module.userpage.activity.UserPageFragment;
 import com.xue.siu.module.userpage.callback.UserSaveCallback;
 
@@ -36,7 +39,7 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
         View.OnClickListener,
         HTPickFinishedListener,
         AVIMResultListener {
-
+    private final int REQUEST_CODE = 1;
     private FriendshipCallback friendshipCallback;
     private UploadImageCallback uploadImageCallback;
     private UserSaveCallback userSaveCallback;
@@ -57,7 +60,7 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
                 FollowActivity.start(mTarget.getActivity(), FragmentType.FollowerFragment);
                 break;
             case R.id.sdv_portrait:
-                mTarget.pickImage();
+                MyUserDataActivity.startForResult(mTarget, REQUEST_CODE);
                 break;
         }
     }
@@ -153,6 +156,12 @@ public class UserPagePresenter extends BaseFragmentPresenter<UserPageFragment> i
         } else {
             mTarget.setFolloweeCount(LeanFriendshipCache.getInstance().getFolloweeCount());
             mTarget.setFollowerCount(LeanFriendshipCache.getInstance().getFollowerCount());
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            mTarget.setPortrait((String) AVUser.getCurrentUser().get(LeanConstants.PORTRAIT));
         }
     }
 }

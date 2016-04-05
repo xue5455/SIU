@@ -1,5 +1,7 @@
 package com.xue.siu.module.news.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -81,5 +83,9 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         int diff = oldH - h;
+    }
+
+    public void refreshList() {
+        mPresenter.onRefresh();
     }
 }

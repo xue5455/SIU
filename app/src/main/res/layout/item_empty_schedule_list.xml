@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingRight="@dimen/default_content_padding">
+
+    <View
+        android:layout_width="@dimen/sf_item_circle_size"
+        android:layout_height="@dimen/sf_item_circle_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/sf_circle_margin_left"
+        android:background="@drawable/shape_black_white_circle" />
+
+    <Button
+        android:id="@+id/schedule_item_new_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sf_circle_margin_left"
+        android:background="@drawable/selector_white_grey_2dp"
+        android:padding="@dimen/default_content_padding"
+        android:text="创建新日程"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/green_normal">
+
+
+    </Button>
+</LinearLayout>

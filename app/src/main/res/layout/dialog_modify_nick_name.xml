@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/my_data_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/muda_name_et_height"
+        android:layout_marginLeft="@dimen/default_content_padding"
+        android:layout_marginRight="@dimen/default_content_padding"
+        android:layout_marginTop="@dimen/muda_name_et_margin_top"
+        android:background="@drawable/shape_name_edittext_bg"
+        android:hint="@string/muda_enter_nick_name"
+        android:textColor="@color/black_alpha80"
+        android:textColorHint="@color/black_alpha40"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_content_padding"
+        android:text="好名字可以让其他人更加容易记住你"
+        android:textColor="@color/black_alpha40"
+        android:textSize="@dimen/text_size_12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_px"
+        android:layout_marginTop="@dimen/muda_name_dialog_btn_margin_top"
+        android:background="@color/grey_f4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_button_height"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/my_data_negative_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bg_white_grey"
+            android:text="@string/cancel"
+            android:textColor="@color/green_normal" />
+
+        <View
+            android:layout_width="@dimen/one_px"
+            android:layout_height="match_parent"
+            android:background="@color/grey_f4" />
+
+        <Button
+            android:id="@+id/my_data_positive_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_bg_white_grey"
+            android:text="@string/confirm"
+            android:textColor="@color/black_alpha80" />
+    </LinearLayout>
+</LinearLayout>

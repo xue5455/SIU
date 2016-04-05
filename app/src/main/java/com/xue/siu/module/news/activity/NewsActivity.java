@@ -35,6 +35,8 @@ import java.util.List;
  * Created by XUE on 2016/2/15.
  */
 public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
+    public static final int REQUEST_CODE = 1;
+
     private ViewPager mPager;
     private LineViewPagerIndicator mIndicator;
     private TextView mTvAction;
@@ -47,6 +49,7 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
     private Button mBtnSend;
     private DotViewPagerIndicator mEmojiIndicator;
     private View mViewEmojiContainer;
+    private List<Fragment> mFragments;
 
     public static void start(Activity activity) {
         Intent intent = new Intent(activity, NewsActivity.class);
@@ -78,12 +81,12 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
         mIndicator = findView(R.id.view_indicator);
         mPager.addOnPageChangeListener(mIndicator);
         mPager.addOnPageChangeListener(mPresenter);
-        List<Fragment> list = new ArrayList<>();
+        mFragments = new ArrayList<>();
         ActionFragment actionFragment = new ActionFragment();
         actionFragment.setCommentListener(mPresenter);
-        list.add(actionFragment);
-        list.add(new CalendarFragment());
-        mPager.setAdapter(new NewsPagerAdapter(getSupportFragmentManager(), list));
+        mFragments.add(actionFragment);
+        mFragments.add(new CalendarFragment());
+        mPager.setAdapter(new NewsPagerAdapter(getSupportFragmentManager(), mFragments));
         mIndicator.setChildCount(2);
         mIndicator.setLineWidth(ScreenUtil.getDisplayWidth() / 2);
         View view = LayoutInflater.from(this).inflate(R.layout.view_news_right_button, null, false);
@@ -173,5 +176,13 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
     public void onDestroy() {
         LayoutCacheManager.getInstance().clear();
         super.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            ((ActionFragment) mFragments.get(0)).refreshList();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

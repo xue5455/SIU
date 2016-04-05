@@ -80,7 +80,7 @@ public class NewsPresenter extends BaseActivityPresenter<NewsActivity> implement
                 mTarget.setCurrentItem(1);
                 break;
             case R.id.btn_publish_news:
-                PublishActivity.start(mTarget);
+                PublishActivity.startForResult(mTarget, mTarget.REQUEST_CODE);
                 break;
             case R.id.btn_emoji:
                 if (!mTarget.isEmojiVisible() && !mIsIMVisible) {

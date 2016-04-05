@@ -8,6 +8,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.xue.siu.db.bean.SIUMessage;
+import com.xue.siu.db.bean.Schedule;
 import com.xue.siu.db.bean.User;
 
 import java.sql.SQLException;
@@ -37,6 +38,7 @@ public class OrmDBHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, SIUMessage.class);
             TableUtils.createTable(connectionSource,User.class);
+            TableUtils.createTable(connectionSource,Schedule.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,6 +49,7 @@ public class OrmDBHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, SIUMessage.class, true);
             TableUtils.dropTable(connectionSource, User.class,true);
+            TableUtils.dropTable(connectionSource, Schedule.class,true);
             onCreate(sqLiteDatabase, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

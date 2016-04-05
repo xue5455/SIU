@@ -12,7 +12,7 @@ import com.xue.siu.R;
 /**
  * Created by Administrator on 2015/6/15.
  */
-class DateView extends android.widget.FrameLayout implements OnCalendarClickHandler {
+public class DateView extends android.widget.FrameLayout implements OnCalendarClickHandler {
     public static final int MODE_WEEK = 1;
     public static final int MODE_MONTH = 2;
 

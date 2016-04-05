@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingRight="@dimen/default_content_padding">
+
+    <View
+        android:layout_width="@dimen/sf_item_circle_size"
+        android:layout_height="@dimen/sf_item_circle_size"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/sf_circle_margin_left"
+        android:background="@drawable/shape_black_white_circle" />
+
+    <LinearLayout
+        android:id="@+id/schedule_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sf_circle_margin_left"
+        android:background="@drawable/selector_white_grey_2dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/default_content_padding"
+            android:layout_marginTop="@dimen/default_content_padding"
+            android:layout_marginRight="@dimen/default_content_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sf_calendar_title"
+                android:textColor="@color/black_alpha40"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/schedule_item_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_alpha80"
+                android:textSize="@dimen/text_size_14"
+                tools:text="明天要干嘛" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/default_content_padding"
+            android:layout_marginRight="@dimen/default_content_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sf_item_tv_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/sf_calendar_date"
+                android:textColor="@color/black_alpha40"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/schedule_item_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_alpha80"
+                android:textSize="@dimen/text_size_14"
+                tools:text="2016/3/27周日" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/default_content_padding"
+            android:layout_marginRight="@dimen/default_content_padding"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sf_item_tv_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sf_calendar_time"
+                android:textColor="@color/black_alpha40"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/schedule_item_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_alpha80"
+                android:textSize="@dimen/text_size_14"
+                tools:text="15:30 - 16:00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_item_location_container"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/default_content_padding"
+            android:layout_marginRight="@dimen/default_content_padding"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sf_item_tv_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sf_calendar_location"
+                android:textColor="@color/black_alpha40"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/schedule_item_location_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_alpha80"
+                android:textSize="@dimen/text_size_14"
+                tools:text="15:30 - 16:00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/shape_half_round_rectangle_grey"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sf_item_tv_margin"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/default_content_padding"
+            android:paddingRight="@dimen/default_content_padding"
+            android:paddingTop="@dimen/sf_item_tv_margin"
+            android:paddingBottom="@dimen/sf_item_tv_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sf_calendar_attender"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_14" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/schedule_item_avatar_sdv"
+                android:layout_width="@dimen/sf_item_avatar_size"
+                android:layout_height="@dimen/sf_item_avatar_size"
+                app:placeholderImage="@color/grey_f4"
+                app:roundAsCircle="true" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

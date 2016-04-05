@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="@dimen/default_content_padding"
+            android:paddingTop="@dimen/default_content_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nca_icon_margin_left">
+
+                <ImageView
+                    android:layout_width="@dimen/nca_icon_size"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_edit_event_event" />
+
+                <TextView
+                    android:id="@+id/calendar_detail_title_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nca_et_height"
+                    android:layout_marginLeft="@dimen/nca_views_margin_left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="2dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_alpha80"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="日程名称" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one_px"
+                android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                android:layout_marginLeft="@dimen/nca_divider_margin_left"
+                android:layout_marginTop="@dimen/nca_divider_vertical_margin"
+                android:background="@color/divider_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nca_icon_margin_left">
+
+                <ImageView
+                    android:layout_width="@dimen/nca_icon_size"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_edit_event_time" />
+
+                <LinearLayout
+                    android:id="@+id/new_calendar_sd_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/nca_views_margin_left"
+                    android:layout_weight="6"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <!-- sd = startDate -->
+                    <TextView
+
+                        android:id="@+id/calendar_detail_sd_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black_alpha80"
+                        android:textSize="@dimen/text_size_16"
+                        tools:text="2016/3/24/周四" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/new_calendar_st_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <!-- st = startTime -->
+                        <TextView
+                            android:id="@+id/calendar_detail_st_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/black_alpha80"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="14:30" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/one_px"
+                        android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                        android:layout_marginTop="@dimen/nca_divider_vertical_margin" />
+
+                    <LinearLayout
+                        android:id="@+id/new_calendar_et_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <!-- st = startTime -->
+                        <TextView
+                            android:id="@+id/calendar_detail_et_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/black_alpha80"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="14:30" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one_px"
+                android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                android:layout_marginLeft="@dimen/nca_divider_margin_left"
+                android:layout_marginTop="@dimen/nca_divider_vertical_margin"
+                android:background="@color/divider_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nca_icon_margin_left">
+
+                <ImageView
+                    android:layout_width="@dimen/nca_icon_size"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_edit_event_place" />
+
+                <TextView
+                    android:id="@+id/calendar_detail_location_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nca_et_height"
+                    android:layout_marginLeft="@dimen/nca_views_margin_left"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/black_alpha80"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="国际软件学院" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one_px"
+                android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                android:layout_marginLeft="@dimen/nca_divider_margin_left"
+                android:layout_marginTop="@dimen/nca_divider_vertical_margin"
+                android:background="@color/divider_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nca_icon_margin_left">
+
+                <ImageView
+                    android:layout_width="@dimen/nca_icon_size"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_invite_attendees" />
+
+                <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/calendar_detail_attendee_rv"
+                    android:layout_marginLeft="@dimen/nca_views_margin_left"
+                    app:htMode="disable" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one_px"
+                android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                android:layout_marginLeft="@dimen/nca_divider_margin_left"
+                android:layout_marginTop="@dimen/nca_divider_vertical_margin"
+                android:background="@color/divider_grey" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nca_icon_margin_left">
+
+                <ImageView
+                    android:layout_width="@dimen/nca_icon_size"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_invite_remark" />
+
+                <TextView
+                    android:id="@+id/calendar_detail_remark_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nca_et_height"
+                    android:layout_marginLeft="@dimen/nca_views_margin_left"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black_alpha80"
+                    android:textSize="@dimen/text_size_16"
+                    tools:text="备注" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

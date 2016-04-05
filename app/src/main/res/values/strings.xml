@@ -6,6 +6,7 @@
     <string name="load_no_more">暂无更多</string>
     <string name="load_more">正在加载更多...</string>
     <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
     <!-- tab Strings-->
     <string name="mainpage_tab_schedule">日程</string>
     <string name="mainpage_tab_group">群组</string>
@@ -24,7 +25,12 @@
     <string name="la_title">帐号注册</string>
     <!--ScheduleFragment sf-->
     <string name="sf_calendar_classification">日程分类</string>
-
+    <string name="sf_calendar_title">名&#160;&#160;&#160;&#160;称:&#160;</string>
+    <string name="sf_calendar_date">日&#160;&#160;&#160;&#160;期:&#160;</string>
+    <string name="sf_calendar_time">时&#160;&#160;&#160;&#160;间:&#160;</string>
+    <string name="sf_calendar_location">地&#160;&#160;&#160;&#160;点:&#160;</string>
+    <string name="sf_calendar_attender">参与人:&#160;</string>
+    <string name="sf_calendar_time_format">%1$s&#160;-&#160;%2$s</string>
     <!--UserPageFragment upf-->
     <string name="upf_follower">粉丝</string>
     <string name="upf_followee">关注</string>
@@ -91,4 +97,21 @@
     <string name="nca_time_all_day">全天</string>
     <string name="nca_add_location">添加地点</string>
     <string name="nca_more_options">更多选项</string>
+    <string name="nca_picker_sd">开始日期</string>
+    <string name="nca_picker_ed">结束日期</string>
+    <string name="nca_picker_st">开始时间</string>
+    <string name="nca_picker_et">结束时间</string>
+    <string name="nca_time_format">%1$d:%2$d</string>
+    <string name="nca_date_format">%1$d/%2$d/%3$d%4$s</string>
+    <string name="nca_toast_title">请输入日程名称</string>
+
+
+    <!-- MyUserDataActivity muda -->
+    <string name="muda_title">个人信息</string>
+    <string name="muda_avatar">头像</string>
+    <string name="muda_nickname">昵称</string>
+    <string name="muda_username">帐号</string>
+    <string name="muda_gender">性别</string>
+    <string name="muda_enter_nick_name">请输入昵称</string>
+    <string name="muda_hint_name_error">昵称修改失败</string>
 </resources>

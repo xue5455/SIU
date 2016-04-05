@@ -2,7 +2,7 @@ package com.xue.siu.common.view.datepicker;
 
 
 
-class DateBean {
+public class DateBean {
     public int y;
     public int m;
     public int d;

@@ -14,23 +14,13 @@ public abstract class BaseCallback<T,K>{
     protected T callback;
     private WeakReference<AVIMResultListener> mListenerRef;
 
-    /*
-     * callback是否依赖于activity
-     */
-    abstract protected boolean isRelatedToActivity();
-
-    protected abstract void initCallback();
-    abstract protected String getCbName();
-
     public BaseCallback(AVIMResultListener listener) {
         initPresenter(listener);
         initCallback();
     }
-
     private void initPresenter(AVIMResultListener listener) {
         mListenerRef = new WeakReference<>(listener);
     }
-
     protected  void result(K result, AVException e){
         AVIMResultListener listener = mListenerRef.get();
         if (listener == null && isRelatedToActivity())
@@ -44,4 +34,11 @@ public abstract class BaseCallback<T,K>{
     public T getCallback(){
         return callback;
     }
+
+    protected abstract void initCallback();
+    abstract protected String getCbName();
+    /*
+    * callback是否依赖于activity
+    */
+    abstract protected boolean isRelatedToActivity();
 }

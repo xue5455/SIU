@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/muda_avatar_banner_height">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/my_data_avatar_sdv"
+            android:layout_width="@dimen/muda_portrait_size"
+            android:layout_height="@dimen/muda_portrait_size"
+            android:layout_centerInParent="true"
+            app:placeholderImage="@color/grey_f4"
+            app:roundAsCircle="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/my_data_name_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/muda_item_height"
+        android:background="@drawable/selector_common_white_grey"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="@dimen/default_content_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/muda_nickname"
+            android:textColor="@color/black_alpha80"
+            android:textSize="@dimen/text_size_14" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/my_data_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_alpha40"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_px"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="@dimen/default_content_padding">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_f4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/muda_item_height"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="@dimen/default_content_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/muda_username"
+            android:textColor="@color/black_alpha80"
+            android:textSize="@dimen/text_size_14" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/my_data_user_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_alpha40"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_px"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="@dimen/default_content_padding">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/grey_f4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/my_data_gender_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/muda_item_height"
+        android:background="@drawable/selector_common_white_grey"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/default_content_padding"
+        android:paddingRight="@dimen/default_content_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/muda_gender"
+            android:textColor="@color/black_alpha80"
+            android:textSize="@dimen/text_size_14" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/my_data_gender_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black_alpha40"
+            android:textSize="@dimen/text_size_14" />
+    </LinearLayout>
+</LinearLayout>

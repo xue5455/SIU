@@ -26,7 +26,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    //compile 'com.android.support:appcompat-v7:23.1.1'
     compile "com.android.support:appcompat-v7:${APPCOMPAT_V7_VERSION}"
     compile "com.android.support:design:${DESIGN_VERSION}"
     compile "com.readystatesoftware.systembartint:systembartint:${SYSTEMBAR_TINT_VERSION}"
@@ -51,4 +50,5 @@ dependencies {
     compile project(':htrecycleview')
     compile project(':htswiperefreshrecyclerview')
     compile project(':htimagepicker')
+    compile 'com.wdullaer:materialdatetimepicker:2.3.0'
 }

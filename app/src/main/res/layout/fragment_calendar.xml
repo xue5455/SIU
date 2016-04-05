@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/sf_horizontal_padding"
-    android:paddingRight="@dimen/sf_horizontal_padding"
-    android:paddingTop="@dimen/sf_vertical_padding">
+    android:background="@color/grey_f4"
+    android:orientation="vertical">
+
+    <com.xue.siu.common.view.datepicker.DateView
+        android:id="@+id/schedule_fragment_calendar_dv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_px"
+            android:background="@color/black_alpha20" />
+
+
+        <View
+            android:layout_width="@dimen/sf_shaft_width"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sf_shaft_margin_left"
+            android:layout_marginTop="@dimen/one_px"
+            android:background="@color/black_alpha40" />
+
+        <com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView
+            android:id="@+id/schedule_fragment_calendar_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/one_px"
+            app:htMode="refresh" />
+
+        <ImageView
+            android:id="@+id/schedule_fragment_calendar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sf_calendar_classification"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@mipmap/ic_add"
-            android:layout_alignParentRight="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/one_px"
+            android:src="@mipmap/ic_btn_calendar_down" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/sf_divider_margin_top"
-        android:background="@drawable/shape_sf_divider_black" />
 
-    <GridView
-        android:id="@+id/category_gv"
-        android:layout_marginTop="@dimen/sf_gv_margin_top"
-        android:scrollbars="none"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="2"
-        android:verticalSpacing="@dimen/sf_gv_vertical_space"
-        android:horizontalSpacing="@dimen/sf_gv_horizontal_space"/>
 </LinearLayout>

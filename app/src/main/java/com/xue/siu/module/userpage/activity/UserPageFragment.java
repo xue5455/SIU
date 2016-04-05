@@ -1,11 +1,13 @@
 package com.xue.siu.module.userpage.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.netease.hearttouch.htimagepicker.HTImagePicker;
 import com.netease.hearttouch.htimagepicker.imagescan.PhotoInfo;
@@ -16,6 +18,7 @@ import com.xue.siu.module.base.activity.BaseActivity;
 import com.xue.siu.module.base.activity.BaseBlankFragment;
 import com.xue.siu.module.mainpage.activity.MainPageActivity;
 import com.xue.siu.module.userpage.presenter.UserPagePresenter;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -62,14 +65,14 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
         icon.setImageResource(R.mipmap.ic_followee);
         TextView text = (TextView) view.findViewById(R.id.follow_view);
         text.setText(ResourcesUtil.getString(R.string.upf_followee));
-        mFolloweeView = (TextView)view.findViewById(R.id.num_view);
+        mFolloweeView = (TextView) view.findViewById(R.id.num_view);
         view = findViewById(R.id.follower_view);
         view.setOnClickListener(mPresenter);
         icon = (ImageView) view.findViewById(R.id.icon_view);
         icon.setImageResource(R.mipmap.ic_follower);
         text = (TextView) view.findViewById(R.id.follow_view);
         text.setText(ResourcesUtil.getString(R.string.upf_follower));
-        mFollowerView = (TextView)view.findViewById(R.id.num_view);
+        mFollowerView = (TextView) view.findViewById(R.id.num_view);
         view = findViewById(R.id.calendar_btn);
         view.setOnClickListener(mPresenter);
         text = (TextView) view.findViewById(R.id.button_text);
@@ -106,11 +109,17 @@ public class UserPageFragment extends BaseBlankFragment<UserPagePresenter> {
         FrescoUtil.setImageUri(mSdvPortrait, url, (float) size);
     }
 
-    public void setFollowerCount(int count){
+    public void setFollowerCount(int count) {
         mFollowerView.setText(String.valueOf(count));
     }
 
-    public void setFolloweeCount(int count){
+    public void setFolloweeCount(int count) {
         mFolloweeView.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mPresenter.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

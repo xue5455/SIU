@@ -9,6 +9,7 @@
     <dimen name="radius_2dp">2dp</dimen>
     <dimen name="radius_4dp">4dp</dimen>
     <dimen name="one_px">0.5dp</dimen>
+    <dimen name="alert_dialog_window_margin_left_right">40dp</dimen>
     <!-- loading -->
     <dimen name="refresh_dot_size">7dp</dimen>
     <dimen name="refresh_size">24dp</dimen>
@@ -38,7 +39,7 @@
     <dimen name="item_tab_view_txt_tab_subscribe_popo_margin_top">3dp</dimen>
     <dimen name="item_tab_view_txt_mainpage_tab_title_margin_top">1dp</dimen>
     <!--底部tab页-->
-    <dimen name="activity_main_tab_icon_size">25dp</dimen>
+    <dimen name="activity_main_tab_icon_size">20dp</dimen>
     <dimen name="activity_main_tab_title_text_size">@dimen/text_size_s</dimen>
     <dimen name="main_tab_popo_size">8dp</dimen>
     <!--Toast-->
@@ -119,7 +120,13 @@
     <dimen name="sf_picker_top_text_size">15sp</dimen>
     <dimen name="sf_gv_margin_top">10dp</dimen>
 
-
+    <dimen name="sf_shaft_margin_left">20dp</dimen>
+    <dimen name="sf_shaft_width">4dp</dimen>
+    <dimen name="sf_item_circle_size">15dp</dimen>
+    <dimen name="sf_circle_margin_left">14dp</dimen>
+    <dimen name="sf_item_tv_margin">10dp</dimen>
+    <dimen name="sf_item_avatar_size">30dp</dimen>
+    <dimen name="sf_item_divider_height">30dp</dimen>
     <!--UserPageFragment upf-->
     <dimen name="upf_banner_height">200dp</dimen>
     <dimen name="upf_avatar_size">90dp</dimen>
@@ -226,4 +233,13 @@
     <dimen name="nca_triangle_size">18dp</dimen>
     <dimen name="nca_time_layout_vertical_padding">7dp</dimen>
     <dimen name="nca_btn_more_options_height">30dp</dimen>
+
+    <!-- MyUserDataActivity muda -->
+    <dimen name="muda_avatar_banner_height">150dp</dimen>
+    <dimen name="muda_portrait_size">80dp</dimen>
+    <dimen name="muda_item_height">45dp</dimen>
+    <dimen name="muda_name_et_height">45dp</dimen>
+    <dimen name="muda_name_dialog_height">150dp</dimen>
+    <dimen name="muda_name_et_margin_top">40dp</dimen>
+    <dimen name="muda_name_dialog_btn_margin_top">10dp</dimen>
 </resources>

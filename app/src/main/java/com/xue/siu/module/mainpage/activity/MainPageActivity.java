@@ -40,17 +40,17 @@ public class MainPageActivity extends BaseBlankActivity<MainPagePresenter> imple
     };
     ;
     public int mTabNormalIcons[] = {
-            R.mipmap.ic_menu_choice_nor,
-            R.mipmap.ic_menu_sort_nor,
-            R.mipmap.ic_menu_shoping_nor,
-            R.mipmap.ic_menu_me_nor
+            R.mipmap.multiply_button_on_calendar,
+            R.mipmap.multiply_button_on_group,
+            R.mipmap.multiply_button_on_find,
+            R.mipmap.multiply_button_on_personal
     };
 
     public int mTabSelectedIcons[] = {
-            R.mipmap.ic_menu_choice_pressed,
-            R.mipmap.ic_menu_sort_pressed,
-            R.mipmap.ic_menu_shoping_filling_pressed,
-            R.mipmap.ic_menu_me_pressed
+            R.mipmap.multiply_button_calendar,
+            R.mipmap.multiply_button_group,
+            R.mipmap.multiply_button_find,
+            R.mipmap.multiply_button_personal
     };
 
     @Override

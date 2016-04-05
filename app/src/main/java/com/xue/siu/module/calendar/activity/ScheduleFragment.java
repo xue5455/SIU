@@ -1,13 +1,16 @@
 package com.xue.siu.module.calendar.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ImageView;
 
+import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
+import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.xue.siu.R;
 import com.xue.siu.module.base.activity.BaseActionBarFragment;
 import com.xue.siu.module.base.activity.BaseActivity;
@@ -16,11 +19,18 @@ import com.xue.siu.module.mainpage.activity.MainPageActivity;
 
 import java.lang.ref.WeakReference;
 
+import com.xue.siu.common.view.datepicker.DateView;
+
 /**
  * Created by XUE on 2015/12/9.
  */
 public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
-    private GridView categoryGv;
+
+    public final int REQUEST_CODE = 1;
+    private ImageView btnCalendar;
+    private HTSwipeRecyclerView rvCalendar;
+    private DateView dvCalendar;
+
     @Override
     protected void initPresenter() {
         mPresenter = new SchedulePresenter(this);
@@ -33,6 +43,7 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
             setRealContentView(R.layout.fragment_calendar);
             initNavigationBar();
             initContentView(rootView);
+
             mRootViewRef = new WeakReference<>(rootView);
         } else {
             ViewGroup parent = (ViewGroup) mRootViewRef.get().getParent();
@@ -46,16 +57,23 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
     private void initNavigationBar() {
         setTitle(R.string.mainpage_tab_schedule);
         setNavigationBarBlack();
+        setRightView(R.mipmap.ic_add_white);
+        setRightClickListener(mPresenter);
     }
 
     private void initContentView(View view) {
-        categoryGv = (GridView) view.findViewById(R.id.category_gv);
-        categoryGv.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        view.findViewById(R.id.btn_add).setOnClickListener(mPresenter);
+        dvCalendar = (DateView) view.findViewById(R.id.schedule_fragment_calendar_dv);
+        rvCalendar = (HTSwipeRecyclerView) view.findViewById(R.id.schedule_fragment_calendar_rv);
+        btnCalendar = (ImageView) view.findViewById(R.id.schedule_fragment_calendar_btn);
+        btnCalendar.setOnClickListener(mPresenter);
+        dvCalendar.setAnimationListener(mPresenter);
+        rvCalendar.setLayoutManager(new LinearLayoutManager(getContext()));
+        mPresenter.initAdapter();
+        dvCalendar.setSuccessor(mPresenter);
     }
 
-    public void setAdapter(BaseAdapter adapter) {
-        categoryGv.setAdapter(adapter);
+    public void setAdapter(TRecycleViewAdapter adapter) {
+        rvCalendar.setAdapter(adapter);
     }
 
     @Override
@@ -64,5 +82,23 @@ public class ScheduleFragment extends BaseActionBarFragment<SchedulePresenter> {
         if (getActivity().getClass().equals(MainPageActivity.class)) {
             ((BaseActivity) getActivity()).setStatueBarColor(R.color.action_bar_bg);
         }
+    }
+
+    public void toggle() {
+        dvCalendar.toggle();
+    }
+
+    public void setCalendarButton(int id) {
+        btnCalendar.setImageResource(id);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_CODE) {
+                mPresenter.getScheduleFromDb();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

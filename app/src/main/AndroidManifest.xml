@@ -14,9 +14,9 @@
 
     <application
         android:name=".application.SIUApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -63,11 +63,16 @@
         <activity
             android:name=".module.news.activity.PublishActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing|stateHidden"/>
+            android:windowSoftInputMode="adjustNothing|stateHidden" />
         <activity
             android:name=".module.calendar.activity.NewCalendarActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".module.userpage.activity.MyUserDataActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <service android:name="com.avos.avoscloud.PushService" />
 
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">

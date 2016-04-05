@@ -33,6 +33,11 @@ public class PublishActivity extends BaseActionBarActivity<PublishPresenter> {
         activity.startActivity(intent);
     }
 
+    public static void startForResult(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, PublishActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

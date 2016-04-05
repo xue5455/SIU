@@ -95,9 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/nca_time_layout_vertical_padding"
-                android:paddingTop="@dimen/nca_time_layout_vertical_padding">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/new_calendar_sd_container"
@@ -128,96 +126,62 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/new_calendar_st_container"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <!-- st = startTime -->
-                    <TextView
-                        android:id="@+id/new_calendar_st_tv"
-                        android:layout_width="0dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/new_calendar_st_container"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/black_alpha80"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="14:30" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <!-- st = startTime -->
+                        <TextView
+                            android:id="@+id/new_calendar_st_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/black_alpha80"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="14:30" />
 
-                    <ImageView
-                        android:layout_width="@dimen/nca_triangle_size"
-                        android:layout_height="@dimen/nca_triangle_size"
-                        android:src="@mipmap/ic_down_triangle" />
-                </LinearLayout>
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="@dimen/nca_triangle_size"
+                            android:layout_height="@dimen/nca_triangle_size"
+                            android:src="@mipmap/ic_down_triangle" />
+                    </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/one_px"
-                android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
-                android:layout_marginLeft="@dimen/nca_divider_margin_left"
-                android:layout_marginTop="@dimen/nca_divider_vertical_margin"
-                android:background="@color/divider_grey" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/one_px"
+                        android:layout_marginBottom="@dimen/nca_divider_vertical_margin"
+                        android:layout_marginTop="@dimen/nca_divider_vertical_margin" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/nca_time_layout_vertical_padding"
-                android:paddingTop="@dimen/nca_time_layout_vertical_padding">
-
-                <LinearLayout
-                    android:id="@+id/new_calendar_ed_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/nca_divider_margin_left"
-                    android:layout_weight="6"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <!-- ed = endDate -->
-                    <TextView
-                        android:id="@+id/new_calendar_ed_tv"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/new_calendar_et_container"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black_alpha80"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="2016/3/24/周四" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <!-- st = startTime -->
+                        <TextView
+                            android:id="@+id/new_calendar_et_tv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/black_alpha80"
+                            android:textSize="@dimen/text_size_16"
+                            tools:text="14:30" />
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:layout_width="@dimen/nca_triangle_size"
-                        android:layout_height="@dimen/nca_triangle_size"
-                        android:src="@mipmap/ic_down_triangle" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/new_calendar_et_container"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <!-- et = endTime -->
-                    <TextView
-                        android:id="@+id/new_calendar_et_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/black_alpha80"
-                        android:textSize="@dimen/text_size_16"
-                        tools:text="14:30" />
-
-                    <ImageView
-                        android:layout_width="@dimen/nca_triangle_size"
-                        android:layout_height="@dimen/nca_triangle_size"
-                        android:src="@mipmap/ic_down_triangle" />
+                        <ImageView
+                            android:layout_width="@dimen/nca_triangle_size"
+                            android:layout_height="@dimen/nca_triangle_size"
+                            android:src="@mipmap/ic_down_triangle" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

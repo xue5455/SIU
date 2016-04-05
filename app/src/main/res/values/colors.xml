@@ -48,9 +48,9 @@
     <color name="status_bar_color">@color/navigation_bar_color</color>
 
     <!--底部tab-->
-    <color name="mainpage_tab_title_text_color_normal">@color/black_alpha50</color>
-    <color name="mainpage_tab_title_text_color_selected">@color/siu_black</color>
-    <color name="mainpage_tab_title_text_color_background">@color/white</color>
+    <color name="mainpage_tab_title_text_color_normal">@color/white_alpha60</color>
+    <color name="mainpage_tab_title_text_color_selected">@color/white</color>
+    <color name="mainpage_tab_title_text_color_background">#1b1b1b</color>
 
     <!-- 聊天界面背景色 -->
     <color name="chat_bg">#efefef</color>
