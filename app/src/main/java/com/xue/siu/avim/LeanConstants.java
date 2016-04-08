@@ -19,4 +19,7 @@ public class LeanConstants {
     public static final String CALENDAR_FIELD_LOCATION = "location";
     public static final String CALENDAR_FIELD_OWNER = "owner";
     public static final String CALENDAR_FIELD_ATTENDER = "attender";
+
+    public static final String COMMENT_TABLE_NAME = "Comment";
+    public static final String COMMENT_POST  = "post";
 }

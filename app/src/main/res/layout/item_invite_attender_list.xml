@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fa_list_item_height"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/fa_list_item_horizontal_padding"
+    android:paddingRight="@dimen/fa_list_item_horizontal_padding">
+
+    <RelativeLayout
+        android:id="@+id/invite_attender_cb_container"
+        android:layout_width="@dimen/pia_pic_click_area_size"
+        android:layout_height="@dimen/pia_pic_click_area_size"
+        android:layout_centerVertical="true">
+
+        <CheckBox
+            android:id="@+id/invite_attender_cb"
+            android:layout_width="@dimen/pia_checkbox_size"
+            android:layout_height="@dimen/pia_checkbox_size"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/pia_cb_margin_right"
+            android:layout_marginTop="@dimen/pia_cb_margin_top"
+            android:background="@null"
+            android:button="@drawable/selector_pia_photo_select_cb" />
+    </RelativeLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/invite_attender_portrait_sdv"
+        android:layout_width="@dimen/fa_list_portrait_size"
+        android:layout_height="@dimen/fa_list_portrait_size"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/invite_attender_cb_container"
+        fresco:fadeDuration="300"
+        fresco:placeholderImage="@color/fa_default_portrait_color"
+        fresco:roundAsCircle="true"
+        fresco:roundedCornerRadius="50dp" />
+
+    <TextView
+        android:id="@+id/invite_attender_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/fa_name_portrait_margin"
+        android:layout_toRightOf="@+id/dv_portrait"
+        android:singleLine="true"
+        android:textSize="@dimen/text_size_14" />
+</RelativeLayout>

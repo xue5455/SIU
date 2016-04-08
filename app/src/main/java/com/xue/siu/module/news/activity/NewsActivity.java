@@ -123,6 +123,7 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
 
     public void setInputViewVisibility(boolean show) {
         setHint(C.EMPTY);
+        mEtContent.setText(C.EMPTY);
         if (show) {
             mViewInput.setVisibility(View.VISIBLE);
             mEtContent.requestFocus();
@@ -184,5 +185,9 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
             ((ActionFragment) mFragments.get(0)).refreshList();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getCommentContent() {
+        return mEtContent.getText().toString();
     }
 }

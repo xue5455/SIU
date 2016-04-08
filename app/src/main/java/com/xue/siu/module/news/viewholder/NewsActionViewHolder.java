@@ -2,6 +2,7 @@ package com.xue.siu.module.news.viewholder;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVFile;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.netease.hearttouch.htrecycleview.TAdapterItem;
@@ -29,6 +31,8 @@ import com.xue.siu.common.view.asynclist.LayoutCacheManager;
 import com.xue.siu.module.news.adapter.CommentAdapter;
 import com.xue.siu.module.news.adapter.PictureAdapter;
 import com.xue.siu.module.news.model.ActionVO;
+
+import java.util.List;
 
 /**
  * Created by XUE on 2016/3/1.
@@ -86,20 +90,27 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
         mTvName.setText(actionVO.getCreator().getUsername());
         mTvTime.setText(String.valueOf(actionVO.getCreatedAt()));
         mTvContent.setText(actionVO.getContent());
-        if (!CollectionsUtil.isEmpty(actionVO.getCommentList()))
+
+        if (!CollectionsUtil.isEmpty(actionVO.getCommentList())) {
             if (mLayoutComment.getTag() == null || !mLayoutComment.getTag().equals(actionVO)) {
                 mLayoutComment.removeAllViews();
                 mLayoutComment.setTag(actionVO);
                 if (LayoutCacheManager.getInstance().contains(actionVO)) {
+                    ViewGroup parent = (ViewGroup) LayoutCacheManager.getInstance().get(actionVO).getParent();
+                    if (parent != null)
+                        parent.removeView(LayoutCacheManager.getInstance().get(actionVO));
                     mLayoutComment.addView(LayoutCacheManager.getInstance().get(actionVO));
                 } else {
                     AsyncListView listView = new AsyncListView(context);
                     listView.setListener(listener);
                     LayoutCacheManager.getInstance().put(actionVO, listView);
                     listView.setAdapter(new CommentAdapter(context, actionVO.getCommentList()));
+                    mLayoutComment.addView(listView);
                 }
             }
-        if (!CollectionsUtil.isEmpty(actionVO.getPicList()))
+        } else
+            mLayoutComment.removeAllViews();
+        if (!CollectionsUtil.isEmpty(actionVO.getPicList())) {
             if (mLayoutPic.getTag() == null || !mLayoutPic.getTag().equals(actionVO)) {
                 mLayoutPic.removeAllViews();
                 mLayoutPic.setTag(actionVO);
@@ -109,18 +120,25 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
                         ((ViewGroup) view.getParent()).removeAllViews();
                     mLayoutPic.addView(LayoutCacheManager.getInstance().get(getAdapterPosition()));
                 } else {
-                    AsyncGridView gridView = new AsyncGridView(context);
-                    LayoutCacheManager.getInstance().put(getAdapterPosition(), gridView);
-                    gridView.setHorizontalSpace(PIC_SPACE);
-                    gridView.setVerticalSpace(PIC_SPACE);
-                    gridView.setNumCol(3);
-                    PictureAdapter adapter = new PictureAdapter(context, actionVO.getPicList());
-                    adapter.setListener(listener);
-                    gridView.setAdapter(adapter);
-                    mLayoutPic.addView(gridView);
+                    mLayoutPic.addView(getGridView(actionVO.getPicList()));
                 }
                 adaptLayoutHeight(actionVO.getPicList().size(), mLayoutPic);
             }
+        } else
+            mLayoutPic.removeAllViews();
+
+    }
+
+    private View getGridView(List<AVFile> list) {
+        AsyncGridView gridView = new AsyncGridView(context);
+        LayoutCacheManager.getInstance().put(getAdapterPosition(), gridView);
+        gridView.setHorizontalSpace(PIC_SPACE);
+        gridView.setVerticalSpace(PIC_SPACE);
+        gridView.setNumCol(3);
+        PictureAdapter adapter = new PictureAdapter(context, list);
+        adapter.setListener(listener);
+        gridView.setAdapter(adapter);
+        return gridView;
     }
 
     private void adaptLayoutHeight(int count, View view) {

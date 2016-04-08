@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.avos.avoscloud.AVUser;
 import com.netease.hearttouch.htrecycleview.TRecycleViewAdapter;
@@ -27,6 +28,7 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
         HTSwipeRecyclerView.OnLayoutSizeChangedListener {
     private HTSwipeRecyclerView mRvNews;
     private NewsEventListener mNewsListener;
+    private Button btnSend;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
         mRvNews.setOnLoadMoreListener(mPresenter);
         mRvNews.addOnScrollListener(mPresenter);
         mRvNews.setOnLayoutSizeChangedListener(this);
+
     }
 
     public void setRefreshComplete() {
@@ -87,5 +90,9 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
 
     public void refreshList() {
         mPresenter.onRefresh();
+    }
+
+    public void fetchLatestComment(String postId) {
+
     }
 }

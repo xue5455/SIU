@@ -35,6 +35,7 @@ import com.xue.siu.module.image.imagepreview.activity.MultiItemImagesPreviewActi
 import com.xue.siu.module.image.imagepreview.activity.SingleItemImagePreviewActivity;
 import com.xue.siu.module.news.activity.ActionFragment;
 import com.xue.siu.module.news.model.ActionVO;
+import com.xue.siu.module.news.model.CommentVO;
 import com.xue.siu.module.news.viewholder.NewsActionViewHolder;
 import com.xue.siu.module.news.viewholder.NewsDecorationViewHolder;
 import com.xue.siu.module.news.viewholder.item.NewsActionViewHolderItem;
@@ -42,6 +43,7 @@ import com.xue.siu.module.news.viewholder.item.NewsDecorationViewHolderItem;
 import com.xue.siu.module.news.viewholder.item.NewsItemType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,6 +52,7 @@ import java.util.List;
 public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> implements
         OnRefreshListener, OnLoadMoreListener, ItemEventListener, HTSwipeRecyclerView.OnScrollListener {
     private List<TAdapterItem<ActionVO>> mAdapterItems = new ArrayList<>();
+    private HashMap<String, ActionVO> actionMap = new HashMap<>();
     private final SparseArray<Class<? extends TRecycleViewHolder>> mViewHolders =
             new SparseArray<Class<? extends TRecycleViewHolder>>() {
                 {
@@ -169,13 +172,18 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
                 try {
                     actionVO.setCreator((AVUser) object.getAVObject("creator").fetch());
                     AVRelation<AVObject> relation = object.getRelation("picList");
+
                     List<AVFile> files = new ArrayList<>();
                     List<AVObject> obList = relation.getQuery().find();
                     for (AVObject object1 : obList) {
                         files.add(AVFile.withAVObject(object1));
                     }
+                    List<CommentVO> commentList = fetchComment(object);
+                    LogUtil.i("xxj", "评论数" + commentList.size());
                     actionVO.setPicList(files);
+                    actionVO.setCommentList(commentList);
                     mAdapterItems.add(new NewsActionViewHolderItem(actionVO));
+                    actionMap.put(actionVO.getObjectId(), actionVO);
                     i++;
                     if (i < avList.size()) {
                         mAdapterItems.add(new NewsDecorationViewHolderItem());
@@ -193,5 +201,25 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
             mAdapter.notifyDataSetChanged();
             DialogUtil.hideProgressDialog(mTarget.getActivity());
         }
+    }
+
+    public void fetchLatestComment(String postId) {
+        AVObject object = AVObject.createWithoutData("Post", postId);
+        AVRelation<AVObject> commentRelation = object.getRelation("commentList");
+        List<CommentVO> commentList = new ArrayList<>();
+    }
+
+    public List<CommentVO> fetchComment(AVObject post) throws AVException {
+        AVQuery<AVObject> postQuery = new AVQuery<>(LeanConstants.COMMENT_TABLE_NAME);
+        postQuery.include("from");
+        postQuery.include("to");
+        postQuery.orderByDescending(LeanConstants.CREATE_TIME);
+        postQuery.whereEqualTo(LeanConstants.COMMENT_POST, post);
+        List<AVObject> avos = postQuery.find();
+        List<CommentVO> commentVOs = new ArrayList<>();
+        for (AVObject object : avos) {
+            commentVOs.add(CommentVO.parse(object));
+        }
+        return commentVOs;
     }
 }

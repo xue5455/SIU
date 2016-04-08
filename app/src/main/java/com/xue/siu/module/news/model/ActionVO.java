@@ -17,6 +17,7 @@ public class ActionVO {
     private List<AVFile> picList;
     private List<AVUser> likeList;
     private String location;
+    private String objectId;
 
     public ActionVO() {
     }
@@ -85,6 +86,15 @@ public class ActionVO {
         actionVO.setCommentList((List<CommentVO>) object.get("commentList"));
         actionVO.setLikeList((List<AVUser>) object.get("likeList"));
         actionVO.setPicList((List<AVFile>) object.get("picList"));
+        actionVO.setObjectId(object.getObjectId());
         return actionVO;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

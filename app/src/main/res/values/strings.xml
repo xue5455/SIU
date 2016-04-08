@@ -114,4 +114,8 @@
     <string name="muda_gender">性别</string>
     <string name="muda_enter_nick_name">请输入昵称</string>
     <string name="muda_hint_name_error">昵称修改失败</string>
+
+
+    <!-- InviteAttenderActivity iaa -->
+    <string name="iaa_title">邀请</string>
 </resources>
