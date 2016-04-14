@@ -7,6 +7,7 @@ import android.view.View;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
+import com.xue.eventbus.HTEventBus;
 import com.xue.siu.R;
 import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.avim.base.AVIMResultListener;
@@ -23,6 +24,7 @@ import com.xue.siu.module.news.activity.NewsActivity;
 import com.xue.siu.module.news.activity.PublishActivity;
 import com.xue.siu.module.news.callback.SaveCommentCallback;
 import com.xue.siu.module.news.model.ActionVO;
+import com.xue.siu.module.news.model.CommentEvent;
 import com.xue.siu.module.news.model.CommentVO;
 
 import java.util.HashMap;
@@ -212,6 +214,7 @@ public class NewsPresenter extends BaseActivityPresenter<NewsActivity> implement
             DialogUtil.hideProgressDialog(mTarget);
             ToastUtil.makeShortToast("评论成功");
             mTarget.setInputViewVisibility(false);
+            HTEventBus.getDefault().post(new CommentEvent());
             currentActVO = null;
             toUser = null;
         }

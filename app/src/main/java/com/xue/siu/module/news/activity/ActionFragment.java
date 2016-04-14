@@ -28,7 +28,6 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
         HTSwipeRecyclerView.OnLayoutSizeChangedListener {
     private HTSwipeRecyclerView mRvNews;
     private NewsEventListener mNewsListener;
-    private Button btnSend;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +52,7 @@ public class ActionFragment extends BaseBlankFragment<ActionPresenter> implement
         mRvNews.setOnLoadMoreListener(mPresenter);
         mRvNews.addOnScrollListener(mPresenter);
         mRvNews.setOnLayoutSizeChangedListener(this);
+        mRvNews.getRecyclerView().getItemAnimator().setChangeDuration(0);
 
     }
 

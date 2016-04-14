@@ -190,4 +190,9 @@ public class NewsActivity extends BaseActionBarActivity<NewsPresenter> {
     public String getCommentContent() {
         return mEtContent.getText().toString();
     }
+
+    public void onCommentSuccess() {
+        ActionFragment fragments = (ActionFragment) mFragments.get(0);
+
+    }
 }

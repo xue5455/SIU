@@ -25,9 +25,11 @@ import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.HTSwipeRecyclerView;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnLoadMoreListener;
 import com.netease.hearttouch.htswiperefreshrecyclerview.OnRefreshListener;
+import com.xue.eventbus.HTEventBus;
 import com.xue.siu.R;
 import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.common.util.DialogUtil;
+import com.xue.siu.common.util.HandleUtil;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
 import com.xue.siu.module.base.presenter.BaseFragmentPresenter;
@@ -35,6 +37,7 @@ import com.xue.siu.module.image.imagepreview.activity.MultiItemImagesPreviewActi
 import com.xue.siu.module.image.imagepreview.activity.SingleItemImagePreviewActivity;
 import com.xue.siu.module.news.activity.ActionFragment;
 import com.xue.siu.module.news.model.ActionVO;
+import com.xue.siu.module.news.model.CommentEvent;
 import com.xue.siu.module.news.model.CommentVO;
 import com.xue.siu.module.news.viewholder.NewsActionViewHolder;
 import com.xue.siu.module.news.viewholder.NewsDecorationViewHolder;
@@ -61,6 +64,8 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
                 }
             };
     private TRecycleViewAdapter mAdapter;
+
+    private int currentCommentPosition;
 
     public ActionPresenter(ActionFragment target) {
         super(target);
@@ -133,12 +138,22 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
                 }
                 break;
             case R.id.btn_comment_news_fragment:
+                currentCommentPosition = position;
                 ActionVO actionVO = mAdapterItems.get(position).getDataModel();
                 mTarget.showInput(actionVO, null);
+                break;
+            case R.id.news_fragment_comment_tv:
+                currentCommentPosition = position;
+                ActionVO actionVO1 = mAdapterItems.get(position).getDataModel();
+                CommentVO commentVO = (CommentVO) values[0];
+                AVUser to = commentVO.getTo();
+                mTarget.showInput(actionVO1, to == null ? null : (
+                        to.getUsername().equals(AVUser.getCurrentUser().getUsername()) ? null : to));
                 break;
         }
         return true;
     }
+
 
     private void startPreviewMulImages(String currentUrl, ArrayList<String> urls) {
         MultiItemImagesPreviewActivity.start(mTarget.getActivity(), currentUrl, urls);
@@ -154,6 +169,57 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
+    }
+
+
+    public void fetchLatestComment(String postId) {
+        AVObject object = AVObject.createWithoutData("Post", postId);
+        AVRelation<AVObject> commentRelation = object.getRelation("commentList");
+        List<CommentVO> commentList = new ArrayList<>();
+    }
+
+    public List<CommentVO> fetchComment(AVObject post) throws AVException {
+        AVQuery<AVObject> postQuery = new AVQuery<>(LeanConstants.COMMENT_TABLE_NAME);
+        postQuery.include("from");
+        postQuery.include("to");
+        postQuery.orderByAscending(LeanConstants.CREATE_TIME);
+        postQuery.whereEqualTo(LeanConstants.COMMENT_POST, post);
+        List<AVObject> avos = postQuery.find();
+        List<CommentVO> commentVOs = new ArrayList<>();
+        for (AVObject object : avos) {
+            commentVOs.add(CommentVO.parse(object));
+        }
+        return commentVOs;
+    }
+
+    @Override
+    public void onCreateView() {
+        super.onCreateView();
+        HTEventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        HTEventBus.getDefault().unregister(this);
+    }
+
+    public void onEventBackgroundThread(CommentEvent event) {
+        LogUtil.i("xxj","收到event");
+        ActionVO actionVO = mAdapterItems.get(currentCommentPosition).getDataModel();
+        try {
+            List<CommentVO> commentVOs = fetchComment(AVObject.createWithoutData("Post", actionVO.getObjectId()));
+            actionVO.setCommentList(commentVOs);
+            HandleUtil.doOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.notifyItemChanged(currentCommentPosition);
+                }
+            });
+            LogUtil.i("xxj", "评论更新完毕");
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
     }
 
     private class FetchDataTask extends AsyncTask<Void, Void, Void> {
@@ -201,25 +267,5 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
             mAdapter.notifyDataSetChanged();
             DialogUtil.hideProgressDialog(mTarget.getActivity());
         }
-    }
-
-    public void fetchLatestComment(String postId) {
-        AVObject object = AVObject.createWithoutData("Post", postId);
-        AVRelation<AVObject> commentRelation = object.getRelation("commentList");
-        List<CommentVO> commentList = new ArrayList<>();
-    }
-
-    public List<CommentVO> fetchComment(AVObject post) throws AVException {
-        AVQuery<AVObject> postQuery = new AVQuery<>(LeanConstants.COMMENT_TABLE_NAME);
-        postQuery.include("from");
-        postQuery.include("to");
-        postQuery.orderByDescending(LeanConstants.CREATE_TIME);
-        postQuery.whereEqualTo(LeanConstants.COMMENT_POST, post);
-        List<AVObject> avos = postQuery.find();
-        List<CommentVO> commentVOs = new ArrayList<>();
-        for (AVObject object : avos) {
-            commentVOs.add(CommentVO.parse(object));
-        }
-        return commentVOs;
     }
 }

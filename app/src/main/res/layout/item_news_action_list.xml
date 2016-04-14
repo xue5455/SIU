@@ -20,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/nf_item_inner_padding"
-        android:layout_marginTop="@dimen/nf_item_views_margin"
-        android:layout_marginRight="@dimen/default_content_padding"></FrameLayout>
+        android:layout_marginRight="@dimen/default_content_padding"
+        android:layout_marginTop="@dimen/nf_item_views_margin"></FrameLayout>
 
     <include
         layout="@layout/view_location_news_fragment"
@@ -47,11 +47,25 @@
         android:layout_marginRight="@dimen/default_content_padding"
         android:layout_marginTop="@dimen/nf_item_views_margin" />
 
-    <FrameLayout
-        android:id="@+id/layout_comment_news_fragment"
+    <!--<FrameLayout-->
+    <!--android:id="@+id/layout_comment_news_fragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/nf_item_inner_padding"-->
+    <!--android:layout_marginRight="@dimen/default_content_padding"-->
+    <!--android:layout_marginTop="@dimen/nf_item_views_margin"></FrameLayout>-->
+    <TextView
+        android:id="@+id/news_fragment_comment_tv"
+        android:background="@color/grey_f4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/nf_item_inner_padding"
         android:layout_marginRight="@dimen/default_content_padding"
-        android:layout_marginTop="@dimen/nf_item_views_margin"></FrameLayout>
+        android:layout_marginTop="@dimen/nf_item_views_margin"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black_alpha80" />
 </LinearLayout>
