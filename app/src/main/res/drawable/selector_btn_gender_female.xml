@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/ic_female" android:state_checked="false" android:state_pressed="false"></item>
+    <item android:state_checked="false" android:state_pressed="true">
+        <layer-list>
+            <item>
+                <bitmap android:src="@mipmap/ic_female"></bitmap>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/radius_2dp" />
+                    <solid android:color="@color/black_alpha40" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <bitmap android:src="@mipmap/ic_female"></bitmap>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/radius_2dp" />
+                    <solid android:color="@color/black_alpha40" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+</selector>

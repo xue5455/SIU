@@ -51,12 +51,21 @@
     <!-- QueryResultActivity qra -->
     <string name="qra_title">搜索结果</string>
     <!-- RegisterActivity -->
-    <string name="ra_account">帐号</string>
-    <string name="ra_password">密码</string>
+    <string name="ra_title">注册</string>
+    <string name="ra_nickname">昵称(1~9个字符)</string>
+    <string name="ra_account">帐号(至少六个字符,不包含空格)</string>
+    <string name="ra_password">密码(至少六个字符,不包含空格)</string>
+    <string name="ra_password_confirm">再次确认密码</string>
     <string name="ra_confirm">确定</string>
     <string name="ra_account_empty">帐号不能为空</string>
     <string name="ra_password_empty">密码不能为空</string>
-
+    <string name="ra_nickname_empty">昵称不能为空</string>
+    <string name="ra_password_not_same">密码不一致</string>
+    <string name="ra_welcome">欢迎来到OhShock, 请先注册一个属于你的帐号吧。</string>
+    <string name="ra_more_info">为了找到更适合您的日程,您可以进一步完善您的资料。</string>
+    <string name="ra_gender">您的性别是:</string>
+    <string name="ra_necessity">*</string>
+    <string name="ra_necessity_hint">为必填项</string>
     <!-- ImageActivity ia-->
     <string name="ia_title">图片选择</string>
 

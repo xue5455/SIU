@@ -16,6 +16,7 @@ import java.io.IOException;
 public class LeanUser extends AVUser {
     public static final String KEY_PORTRAIT_URL = "portraitUrl";
     public static final String KEY_GENDER = "gender";
+    public static final String KEY_NICKNAME = "nickname";
     private String portraitUrl;//头像地址
     private String gender;//性别
 
@@ -96,12 +97,15 @@ public class LeanUser extends AVUser {
         });
     }
 
-    public static void register(String acc,String psw,SignUpCallback callback){
+    public static void register(String acc, String psw,
+                                String gender, String nickname,
+                                SignUpCallback callback) {
         AVUser user = new AVUser();
         user.setUsername(acc);
         user.setPassword(psw);
         user.put(KEY_PORTRAIT_URL, "");
-        user.put(KEY_GENDER,"男");
+        user.put(KEY_GENDER, gender);
+        user.put(KEY_NICKNAME, nickname);
         user.signUpInBackground(callback);
     }
 }

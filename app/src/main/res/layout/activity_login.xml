@@ -1,41 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@mipmap/bg_login"
+    android:orientation="vertical"
     android:padding="@dimen/default_content_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/login_avatar_sdv"
+            android:layout_width="@dimen/la_avatar_size"
+            android:layout_height="@dimen/la_avatar_size"
+            app:placeholderImage="@color/grey_f4"
+            app:roundAsCircle="true"
+            app:roundingBorderColor="@color/white"
+            app:roundingBorderWidth="1dp" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/edit_acc"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/la_edittext_width"
         android:layout_height="@dimen/la_edit_text_height"
-
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_login_edittext_bg"
         android:hint="@string/la_hint_acc"
+        android:paddingLeft="@dimen/la_edittext_padding_left"
         android:textColor="@color/black"
-        android:textColorHint="@color/split_line_grey_color_e0" />
+        android:textColorHint="@color/split_line_grey_color_e0"
+        android:textSize="@dimen/text_size_14" />
 
     <EditText
         android:id="@+id/edit_psw"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/la_edittext_width"
         android:layout_height="@dimen/la_edit_text_height"
         android:layout_below="@+id/edit_acc"
-
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/default_content_padding"
+        android:background="@drawable/shape_login_edittext_bg"
         android:hint="@string/la_hint_psw"
+        android:inputType="textPassword"
+        android:paddingLeft="@dimen/la_edittext_padding_left"
         android:textColor="@color/black"
-        android:textColorHint="@color/split_line_grey_color_e0" />
+        android:textColorHint="@color/split_line_grey_color_e0"
+        android:textSize="@dimen/text_size_14" />
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/la_edittext_width"
         android:layout_height="@dimen/common_button_height"
         android:layout_below="@+id/edit_psw"
-        android:text="@string/la_login"></Button>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/default_content_padding"
+        android:background="@drawable/selector_login_btn_4dp_green"
+        android:text="@string/la_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_14" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/la_register" />
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+
+            android:layout_gravity="right"
+            android:background="@drawable/selector_login_bottom_btn_bg"
+            android:text="@string/la_register"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
