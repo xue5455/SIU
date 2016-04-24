@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xue.siu.R;
+import com.xue.siu.common.util.ResourcesUtil;
+import com.xue.siu.common.util.media.FrescoUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.userpage.presenter.UserDataPresenter;
 import com.xue.siu.module.userpage.usertype.FriendshipType;
@@ -84,6 +87,9 @@ public class UserDataActivity extends BaseActionBarActivity<UserDataPresenter> {
     }
 
     public void setPortraitUrl(String url) {
-        mSdvPortrait.setImageURI(Uri.parse(url));
+        if (!TextUtils.isEmpty(url)) {
+            int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
+            FrescoUtil.setImageUri(mSdvPortrait, url, (float) size);
+        }
     }
 }

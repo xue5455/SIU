@@ -54,9 +54,11 @@ public class StaticLayoutManager {
         dummyCanvas = new Canvas();
     }
 
-    public StaticLayout getLayout(String content, int color) {
-        if (layoutMap.containsKey(content))
-            return layoutMap.get(content);
+    public StaticLayout getLayout(String content, int color,long timeStamp) {
+        StringBuilder key = new StringBuilder(content);
+        key.append(timeStamp);
+        if (layoutMap.containsKey(key))
+            return layoutMap.get(key);
         else {
             SpannableStringBuilder ssb = TextUtil.generateSpannableString(AppProfile.getContext(), content);
             StaticLayout layout = generateLayout(ssb, color);

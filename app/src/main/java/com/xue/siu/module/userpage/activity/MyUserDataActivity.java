@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.ScreenUtil;
+import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.media.FrescoUtil;
 import com.xue.siu.module.base.activity.BaseActionBarActivity;
 import com.xue.siu.module.userpage.presenter.MyUserDataPresenter;
@@ -75,8 +77,10 @@ public class MyUserDataActivity extends BaseActionBarActivity<MyUserDataPresente
     }
 
     public void setPortrait(String url) {
-        int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
-        FrescoUtil.setImageUri(sdvAvatar, url, (float) size);
+        if (!TextUtils.isEmpty(url)) {
+            int size = ResourcesUtil.getDimenPxSize(R.dimen.upf_avatar_size);
+            FrescoUtil.setImageUri(sdvAvatar, url, (float) size);
+        }
     }
 
     public void setNickName(String nickName) {

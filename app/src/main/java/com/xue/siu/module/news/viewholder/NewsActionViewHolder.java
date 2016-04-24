@@ -109,29 +109,9 @@ public class NewsActionViewHolder extends TRecycleViewHolder<ActionVO> implement
             FrescoUtil.setImageUri(mSdvAvatar, avatarUrl, (float) AVATAR_SIZE);
         else
             mSdvAvatar.setImageURI(Uri.EMPTY);
-        mTvName.setText(actionVO.getCreator().getUsername());
+        mTvName.setText((String) actionVO.getCreator().get(LeanConstants.NICK_NAME));
         mTvTime.setText(String.valueOf(actionVO.getCreatedAt()));
         mTvContent.setText(actionVO.getContent());
-
-//        if (!CollectionsUtil.isEmpty(actionVO.getCommentList())) {
-//            if (mLayoutComment.getTag() == null || !mLayoutComment.getTag().equals(actionVO)) {
-//                mLayoutComment.removeAllViews();
-//                mLayoutComment.setTag(actionVO);
-//                if (LayoutCacheManager.getInstance().contains(actionVO)) {
-//                    ViewGroup parent = (ViewGroup) LayoutCacheManager.getInstance().get(actionVO).getParent();
-//                    if (parent != null)
-//                        parent.removeView(LayoutCacheManager.getInstance().get(actionVO));
-//                    mLayoutComment.addView(LayoutCacheManager.getInstance().get(actionVO));
-//                } else {
-//                    AsyncListView listView = new AsyncListView(context);
-//                    listView.setListener(listener);
-//                    LayoutCacheManager.getInstance().put(actionVO, listView);
-//                    listView.setAdapter(new CommentAdapter(context, actionVO.getCommentList()));
-//                    mLayoutComment.addView(listView);
-//                }
-//            }
-//        } else
-//            mLayoutComment.removeAllViews();
         if (!CollectionsUtil.isEmpty(actionVO.getPicList())) {
             if (mLayoutPic.getTag() == null || !mLayoutPic.getTag().equals(actionVO)) {
                 mLayoutPic.removeAllViews();

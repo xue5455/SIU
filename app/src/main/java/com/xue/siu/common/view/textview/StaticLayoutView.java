@@ -27,7 +27,6 @@ public class StaticLayoutView extends View {
     private int minimumHeight;
     private int paddingTop, paddingBottom, paddingLeft, paddingRight;
     private int color;
-    private String content;
 
     public StaticLayoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,9 +38,8 @@ public class StaticLayoutView extends View {
         initAttr(context, attrs);
     }
 
-    public void setText(String content) {
-        this.content = content;
-        StaticLayout layout = StaticLayoutManager.getInstance().getLayout(content, color);
+    public void setText(String content,long timeStamp) {
+        StaticLayout layout = StaticLayoutManager.getInstance().getLayout(content, color,timeStamp);
         setLayout(layout);
     }
 

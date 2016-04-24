@@ -68,7 +68,7 @@
                 android:paddingLeft="@dimen/chat_text_send_padding_right"
                 android:paddingRight="@dimen/chat_text_default_padding"
                 android:paddingTop="@dimen/chat_text_padding_vertical"
-                android:textColor="@color/black" />
+                android:textColor="@color/green_normal" />
         </com.xue.siu.common.view.maskablelayout.MaskableLayout>
     </RelativeLayout>
 </LinearLayout>

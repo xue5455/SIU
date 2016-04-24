@@ -56,7 +56,7 @@ public class DefaultMessageHandler extends AVIMMessageHandler {
         String conversationId = message.getConversationId();
         String fromUser = message.getFrom();
         String toUser = AVUser.getCurrentUser().getUsername();
-        long time = message.getReceiptTimestamp();
+        long time = message.getTimestamp();
         MsgStatus status = MsgStatus.RECV_NOR;
         String content = null;
         MsgType type = null;

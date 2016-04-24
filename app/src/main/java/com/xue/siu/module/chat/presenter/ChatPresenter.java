@@ -30,6 +30,7 @@ import com.xue.siu.R;
 import com.xue.siu.application.AppProfile;
 import com.xue.siu.avim.AVIMClientManager;
 import com.xue.siu.avim.ActivityMessageHandler;
+import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.common.util.EmojiUtil;
 import com.xue.siu.common.util.HandleUtil;
 import com.xue.siu.common.util.LogUtil;
@@ -134,7 +135,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
         mUser = mTarget.getIntent().getParcelableExtra(mTarget.INTENT_KEYS_USER);
         mConversationId = mTarget.getIntent().getStringExtra(mTarget.INTENT_KEYS_CONVERSATION_ID);
         if (mUser != null) {
-            mTarget.setTitle(mUser.getUsername());
+            mTarget.setTitle((String) mUser.get(LeanConstants.NICK_NAME));
         }
         mAdapter = new TRecycleViewAdapter(mTarget, mViewHolders, mList);
         mAdapter.setItemEventListener(this);
@@ -343,7 +344,7 @@ public class ChatPresenter extends BaseActivityPresenter<ChatActivity> implement
                             SpannableString spannableString = TextUtil.replaceTextWithImage(mTarget,
                                     wrapper.getKey(), wrapper.getId());
                             mTarget.addText(spannableString);
-                        }else{
+                        } else {
                             /* 退格 */
                             mTarget.backspace();
                         }

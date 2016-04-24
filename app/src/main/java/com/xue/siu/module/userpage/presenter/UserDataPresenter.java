@@ -10,6 +10,7 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.FollowCallback;
 import com.xue.siu.R;
 import com.xue.siu.avim.AVIMClientManager;
+import com.xue.siu.avim.LeanConstants;
 import com.xue.siu.avim.LeanFriendshipCache;
 import com.xue.siu.common.util.LogUtil;
 import com.xue.siu.common.util.ToastUtil;
@@ -56,8 +57,8 @@ public class UserDataPresenter extends BaseActivityPresenter<UserDataActivity> i
     protected void initActivity() {
         mUser = mTarget.getIntent().getParcelableExtra(mTarget.KEY_USER);
         updateButton();
-        mTarget.setUserName(mUser.getUsername());
-        mTarget.setPortraitUrl(mUser.get("portraitUrl").toString());
+        mTarget.setUserName((String) mUser.get(LeanConstants.NICK_NAME));
+        mTarget.setPortraitUrl(mUser.get(LeanConstants.PORTRAIT).toString());
     }
 
     @Override

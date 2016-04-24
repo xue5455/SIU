@@ -3,6 +3,7 @@ package com.xue.siu.module.chat.viewholder;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,8 +15,11 @@ import com.netease.hearttouch.htrecycleview.TRecycleViewHolderAnnotation;
 import com.netease.hearttouch.htrecycleview.event.ItemEventListener;
 import com.xue.siu.R;
 import com.xue.siu.application.AppProfile;
+import com.xue.siu.avim.LeanConstants;
+import com.xue.siu.common.util.ResourcesUtil;
 import com.xue.siu.common.util.TextUtil;
 import com.xue.siu.common.util.TimeUtil;
+import com.xue.siu.common.util.media.FrescoUtil;
 import com.xue.siu.common.view.maskablelayout.MaskableLayout;
 import com.xue.siu.common.view.textview.StaticLayoutView;
 import com.xue.siu.db.bean.MsgDirection;
@@ -59,11 +63,18 @@ public class TextMsgInViewHolder extends TRecycleViewHolder<MessageUserWrapper> 
     public void refresh(TAdapterItem<MessageUserWrapper> item) {
         SIUMessage message = item.getDataModel().getMsg();
         AVUser user = item.getDataModel().getUser();
-        mTvContent.setText( message.getContent());
+        mTvContent.setText( message.getContent(),message.getsTime());
         mTvTime.setText(TimeUtil.convertLongToString(message.getsTime()));
         mTvName.setText(user.getUsername());
 //        mSdvPortrait.setImageURI(Uri.EMPTY);
-        mSdvPortrait.setImageURI(Uri.parse(user.get("portraitUrl").toString()));
+        String url = user.get(LeanConstants.PORTRAIT).toString();
+        if (!TextUtils.isEmpty(url)) {
+            int size = ResourcesUtil.getDimenPxSize(R.dimen.chat_portrait_size);
+            FrescoUtil.setImageUri(mSdvPortrait, url, (float) size);
+        }else{
+            mSdvPortrait.setImageURI(Uri.EMPTY);
+        }
+//        mSdvPortrait.setImageURI(Uri.parse(user.get(LeanConstants.PORTRAIT).toString()));
     }
 
     @Override

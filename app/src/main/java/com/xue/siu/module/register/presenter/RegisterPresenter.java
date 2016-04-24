@@ -74,7 +74,7 @@ public class RegisterPresenter extends BaseActivityPresenter<RegisterActivity> i
         }
         DialogUtil.showProgressDialog(mTarget, false);
         LeanUser.register(mTarget.getAccount(), mTarget.getPassword(),
-                mTarget.getNickname(), gender, mSignUpCallback);
+                gender,mTarget.getNickname(), mSignUpCallback);
     }
 
     @Override

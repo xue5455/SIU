@@ -146,9 +146,9 @@ public class ActionPresenter extends BaseFragmentPresenter<ActionFragment> imple
                 currentCommentPosition = position;
                 ActionVO actionVO1 = mAdapterItems.get(position).getDataModel();
                 CommentVO commentVO = (CommentVO) values[0];
-                AVUser to = commentVO.getTo();
-                mTarget.showInput(actionVO1, to == null ? null : (
-                        to.getUsername().equals(AVUser.getCurrentUser().getUsername()) ? null : to));
+                AVUser from = commentVO.getFrom();
+                mTarget.showInput(actionVO1,
+                        from.getUsername().equals(AVUser.getCurrentUser().getUsername()) ? null : from);
                 break;
         }
         return true;
